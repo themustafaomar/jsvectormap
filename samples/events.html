@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JsVectorMap (Events)</title>
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../dist/css/jsvectormap.css" />
+    <script src="../dist/js/jsvectormap.min.js"></script>
+    <script src="../dist/maps/world.js"></script>
+</head>
+<body>
+  <div class="map">
+    <div
+      id="map"
+      class="jsvmap-container"
+      style="height: 500px;margin: auto">
+    </div>
+  </div>
+  <script>
+    var markers = [
+      {
+        name: 'Palestine',
+        coords: [31.5, 34.8],
+      },
+      {
+        name: 'Russia',
+        coords: [61, 105],
+      },
+      {
+        name: 'Geenland',
+        coords: [72, -42],
+      },
+      {
+        name: 'Canada',
+        coords: [56, -106],
+      },
+    ];
+
+    var map = new JsVectorMap({
+      map: 'world',
+      selector: '#map',
+
+      regionsSelectable: true,
+      markersSelectable: true,
+
+      labels: {
+        markers: {
+          render: function (index) {
+            return markers[index].name
+          }
+        }
+      },
+
+      markers: markers,
+
+      onRegionSelected: function (index, isSelected, selectedRegions) {
+        console.log(index, isSelected, selectedRegions);
+      },
+      onRegionTooltipShow: function (tooltip, index) {
+        console.log(tooltip, index,);
+        tooltip.css({ backgroundColor: 'red' }).text(
+          tooltip.text() + ' (Hello World (region))'
+        )
+      },
+      onMarkerSelected: function (code, isSelected, selectedMarkers) {
+        console.log(code, isSelected, selectedMarkers);
+      },
+      onMarkerTooltipShow: function (tooltip, code) {
+        tooltip.text(tooltip.text() + ' (Hello World (marker))')
+      },
+    })
+  </script>
+</body>
+</html>

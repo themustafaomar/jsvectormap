@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JsVectorMap (Pretty)</title>
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../dist/css/jsvectormap.css" />
+    <script src="../dist/js/jsvectormap.min.js"></script>
+    <script src="../dist/maps/world.js"></script>
+</head>
+<body>
+  <div class="map" style="width: 650px;margin: auto">
+    <div
+      id="map"
+      class="jsvmap-container"
+      style="height: 350px;margin: auto">
+    </div>
+  </div>
+  <script>
+    var markers = [{
+        name: 'Russia',
+        coords: [61, 105],
+      },
+      {
+        name: 'Geenland',
+        coords: [72, -42],
+      },
+      {
+        name: 'Canada',
+        coords: [56, -106],
+      },
+      {
+        name: 'Palestine',
+        coords: [31.5, 34.8],
+      },
+      {
+        name: 'Brazil',
+        coords: [-14.2350, -51.9253],
+      },
+    ];
+
+    var map = new JsVectorMap({
+      map: 'world',
+      selector: '#map',
+      zoomButtons: false,
+      markersSelectable: true,
+
+      onMarkerSelected(index, isSelected, selectedMarkers) {
+        console.log(index, isSelected, selectedMarkers);
+      },
+
+      // -------- Labels --------
+      labels: {
+        markers: {
+          render: function(index) {
+            return markers[index].name;
+          },
+        },
+      },
+
+      // -------- Marker and label style --------
+      markers: markers,
+      markerStyle: {
+        initial: {
+          fill: '#ff4551',
+          r: 7,
+          strokeWidth: 5
+        },
+        selected: {
+          fill: '#00f'
+        }
+      },
+      markerLabelStyle: {
+        initial: {
+          // It would be nice if you change this font
+          fontFamily: 'Sans-serif',
+          fontSize: 13.5,
+          fontWeight: 500,
+          fill: '#35373e',
+        },
+      },
+    })
+  </script>
+</body>
+</html>

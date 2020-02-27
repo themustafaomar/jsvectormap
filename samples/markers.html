@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JsVectorMap (Markers)</title>
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../dist/css/jsvectormap.css" />
+    <script src="../dist/js/jsvectormap.min.js"></script>
+    <script src="../dist/maps/world.js"></script>
+    <style>
+      circle {
+        transition: .25s ease-in-out;
+      }
+    </style>
+</head>
+<body>
+  <div class="map">
+    <div
+      id="map"
+      class="jsvmap-container"
+      style="height: 500px;margin: auto">
+    </div>
+  </div>
+  <script>
+    var markers = [{
+        name: 'Russia',
+        coords: [61, 105],
+        style: {
+          fill: '#5c5cff'
+        }
+      },
+      {
+        name: 'Geenland',
+        coords: [72, -42],
+        style: {
+          fill: '#ff9251'
+        }
+      },
+      {
+        name: 'Canada',
+        coords: [56, -106],
+        style: {
+          fill: '#56de80'
+        }
+      },
+      {
+        name: 'Palestine',
+        coords: [31.5, 34.8],
+        style: {
+          fill: 'yellow'
+        }
+      },
+      {
+        name: 'Brazil',
+        coords: [-14.2350, -51.9253],
+        style: {
+          fill: '#000'
+        }
+      },
+      /* {
+        name: 'United States',
+        coords: [37.0902, -95.7129],
+        style: {
+          image: "../assets/images/marker.png"
+        },
+        offset: [2, 2]
+      }, */
+    ];
+
+    var map = new JsVectorMap({
+      map: 'world',
+      selector: '#map',
+      markersSelectable: true,
+      // markersSelectableOne: true,
+
+      onMarkerSelected(index, isSelected, selectedMarkers) {
+        console.log(index, isSelected, selectedMarkers);
+      },
+
+      // -------- Labels --------
+      labels: {
+        markers: {
+          render: function(index) {
+            return markers[index].name + '.';
+          },
+        },
+      },
+
+      // -------- Marker and label style --------
+      markers: markers,
+      markerStyle: {
+        hover: {
+          stroke: "#DDD",
+          strokeWidth: 3,
+          fill: '#FFF'
+        },
+        selected: {
+          fill: '#ff525d'
+        }
+      },
+      markerLabelStyle: {
+        initial: {
+          fontFamily: 'Poppins',
+          fontSize: 13,
+          fontWeight: 500,
+          fill: '#35373e',
+        },
+      },
+    })
+  </script>
+</body>
+</html>

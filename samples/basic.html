@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JsVectorMap (Basic)</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../dist/css/jsvectormap.css" />
+  <script src="../dist/js/jsvectormap.min.js"></script>
+  <script src="../dist/maps/world.js"></script>
+    <style>
+      .map-wrapper {
+        border: 1px solid #EEE;
+        padding: 1rem;
+        width: 700px;
+        margin: auto
+      }
+    </style>
+</head>
+<body>
+  <div class="map-wrapper">
+    <div id="map" style="height: 400px;margin: auto"></div>
+  </div>
+  <script>
+    var map = new JsVectorMap({
+      map: 'world',
+      selector: '#map',
+    })
+  </script>
+</body>
+</html>

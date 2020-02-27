@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JsVectorMap (Canada)</title>
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../dist/css/jsvectormap.css" />
+    <script src="../dist/js/jsvectormap.min.js"></script>
+    <script src="../dist/maps/canada.js"></script>
+</head>
+<body>
+  <div class="map" style="text-align: center;">
+    <div id="map" class="jsvmap-container" style="width: 800px;height: 450px;margin: auto"></div>
+  </div>
+  <script>
+
+    var map = new JsVectorMap({
+      map: 'canada',
+      selector: '#map',
+
+      // Initially specify selected regions
+      selectedRegions: ['qc'],
+
+      // -------- Series --------
+      series: {
+        regions: [
+          {
+            attribute: 'fill',
+            legend: {
+              title: 'Play around with series',
+            },
+            scale: {
+              one: '#5c5cff',
+              two: '#ff9251',
+              three: '#56de80',
+            },
+            values: {
+              nu: 'one',
+              nt: 'two',
+              ab: 'three',
+            }
+          },
+        ],
+      },
+    })
+  </script>
+</body>
+</html>

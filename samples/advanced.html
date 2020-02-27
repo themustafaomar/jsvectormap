@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JsVectorMap</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../dist/css/jsvectormap.css" />
+  <script src="../dist/js/jsvectormap.min.js"></script>
+  <script src="../dist/maps/world.js"></script>
+</head>
+<body>
+  <div class="map" style="text-align: center;">
+    <div id="map-wrapper" class="jvectormap-container" style="height: 500px;margin: auto"></div>
+    <div class="task-bar d-none border-top pt-3">
+      <button id="change-bg-color" class="btn btn-link">Change bg color randomly</button>
+      <button id="reset" class="btn btn-link">Reset Map</button>
+      <button id="get-regions" class="btn btn-link btn-sm">Get selected regions</button>
+      <button id="clear-regions" class="btn btn-link btn-sm">Clear selected regions</button>
+      <button id="get-markers" class="btn btn-link btn-sm">Get selected markers</button>
+      <button id="clear-markers" class="btn btn-link btn-sm">Clear selected markers</button>
+      <button id="add-marker" class="btn btn-link btn-sm">Add Marker</button>
+    </div>
+  </div>
+  <script>
+    var markers = [{
+        name: 'Russia',
+        coords: [61, 105],
+        style: {
+          r: 12
+        }
+      },
+      {
+        name: 'Geenland',
+        coords: [72, -42],
+        style: {
+          r: 15,
+        }
+      },
+      {
+        name: 'Canada',
+        coords: [56, -106],
+        style: {
+          r: 12,
+        }
+      },
+      {
+        name: 'Palestine',
+        coords: [31.5, 34.8],
+        style: {
+          r: 5,
+        }
+      },
+      {
+        name: 'Brazil',
+        coords: [-14.2350, -51.9253],
+      },
+      {
+        name: 'United States',
+        coords: [37.0902, -95.7129],
+        style: {
+          image: "../assets/images/marker.png"
+        },
+        offset: [2, 2]
+      },
+    ];
+
+    var map = new JsVectorMap({
+      map: 'world',
+      selector: '#map-wrapper',
+
+      regionsSelectable: true,
+      markersSelectable: true,
+      // regionsSelectableOne: true,
+      // markersSelectableOne: true,
+
+      // -------- Events --------
+      onRegionSelected: function (index, isSelected, selectedRegions) {
+        console.log(index, isSelected, selectedRegions);
+      },
+      onMarkerSelected: function (code, isSelected, selectedMarkers) {
+        console.log(code, isSelected, selectedMarkers)
+      },
+      onRegionTooltipShow: function (tooltip, code, name) {
+        if (code === 'RU') {
+          tooltip.selector.innerHTML = tooltip.text() + ' <b>(Hello Russia)</b>'
+        }
+      },
+      onMarkerTooltipShow: function (tooltip, code, name) {
+        tooltip.selector.innerHTML = '<h4>'+name+'</h4>' + '<p>Is a good country..</p>'
+      },
+
+      // -------- Labels --------
+      labels: {
+        markers: {
+          render: function(index) {
+            return markers[index].name;
+          },
+          offsets: function(index) {
+            return markers[index].offset || [0, 0]
+          }
+        },
+        regions: {
+          render: function(code) {
+            var codes = ['EG', 'KZ', 'CN']
+
+            if (codes.indexOf(code) > -1) {
+              return code
+            }
+          },
+        }
+      },
+
+      // -------- Region and label style --------
+      regionStyle: {
+        selected: {
+          fill: "#5c5cff"
+        }
+      },
+      regionLabelStyle: {},
+
+      // -------- Marker and label style --------
+      markers: markers,
+      markerStyle: {
+        initial: {
+        },
+        hover: {
+          stroke: "#000",
+          fillOpacity: 1,
+          strokeWidth: 1.5,
+          fill: 'orange'
+        },
+        selected: {
+          fill: '#ff9251'
+        }
+      },
+      markerLabelStyle: {
+        initial: {
+          fontFamily: 'Poppins',
+          fontSize: 13,
+          fontWeight: 500,
+          fill: '#35373e',
+        },
+      },
+
+      // -------- Series --------
+      series: {
+        markers: [
+          {
+            attribute: 'fill',
+            legend: {
+              title: 'Something! (marker)',
+            },
+            scale: {
+              red: 'red',
+              blue: 'blue'
+            },
+            values: {
+              0: 'red',
+              1: 'blue',
+              2: 'blue'
+            }
+          },
+        ],
+
+        // ---------- Region series ----------
+        regions: [
+          {
+            attribute: 'fill',
+            attributes: {
+              // EG: 'red'
+            },
+            legend: {
+              title: 'Good countries (region)',
+              // horizontal: true,
+            },
+            scale: {
+              grey: '#99a7b1',
+              grey2: '#93a8b5'
+            },
+            normalizeFunction: 'polynomial',
+            values: {
+              US: 'grey2',
+              CA: 'grey',
+              MX: 'grey',
+            },
+          },
+        ]
+      },
+    })
+
+    function $(selector) {
+      return document.querySelector(selector)
+    }
+
+    $('#reset').addEventListener('click', () => {
+      map.reset()
+    })
+
+    $('#get-regions').addEventListener('click', () => {
+      if (! map.getSelectedRegions().length) {
+        alert('No regions selected')
+      } else {
+        console.log(map.getSelectedRegions())
+      }
+    })
+
+    $('#clear-regions').addEventListener('click', () => {
+      map.clearSelectedRegions()
+    })
+
+    $('#get-markers').addEventListener('click', () => {
+      const selectedMarkers = map.getSelectedMarkers()
+
+      if (! selectedMarkers.length) {
+        alert('No regions markers')
+      } else {
+        console.log(selectedMarkers)
+      }
+    })
+
+    $('#clear-markers').addEventListener('click', () => {
+      map.clearSelectedMarkers()
+    })
+
+    $('#add-marker').addEventListener('click', () => {
+      map.addMarker('EG', {
+        name: 'Egypt',
+        coords: [26.8, 30],
+        label: 'Egypt',
+        offset: [0, 0]
+      })
+    })
+
+    $('#change-bg-color').addEventListener('click', () => {
+      const colors = ['#5c5cff', '#ff9251', '#56de80', '#FFF', '#000', '#f5d4f5'],
+        index = Math.floor((Math.random() * colors.length - 1) + 1)
+      map.setBackgroundColor(colors[index])
+    })
+  </script>
+</body>
+</html>

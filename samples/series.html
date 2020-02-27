@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JsVectorMap (Series)</title>
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../dist/css/jsvectormap.css" />
+    <script src="../dist/js/jsvectormap.min.js"></script>
+    <script src="../dist/maps/world.js"></script>
+</head>
+<body>
+  <div class="map">
+    <div
+      id="map"
+      class="jsvmap-container"
+      style="height: 500px;margin: auto">
+    </div>
+  </div>
+  <script>
+    var markers = [
+      {
+        name: 'Palestine',
+        coords: [31.5, 34.8],
+      },
+      {
+        name: 'Russia',
+        coords: [61, 105],
+      },
+      {
+        name: 'Geenland',
+        coords: [72, -42],
+      },
+      {
+        name: 'Canada',
+        coords: [56, -106],
+      },
+    ];
+
+    var map = new JsVectorMap({
+      map: 'world',
+      selector: '#map',
+
+      labels: {
+        markers: {
+          render: function (index) {
+            return markers[index].name
+          }
+        }
+      },
+
+      markers: markers,
+      markerStyle: {
+        initial: {
+          image: true
+        }
+      },
+
+      series: {
+        markers: [
+          {
+            attribute: 'image',
+            legend: {
+              title: 'Some title!',
+              vertical: true
+            },
+            scale: {
+              marker1title: {
+                url: '../assets/images/marker.png',
+                offset: [0, 0]
+              },
+              marker2title: {
+                url: '../assets/images/marker2.png',
+                offset: [0, 0]
+              }
+            },
+            values: {
+              0: 'marker1title',
+              1: 'marker2title',
+              2: 'marker2title',
+              3: 'marker1title',
+            }
+          }
+        ],
+
+
+        regions: [
+          {
+            attribute: 'fill',
+            legend: {
+              title: 'Something',
+            },
+            scale: {
+              scale1: 'red',
+              scale2: 'blue',
+              scale3: 'green',
+            },
+            values: {
+              US: 'scale1',
+              EG: 'scale2',
+              IT: 'scale3',
+              BR: 'scale2',
+            }
+          },
+        ]
+      }
+    })
+  </script>
+</body>
+</html>

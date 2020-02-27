@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JsVectorMap (Add markers)</title>
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../dist/css/jsvectormap.css" />
+    <script src="../dist/js/jsvectormap.min.js"></script>
+    <script src="../dist/maps/world.js"></script>
+    <style>
+      input {height: 40px; border: none; background-color: #EEE; display: block;width: 100%}
+    </style>
+</head>
+<body>
+  <div class="map">
+    <div
+      id="map"
+      class="jsvmap-container"
+      style="height: 400px;margin: auto">
+    </div>
+    <button id="add-marker">Add marker</button>
+    <h2 style="margin: 20px 0">Add marker</h2>
+    <input type="text" id="coords"  placeholder="Coords seprated by (,) 28, 30" /><br>
+    <input type="text" id="code" placeholder="Region code or any unqiue id" /><br>
+    <input type="text" id="label" placeholder="Region label" />
+    <button id="add">Add</button>
+  </div>
+  <script>
+    var markers = [
+      {
+        name: 'Geenland',
+        coords: [72, -42],
+      },
+      {
+        name: 'Canada',
+        coords: [56, -106],
+      },
+      {
+        name: 'Palestine',
+        coords: [31.5, 34.8],
+      },
+      {
+        name: 'Brazil',
+        coords: [-14.2350, -51.9253],
+        offset: [10, 15]
+      },
+    ];
+
+    var map = new JsVectorMap({
+      map: 'world',
+      selector: '#map',
+      labels: {
+        markers: {
+          render: function(index) {
+            return markers[index].name;
+          },
+          offsets: function (index) {
+            return markers[index].offset || [0,0]
+          }
+        },
+      },
+      markers: markers,
+      markerStyle: {
+        initial: {
+          fill: '#ff9251'
+        }
+      },
+    })
+
+    document.querySelector('#add-marker').addEventListener('click', function () {
+      map.addMarker('RU', {
+        name: 'Russia',
+        coords: [61, 105],
+        // These are special..
+        label: 'Russia',
+        offset: [15, 10]
+      })
+      // If you're coming from createMarkers.js uncomment the following to see the problem
+      // the problem
+      /* map.addMarker('RU', {
+        name: 'Russia',
+        coords: [61, 105],
+      }) */
+    })
+
+    // 
+    document.querySelector('#add').addEventListener('click', function () {
+      var coords = document.querySelector('#coords').value.split(","),
+          code = document.querySelector('#code').value,
+          label = document.querySelector('#label').value
+
+      map.addMarker(code, {
+        coords: [coords[0], coords[1]],
+        label: label,
+        offset: [0, 0]
+      })
+    })
+  </script>
+</body>
+</html>
