@@ -12,6 +12,11 @@ IE 8 has been dropped.<br>
 The VML is no longer supported.<br>
 jQuery removed the project is pure Javascript.
 
+## Demo
+
+Checkout here [https://3iw9b.csb.app](https://3iw9b.csb.app)<br>
+Code in [codesandbox](https://codesandbox.io/s/charming-cdn-3iw9b)
+
 ## Installation
 Installing with npm is recommended.
 
