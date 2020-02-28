@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JsVectorMap (Workspace)</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./dist/css/jsvectormap.css" />
+    <script src="js/jsvectormap.js"></script>
+    <script src="./dist/maps/world.js"></script>
+    <style>
+      body {
+        font-family: "Poppins";
+        font-size: 1rem;
+        color: #3a3f4e;
+      }
+    </style>
+</head>
+<body>
+  <div class="map">
+    <div id="map-wrapper" class="jsvmap-container" style="width: 800px;height: 450px;margin: auto"></div>
+  </div>
+  <script>
+    var markers = [
+      { name: 'Russia', coords: [61, 105] },
+      { name: 'Geenland', coords: [72, -42] },
+      { name: 'Canada', coords: [56.1304, -106.3468] },
+      { name: 'Palestine', coords: [31.5, 34.8] },
+      { name: 'Brazil', coords: [-14.2350, -51.9253],
+      },
+    ];
+
+    var map = new JsVectorMap({
+      map: 'world',
+      selector: '#map-wrapper',
+
+      // -------- Labels --------
+      labels: {
+        markers: {
+          render: function(index) {
+            return markers[index].name;
+          },
+        },
+      },
+
+      // -------- Marker and label style --------
+      markers: markers,
+      markerLabelStyle: {
+        initial: {
+          fontFamily: 'Poppins',
+          fontSize: 13,
+          fontWeight: 500,
+          fill: '#35373e',
+        },
+      },
+    })
+  </script>
+</body>
+</html>
