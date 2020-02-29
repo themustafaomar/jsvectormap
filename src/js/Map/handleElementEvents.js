@@ -4,7 +4,7 @@ function parseEvent(map, selector, isTooltip) {
   const el = Util.$(selector),
     elClassList = el.attr('class'),
     type = elClassList.indexOf('jsvmap-region') === -1 ? 'marker' : 'region',
-    code = type === 'region' ? el.attr('data-code') : el.attr('data-index')
+    code = type === 'region' ? el.attr('data-code') : el.attr('data-index'),
     event = type + ':select'
 
   // Init tooltip event
