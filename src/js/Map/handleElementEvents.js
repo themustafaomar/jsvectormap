@@ -1,7 +1,7 @@
 import Util from '../Util/Util'
 
 function parseEvent(map, selector, isTooltip) {
-  const el = Util.$(selector),
+  var el = Util.$(selector),
     elClassList = el.attr('class'),
     type = elClassList.indexOf('jsvmap-region') === -1 ? 'marker' : 'region',
     code = type === 'region' ? el.attr('data-code') : el.attr('data-index'),
@@ -65,7 +65,7 @@ export default function handleElementEvents() {
     ) {
       if (!event.defaultPrevented) {
         const el = data.element
-        
+
         // If regions/markers:SelectableOne option is passed, remove all selected regions/markers
         if (map.params[data.type + 'sSelectableOne']) {
           // Clear all selected regions/markers

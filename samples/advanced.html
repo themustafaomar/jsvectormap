@@ -82,13 +82,13 @@
       onMarkerSelected: function (code, isSelected, selectedMarkers) {
         console.log(code, isSelected, selectedMarkers)
       },
-      onRegionTooltipShow: function (tooltip, code, name) {
+      onRegionTooltipShow: function (tooltip, code) {
         if (code === 'RU') {
           tooltip.selector.innerHTML = tooltip.text() + ' <b>(Hello Russia)</b>'
         }
       },
-      onMarkerTooltipShow: function (tooltip, code, name) {
-        tooltip.selector.innerHTML = '<h4>'+name+'</h4>' + '<p>Is a good country..</p>'
+      onMarkerTooltipShow: function (tooltip, index) {
+        tooltip.selector.innerHTML = '<h4>'+tooltip.text()+'</h4>' + '<p>Is a good country..</p>'
       },
 
       // -------- Labels --------
@@ -194,11 +194,11 @@
       return document.querySelector(selector)
     }
 
-    $('#reset').addEventListener('click', () => {
+    $('#reset').addEventListener('click', function () {
       map.reset()
     })
 
-    $('#get-regions').addEventListener('click', () => {
+    $('#get-regions').addEventListener('click', function () {
       if (! map.getSelectedRegions().length) {
         alert('No regions selected')
       } else {
@@ -206,12 +206,12 @@
       }
     })
 
-    $('#clear-regions').addEventListener('click', () => {
+    $('#clear-regions').addEventListener('click', function () {
       map.clearSelectedRegions()
     })
 
-    $('#get-markers').addEventListener('click', () => {
-      const selectedMarkers = map.getSelectedMarkers()
+    $('#get-markers').addEventListener('click', function () {
+      var selectedMarkers = map.getSelectedMarkers()
 
       if (! selectedMarkers.length) {
         alert('No regions markers')
@@ -220,11 +220,11 @@
       }
     })
 
-    $('#clear-markers').addEventListener('click', () => {
+    $('#clear-markers').addEventListener('click', function () {
       map.clearSelectedMarkers()
     })
 
-    $('#add-marker').addEventListener('click', () => {
+    $('#add-marker').addEventListener('click', function () {
       map.addMarker('EG', {
         name: 'Egypt',
         coords: [26.8, 30],
@@ -233,8 +233,8 @@
       })
     })
 
-    $('#change-bg-color').addEventListener('click', () => {
-      const colors = ['#5c5cff', '#ff9251', '#56de80', '#FFF', '#000', '#f5d4f5'],
+    $('#change-bg-color').addEventListener('click', function () {
+      var colors = ['#5c5cff', '#ff9251', '#56de80', '#FFF', '#000', '#f5d4f5'],
         index = Math.floor((Math.random() * colors.length - 1) + 1)
       map.setBackgroundColor(colors[index])
     })
