@@ -27,12 +27,20 @@ export default function handleContainerEvents() {
   }
 
   if (this.params.zoomOnScroll) {
-    // I hate this block!
     this.container.on('mousewheel', (event) => {
+      let deltaY = event.deltaY
+
+      // Fix issue with IE (9, 10, 11)
+      // get the reversed version of event.wheelDelta result
+      // if -100 it'll return 100 etc.
+      if (deltaY == undefined) {
+        deltaY = ~event.wheelDelta + 1
+      }
+
       var bClientRect = this.container.selector.getBoundingClientRect(),
         centerY = event.clientY - bClientRect.top,
         centerX = event.clientX - bClientRect.left,
-        zoomStep = Math.pow(1 + map.params.zoomOnScrollSpeed / 1000, -1.25 * event.deltaY)
+        zoomStep = Math.pow(1 + map.params.zoomOnScrollSpeed / 1000, -1.25 * deltaY)
 
       map.tooltip.hide()
       map.setScale(map.scale * zoomStep, centerX, centerY)

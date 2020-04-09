@@ -62,9 +62,7 @@ var JsVectorMap = (function () {
    * since we don't need to select more than one element in this plugin
    */
 
-  var JsVMapDOMHandler =
-  /*#__PURE__*/
-  function () {
+  var JsVMapDOMHandler = /*#__PURE__*/function () {
     function JsVMapDOMHandler(selector) {
       if (selector instanceof Element) {
         this.selector = selector;
@@ -419,9 +417,7 @@ var JsVectorMap = (function () {
    * ------------------------------------------------------------------------
    */
 
-  var SVGElement =
-  /*#__PURE__*/
-  function () {
+  var SVGElement = /*#__PURE__*/function () {
     function SVGElement(name, config) {
       this.name = name;
       this.properties = {};
@@ -480,9 +476,7 @@ var JsVectorMap = (function () {
    * ------------------------------------------------------------------------
    */
 
-  var SVGShapeElement =
-  /*#__PURE__*/
-  function (_SVGElement) {
+  var SVGShapeElement = /*#__PURE__*/function (_SVGElement) {
     _inheritsLoose(SVGShapeElement, _SVGElement);
 
     function SVGShapeElement(name, config, style) {
@@ -555,9 +549,7 @@ var JsVectorMap = (function () {
    * ------------------------------------------------------------------------
    */
 
-  var SVGTextElement =
-  /*#__PURE__*/
-  function (_SVGShapeElement) {
+  var SVGTextElement = /*#__PURE__*/function (_SVGShapeElement) {
     _inheritsLoose(SVGTextElement, _SVGShapeElement);
 
     function SVGTextElement(config, style) {
@@ -579,9 +571,7 @@ var JsVectorMap = (function () {
    * ------------------------------------------------------------------------
    */
 
-  var SVGImageElement =
-  /*#__PURE__*/
-  function (_SVGShapeElement) {
+  var SVGImageElement = /*#__PURE__*/function (_SVGShapeElement) {
     _inheritsLoose(SVGImageElement, _SVGShapeElement);
 
     function SVGImageElement(config, style) {
@@ -639,9 +629,7 @@ var JsVectorMap = (function () {
    * ------------------------------------------------------------------------
    */
 
-  var SVGCanvasElement =
-  /*#__PURE__*/
-  function (_SVGElement) {
+  var SVGCanvasElement = /*#__PURE__*/function (_SVGElement) {
     _inheritsLoose(SVGCanvasElement, _SVGElement);
 
     function SVGCanvasElement(container, width, height) {
@@ -741,9 +729,7 @@ var JsVectorMap = (function () {
    * ------------------------------------------------------------------------
    */
 
-  var EventEmitter =
-  /*#__PURE__*/
-  function () {
+  var EventEmitter = /*#__PURE__*/function () {
     function EventEmitter() {
       this.events = {};
     }
@@ -825,12 +811,19 @@ var JsVectorMap = (function () {
     }
 
     if (this.params.zoomOnScroll) {
-      // I hate this block!
       this.container.on('mousewheel', function (event) {
+        var deltaY = event.deltaY; // Fix issue with IE (9, 10, 11)
+        // get the reversed version of event.wheelDelta result
+        // if -100 it'll return 100 etc.
+
+        if (deltaY == undefined) {
+          deltaY = ~event.wheelDelta + 1;
+        }
+
         var bClientRect = _this.container.selector.getBoundingClientRect(),
             centerY = event.clientY - bClientRect.top,
             centerX = event.clientX - bClientRect.left,
-            zoomStep = Math.pow(1 + map.params.zoomOnScrollSpeed / 1000, -1.25 * event.deltaY);
+            zoomStep = Math.pow(1 + map.params.zoomOnScrollSpeed / 1000, -1.25 * deltaY);
 
         map.tooltip.hide();
         map.setScale(map.scale * zoomStep, centerX, centerY);
@@ -860,9 +853,7 @@ var JsVectorMap = (function () {
    * ------------------------------------------------------------------------
    */
 
-  var MapObject =
-  /*#__PURE__*/
-  function () {
+  var MapObject = /*#__PURE__*/function () {
     function MapObject() {}
 
     var _proto = MapObject.prototype;
@@ -951,9 +942,7 @@ var JsVectorMap = (function () {
    * ------------------------------------------------------------------------
    */
 
-  var Region =
-  /*#__PURE__*/
-  function (_MapObject) {
+  var Region = /*#__PURE__*/function (_MapObject) {
     _inheritsLoose(Region, _MapObject);
 
     function Region(_ref) {
@@ -1043,9 +1032,7 @@ var JsVectorMap = (function () {
    * ------------------------------------------------------------------------
    */
 
-  var Marker =
-  /*#__PURE__*/
-  function (_MapObject) {
+  var Marker = /*#__PURE__*/function (_MapObject) {
     _inheritsLoose(Marker, _MapObject);
 
     function Marker(_ref) {
@@ -1226,9 +1213,7 @@ var JsVectorMap = (function () {
    * ------------------------------------------------------------------------
    */
 
-  var Legend =
-  /*#__PURE__*/
-  function () {
+  var Legend = /*#__PURE__*/function () {
     function Legend(params) {
       this.params = params || {};
       this.map = this.params.map;
@@ -1310,9 +1295,7 @@ var JsVectorMap = (function () {
    * Class Definition
    * ------------------------------------------------------------------------
    */
-  var OrdinalScale =
-  /*#__PURE__*/
-  function () {
+  var OrdinalScale = /*#__PURE__*/function () {
     function OrdinalScale(scale) {
       this.scale = scale;
     }
@@ -1345,9 +1328,7 @@ var JsVectorMap = (function () {
    * ------------------------------------------------------------------------
    */
 
-  var DataSeries =
-  /*#__PURE__*/
-  function () {
+  var DataSeries = /*#__PURE__*/function () {
     function DataSeries(legendConfig, elements, map) {
       if (legendConfig === void 0) {
         legendConfig = {};
@@ -1441,8 +1422,8 @@ var JsVectorMap = (function () {
     var el = Util.$(selector),
         elClassList = el.attr('class'),
         type = elClassList.indexOf('jsvmap-region') === -1 ? 'marker' : 'region',
-        code = type === 'region' ? el.attr('data-code') : el.attr('data-index');
-    event = type + ':select'; // Init tooltip event
+        code = type === 'region' ? el.attr('data-code') : el.attr('data-index'),
+        event = type + ':select'; // Init tooltip event
 
     if (isTooltip) {
       event = type + '.tooltip:show';
@@ -1848,9 +1829,7 @@ var JsVectorMap = (function () {
    * ------------------------------------------------------------------------
    */
 
-  var Map =
-  /*#__PURE__*/
-  function () {
+  var Map = /*#__PURE__*/function () {
     function Map(options) {
       var _this = this;
 
@@ -2077,9 +2056,7 @@ var JsVectorMap = (function () {
    * ------------------------------------------------------------------------
    */
 
-  var JsVectorMap =
-  /*#__PURE__*/
-  function () {
+  var JsVectorMap = /*#__PURE__*/function () {
     function JsVectorMap(options) {
       if (options === void 0) {
         options = {};
