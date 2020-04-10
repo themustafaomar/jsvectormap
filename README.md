@@ -28,7 +28,7 @@ npm i jsvectormap
 You can download the latest version from the Github: [Download](https://github.com/themustafaomar/jsvectormap/archive/master.zip)
 
 ## Quick start
-
+#### Manually
 ```html
 <link rel="stylesheet" href="dist/css/jsvectormap.min.css" />
 <script src="dist/js/jsvectormap.min.js"></script>
@@ -43,6 +43,12 @@ var map = new JsVectorMap({
 </script>
 ```
 
+#### Using CDN links
+```html
+<script src="https://cdn.jsdelivr.net/gh/themustafaomar/jsvectormap/dist/js/jsvectormap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/themustafaomar/jsvectormap/dist/maps/world.js"></script>
+```
+#### CLI
 If you're using webpack or something like that you'll need to import the map you want to work with after importing the library.
 ```js
 @import 'jsvectormap'
