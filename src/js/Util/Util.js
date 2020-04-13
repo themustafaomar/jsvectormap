@@ -45,6 +45,14 @@ const Util = {
     return typeof obj === 'object'
   },
 
+  isStr(str) {
+    return typeof str === 'string'
+  },
+
+  isArr(array) {
+    return Array.isArray(array)
+  },
+
   merge(target, source) {
     return DeepMerge(target, source)
   },

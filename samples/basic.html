@@ -22,11 +22,22 @@
 <body>
   <div class="map-wrapper">
     <div id="map" style="height: 400px;margin: auto"></div>
+    <button id="focus">Focus On Russia</button>
   </div>
   <script>
     var map = new JsVectorMap({
       map: 'world',
       selector: '#map',
+      focusOn: {
+        regions: ['EG', 'SA'],
+        // Or
+        // region: 'EG',
+        animate: true
+      },
+    })
+
+    document.querySelector('#focus').addEventListener('click', () => {
+      map.setFocus({ region: 'RU', animate: true })
     })
   </script>
 </body>

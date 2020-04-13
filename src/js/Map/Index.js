@@ -7,6 +7,7 @@ import createMarkers from './createMarkers'
 import createTooltip from './createTooltip'
 import createSeries from './createSeries'
 import handleElementEvents from './handleElementEvents'
+import setFocus from './setFocus'
 
 import applyTransform from './applyTransform'
 import resize from './resize'
@@ -28,6 +29,7 @@ export {
   createTooltip,
   createSeries,
   handleElementEvents,
+  setFocus,
 
   applyTransform,
   resize,

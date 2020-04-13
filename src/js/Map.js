@@ -88,6 +88,11 @@ class Map {
       if (this.params.selectedMarkers) {
         this.setSelected('markers', this.params.selectedMarkers)
       }
+
+      // Set focus on a spcific region
+      if (this.params.focusOn) {
+        this.setFocus(this.params.focusOn)
+      }
   
       // Handle regions/markers events
       this.handleElementEvents()
