@@ -9,12 +9,12 @@ export default {
     {
       name: 'JsVectorMap',
       file: 'dist/js/jsvectormap.js',
-      format: 'iife',
+      format: 'umd',
     },
     {
       name: 'JsVectorMap',
       file: 'dist/js/jsvectormap.min.js',
-      format: 'iife',
+      format: 'umd',
       plugins: [ terser() ]
     }
   ],
