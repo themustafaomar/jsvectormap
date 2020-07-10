@@ -27,23 +27,21 @@ export default function handleContainerEvents() {
   }
 
   if (this.params.zoomOnScroll) {
-    this.container.on('mousewheel', (event) => {
-      let deltaY = event.deltaY
+    this.container.on('wheel', (event) => {
+      var deltaY = 0
 
-      // Fix issue with IE (9, 10, 11)
-      // get the reversed version of event.wheelDelta result
-      // if -100 it'll return 100 etc.
-      if (deltaY == undefined) {
-        deltaY = ~event.wheelDelta + 1
-      }
+			event.preventDefault()
 
-      var bClientRect = this.container.selector.getBoundingClientRect(),
-        centerY = event.clientY - bClientRect.top,
-        centerX = event.clientX - bClientRect.left,
-        zoomStep = Math.pow(1 + map.params.zoomOnScrollSpeed / 1000, -1.25 * deltaY)
+      deltaY = ((event.deltaY || -event.wheelDelta || event.detail) >> 10) || 1
+      deltaY = deltaY * 75
+
+      var rect = this.container.selector.getBoundingClientRect(),
+        offsetX = event.pageX - rect.left - window.pageXOffset,
+        offsetY = event.pageY - rect.top - window.pageYOffset,
+        zoomStep = Math.pow(1 + (map.params.zoomOnScrollSpeed / 1000), -1.5 * deltaY)
 
       map.tooltip.hide()
-      map.setScale(map.scale * zoomStep, centerX, centerY)
+      map.setScale(map.scale * zoomStep, offsetX, offsetY)
       event.preventDefault()
     })
   }

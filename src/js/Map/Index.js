@@ -8,6 +8,7 @@ import createTooltip from './createTooltip'
 import createSeries from './createSeries'
 import handleElementEvents from './handleElementEvents'
 import setFocus from './setFocus'
+import bindContainerTouchEvents from './bindContainerTouchEvents'
 
 import applyTransform from './applyTransform'
 import resize from './resize'
@@ -30,6 +31,7 @@ export {
   createSeries,
   handleElementEvents,
   setFocus,
+  bindContainerTouchEvents,
 
   applyTransform,
   resize,

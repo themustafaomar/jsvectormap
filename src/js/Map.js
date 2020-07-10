@@ -93,6 +93,13 @@ class Map {
       if (this.params.focusOn) {
         this.setFocus(this.params.focusOn)
       }
+
+      // Bind touch events if true
+      if (this.params.bindTouchEvents) {
+        if (('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch)) {
+          this.bindContainerTouchEvents()
+        }
+      }
   
       // Handle regions/markers events
       this.handleElementEvents()

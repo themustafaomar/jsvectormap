@@ -10,7 +10,7 @@ export default {
 	zoomAnimate: true,
 	showTooltip: true,
 	zoomStep: 1.5,
-
+  bindTouchEvents: true,
 
 	/**
 	 * Markers options
