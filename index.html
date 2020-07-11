@@ -9,31 +9,22 @@
     <link rel="stylesheet" href="./dist/css/jsvectormap.css" />
     <script src="js/jsvectormap.js"></script>
     <script src="./dist/maps/world.js"></script>
-    <style>
-      body {
-        font-family: "Poppins";
-        font-size: 1rem;
-        color: #3a3f4e;
-      }
-    </style>
 </head>
 <body>
-  <div class="map">
-    <div id="map-wrapper" class="jsvmap-container" style="width: 800px;height: 450px;margin: auto"></div>
-  </div>
+  <div id="map" style="width: 500px;height: 250px;margin: auto"></div>
+
   <script>
     var markers = [
       { name: 'Russia', coords: [61, 105] },
       { name: 'Geenland', coords: [72, -42] },
       { name: 'Canada', coords: [56.1304, -106.3468] },
       { name: 'Palestine', coords: [31.5, 34.8] },
-      { name: 'Brazil', coords: [-14.2350, -51.9253],
-      },
+      { name: 'Brazil', coords: [-14.2350, -51.9253] },
     ];
 
-    var map = new JsVectorMap({
+    var jsvmap = new JsVectorMap({
       map: 'world',
-      selector: '#map-wrapper',
+      selector: '#map',
 
       // -------- Labels --------
       labels: {

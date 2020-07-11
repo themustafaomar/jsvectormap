@@ -10,6 +10,7 @@ export default function bindContainerTouchEvents() {
 
   let handleTouchEvent = (e) => {
     var touches = e.touches,
+        offset,
         scale,
         transXOld,
         transYOld
@@ -35,6 +36,7 @@ export default function bindContainerTouchEvents() {
 
       touchX = touches[0].pageX
       touchY = touches[0].pageY
+
     } else if (touches.length == 2) {
 
       if (lastTouchesLength == 2) {
@@ -47,6 +49,35 @@ export default function bindContainerTouchEvents() {
 
         map.tooltip.hide()
         e.preventDefault()
+
+      } else {
+        var rect = map.container.selector.getBoundingClientRect()
+
+        offset = {
+          top: rect.top + window.scrollY,
+          left: rect.left + window.scrollX,
+        }
+
+        if (touches[0].pageX > touches[1].pageX) {
+          centerTouchX = touches[1].pageX + (touches[0].pageX - touches[1].pageX) / 2
+        } else {
+          centerTouchX = touches[0].pageX + (touches[1].pageX - touches[0].pageX) / 2
+        }
+
+        if (touches[0].pageY > touches[1].pageY) {
+          centerTouchY = touches[1].pageY + (touches[0].pageY - touches[1].pageY) / 2
+        } else {
+          centerTouchY = touches[0].pageY + (touches[1].pageY - touches[0].pageY) / 2
+        }
+
+        centerTouchX -= offset.left
+        centerTouchY -= offset.top
+        touchStartScale = map.scale
+
+        touchStartDistance = Math.sqrt(
+          Math.pow(touches[0].pageX - touches[1].pageX, 2) +
+          Math.pow(touches[0].pageY - touches[1].pageY, 2)
+        )
       }
     }
 

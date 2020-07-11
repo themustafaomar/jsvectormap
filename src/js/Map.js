@@ -213,6 +213,10 @@ class Map {
         this.series[key][i].clear()
       }
     }
+    console.log('called')
+
+    this.height = 0;
+    this.width = 0;
 
     this.scale = this.baseScale
     this.transX = this.baseTransX
