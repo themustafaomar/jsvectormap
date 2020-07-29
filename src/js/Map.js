@@ -2,6 +2,7 @@ import Util from './Util/Util'
 import Defaults from './Defaults/Index'
 import SVGCanvasElement from './SVG/CanvasElement'
 import * as MapPrototypes from './Map/Index'
+import Events from './Defaults/Events'
 
 /**
  * ------------------------------------------------------------------------
@@ -15,20 +16,20 @@ class Map {
     this.params = Util.merge(Map.defaults, options)
 
     // Throw an error if the given map name doesn't match
-    // the map that was setted in map file
+    // the map that was set in map file
     if (!Map.maps[this.params.map]) {
       throw new Error('Attempt to use map which was not loaded: ' + options.map)
     }
-    
+
     this.mapData = Map.maps[this.params.map]
-    
+
     this.regionsData = {}
     this.regionsColors = {}
     this.markers = {}
-    
+
     this.defaultWidth = this.mapData.width
     this.defaultHeight = this.mapData.height
-    
+
     this.height = 0
     this.width = 0
 
@@ -51,39 +52,36 @@ class Map {
         this.container, this.width, this.height
       )
 
+      // Set the map's background color
       this.setBackgroundColor(this.params.backgroundColor)
-  
-      // Make a new instance of event emitter
-      // and listen for the emitted events
-      this.bindEvents()
 
-      // handle the container
+      // Handle the container
       this.handleContainerEvents()
-  
+
       // Create regions/markers, then handle events for both
       this.createRegions()
-  
+
       // Update size
       this.updateSize()
-  
+
       // Create markers
       this.createMarkers(this.params.markers || {})
-  
+
       // Create toolip
       if (this.params.showTooltip) {
         this.createTooltip()
       }
-  
+
       // Create zoom buttons if zoomButtons is set to true
       if (this.params.zoomButtons) {
         this.handleZoomButtons()
       }
-  
+
       // Set selected regions if passed
       if (this.params.selectedRegions) {
         this.setSelected('regions', this.params.selectedRegions)
       }
-  
+
       // Set selected regions if passed
       if (this.params.selectedMarkers) {
         this.setSelected('markers', this.params.selectedMarkers)
@@ -100,13 +98,13 @@ class Map {
           this.bindContainerTouchEvents()
         }
       }
-  
+
       // Handle regions/markers events
       this.handleElementEvents()
-  
+
       // Position labels
       this.repositionLabels()
-  
+
       // Handle legends
       this.container.append(
         this.legendHorizontal = Util.createEl(
@@ -117,29 +115,37 @@ class Map {
           'div', 'jsvmap-series-container jsvmap-series-v'
         )
       )
-  
+
       // Create series if passed
       if (this.params.series) {
         this.createSeries()
       }
+
+      // Fire loaded event
+      this.emit('map:loaded', [this])
     })
   }
 
-  $emit(event, args) {
-    this.emitter.emit(event, args)
-  }
-
   // Public
+
+  emit(eventValue, args) {
+    for (let event in Events) {
+      if (Events[event] === eventValue && Util.isFunc(this.params[event])) {
+        this.params[event].apply(this, args)
+      }
+    }
+  }
 
   setBackgroundColor(color) {
     this.container.css({ backgroundColor: color })
   }
 
   getInsetForPoint(x, y) {
-    var insets = Map.maps[this.params.map].insets, index, bbox
+    var index, bbox, insets = Map.maps[this.params.map].insets
 
     for (index = 0; index < insets.length; index++) {
       bbox = insets[index].bbox
+
       if (x > bbox[0].x && x < bbox[1].x && y > bbox[0].y && y < bbox[1].y) {
         return insets[index]
       }
@@ -149,11 +155,13 @@ class Map {
   // Markers/Regions
   getSelected(type) {
     let key, selected = []
+
     for (key in this[type]) {
       if (this[type][key].element.isSelected) {
         selected.push(key)
       }
     }
+
     return selected
   }
 
@@ -213,7 +221,6 @@ class Map {
         this.series[key][i].clear()
       }
     }
-    console.log('called')
 
     this.height = 0;
     this.width = 0;

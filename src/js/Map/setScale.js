@@ -44,7 +44,10 @@ export default function setScale(scale, anchorX, anchorY, isCentered, animate) {
       this.applyTransform()
       if (i == count) {
         clearInterval(interval)
-        this.$emit('viewport:changed', [ this.scale, this.transX, this.transY ])
+
+        this.emit('viewport:changed', [
+          this.scale, this.transX, this.transY
+        ])
       }
     }, 10)
   } else {
@@ -53,8 +56,9 @@ export default function setScale(scale, anchorX, anchorY, isCentered, animate) {
     this.scale = scale
 
     this.applyTransform()
-    this.$emit('viewport:changed', [ this.scale, this.transX, this.transY ])
-
+    this.emit('viewport:changed', [
+      this.scale, this.transX, this.transY
+    ])
   }
 
 }

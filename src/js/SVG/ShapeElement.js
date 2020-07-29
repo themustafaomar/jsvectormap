@@ -15,6 +15,7 @@ class SVGShapeElement extends SVGElement {
     this.style.current = this.style.current || {}
     this.isHovered = false
     this.isSelected = false
+
     this.updateStyle()
   }
 
@@ -44,6 +45,7 @@ class SVGShapeElement extends SVGElement {
 
     if (this.isSelected) {
       this.mergeStyles(attrs, this.style.selected)
+
       if (this.isHovered) {
         this.mergeStyles(attrs, this.style.selectedHover)
       }

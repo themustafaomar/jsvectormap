@@ -70,6 +70,8 @@ class MapObject {
   deselect() {
     this._selectStatus(false)
   }
+
+  // Private
   
   _selectStatus(status) {
     this.shape.isSelected = status

@@ -26,7 +26,7 @@ export default function handleElementEvents() {
 
   // When the mouse is over the region/marker
   // When the mouse is out the region/marker
-  this.container.delegate('.jsvmap-element', 'mouseover mouseout', function(event) {
+  this.container.delegate('.jsvmap-element', 'mouseover mouseout', function (event) {
 
     const data = parseEvent(map, this, true),
       showTooltip = map.params.showTooltip
@@ -43,11 +43,16 @@ export default function handleElementEvents() {
         map.tooltip.show()
         map.tooltipHeight = map.tooltip.height()
         map.tooltipWidth = map.tooltip.width()
-        map.emitter.emit(data.event, [ map.tooltip, data.code, ])
+
+        map.emit(data.event, [
+          map.tooltip,
+          data.code,
+        ])
       }
 
     } else {
       data.element.hoverStatus(false)
+
       if (showTooltip) {
         map.tooltip.hide()
       }
@@ -74,7 +79,7 @@ export default function handleElementEvents() {
 
         data.element.isSelected ? el.deselect() : el.select()
 
-        map.emitter.emit(
+        map.emit(
           data.event, [
             data.code,
             data.element.isSelected,

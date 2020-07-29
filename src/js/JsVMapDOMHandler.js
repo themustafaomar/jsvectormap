@@ -9,13 +9,14 @@ import Util from "./Util/Util";
  */
 class JsVMapDOMHandler {
   constructor(selector) {
+
     if ((selector instanceof Element)) {
       this.selector = selector
       return this
-    } else {
-      this.selector = document.querySelector(selector)
-      return this
     }
+
+    this.selector = document.querySelector(selector)
+    return this
   }
 
   on(event, callback) {
@@ -44,9 +45,10 @@ class JsVMapDOMHandler {
   text(string) {
     if (!string) {
       return this.selector.textContent
-    } else {
-      this.selector.textContent = string
     }
+
+    this.selector.textContent = string
+
     return this
   }
 
@@ -66,15 +68,11 @@ class JsVMapDOMHandler {
   }
 
   show() {
-    this.css({
-      display: 'block'
-    })
+    this.css({ display: 'block' })
   }
 
   hide() {
-    this.css({
-      display: 'none'
-    })
+    this.css({ display: 'none' })
   }
 
   height() {

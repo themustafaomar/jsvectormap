@@ -4,4 +4,5 @@ export default {
   onMarkerSelected: 'marker:select',
   onRegionTooltipShow: 'region.tooltip:show',
   onMarkerTooltipShow: 'marker.tooltip:show',
+  onLoaded: 'map:loaded',
 }

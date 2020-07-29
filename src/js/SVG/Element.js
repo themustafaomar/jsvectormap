@@ -33,7 +33,7 @@ class SVGElement {
   }
 
   set(property, value) {
-    if (typeof property === 'object') {
+    if (Util.isObject(property)) {
       for (var key in property) {
         this.properties[key] = property[key]
         this.applyAttr(key, property[key])
@@ -49,7 +49,7 @@ class SVGElement {
   }
 
   applyAttr(property, value) {
-    this.node.setAttribute(Util.hyphenate(property), value);
+    this.node.setAttribute(Util.hyphenate(property), value)
   }
 
   remove() {

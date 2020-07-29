@@ -1,6 +1,6 @@
 /**
  * JsVectorMap
- * Copyrights (c) MustafaOmar https://github.com/themustafaomar
+ * Copyrights (c) Mustafa Omar https://github.com/themustafaomar
  * Released under the MIT License.
  */
 import './Util/Polyfills'
@@ -28,4 +28,4 @@ class JsVectorMap {
 
 }
 
-export default window.JsVectorMap = JsVectorMap
+export default window.jsVectorMap = window.JsVectorMap = JsVectorMap

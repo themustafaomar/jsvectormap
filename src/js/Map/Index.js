@@ -1,4 +1,3 @@
-import bindEvents from './bindEvents'
 import handleContainerEvents from './handleContainerEvents'
 import handleZoomButtons from './handleZoomButtons'
 
@@ -21,7 +20,6 @@ import repositionMarkers from './repositionMarkers'
 import repositionLabels from './repositionLabels'
 
 export {
-  bindEvents,
   handleContainerEvents,
   handleZoomButtons,
 

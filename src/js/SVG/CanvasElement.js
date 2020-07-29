@@ -10,6 +10,7 @@ import SVGImageElement from './ImageElement'
  */
 class SVGCanvasElement extends SVGElement {
   constructor(container, width, height) {
+
     // Create svg element for holding the whole map
     super('svg')
 
