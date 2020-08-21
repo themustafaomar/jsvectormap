@@ -41,20 +41,23 @@ class Map {
     this.baseTransY = 0
     this.regions = {}
 
-    // When working with Vue and create an instance of JsVectorMap before the Vue instance,
-    // the map doesn't work, it sounds a little bit weird
-    // but when DOM loaded it works..
-    if( window.document.readyState !== 'loading' ) {
-      // document is already ready, just initialise now
-      this.initialize()
+    // `document` is already ready, just initialise now
+    if (window.document.readyState !== 'loading') {
+      this.init(options.selector)
     } else {
-      // wait until document is ready
-      window.addEventListener('DOMContentLoaded', this.initialize )
+      // Wait until `document` is ready
+      window.addEventListener('DOMContentLoaded', this.init.bind(
+        this, options.selector
+      ))
     }
   }
 
-  initialize() {
-    this.container = Util.$(this.params.selector).attr('class', 'jsvmap-container')
+  // Initialize the map
+  init(selector) {
+    // @TODO: We can get the selector from params `this.params.selector` but unfortunately
+    // when passing an element to jsVectorMap constructor, the DOM element doesn't get merged
+    // with defaults during merging the options so we need to get the selector directly from the options.
+    this.container = Util.$(selector).attr('class', 'jsvmap-container')
 
     this.canvas = new SVGCanvasElement(
       this.container, this.width, this.height
