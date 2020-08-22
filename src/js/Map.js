@@ -54,6 +54,9 @@ class Map {
 
   // Initialize the map
   init(selector) {
+    // @TODO: We can get the selector from params `this.params.selector` but unfortunately
+    // when passing an element to jsVectorMap constructor, the DOM element doesn't get merged
+    // with defaults during merging the options so we need to get the selector directly from the options.
     this.container = Util.$(selector).attr('class', 'jsvmap-container')
 
     this.canvas = new SVGCanvasElement(
