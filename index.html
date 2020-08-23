@@ -11,7 +11,7 @@
     <script src="./dist/maps/world.js"></script>
 </head>
 <body>
-  <div id="map" style="width: 500px;height: 250px;margin: auto"></div>
+  <div id="map" style="width: 600px;height: 300px;margin: 100px auto"></div>
 
   <script>
     var markers = [
@@ -22,21 +22,30 @@
       { name: 'Brazil', coords: [-14.2350, -51.9253] },
     ];
 
-    var jsvmap = new JsVectorMap({
+    var jsvmap = new jsVectorMap({
       map: 'world',
-      selector: '#map',
+      selector: document.querySelector('#map'),
+
+      regionsSelectable: true,
+      markersSelectable: true,
+      markersSelectableOne: true,
 
       // -------- Labels --------
       labels: {
         markers: {
           render: function(index) {
-            return markers[index].name;
+            return markers[index].name
           },
         },
       },
 
       // -------- Marker and label style --------
       markers: markers,
+      markerStyle: {
+        initial: {
+          fill: '#66f'
+        }
+      },
       markerLabelStyle: {
         initial: {
           fontFamily: 'Poppins',
@@ -44,6 +53,30 @@
           fontWeight: 500,
           fill: '#35373e',
         },
+      },
+      onLoaded: function(map) {
+        console.log(map);
+      },
+      onViewportChange: function(x, y, z) {
+        console.log(x, y, z);
+      },
+      onRegionSelected: function (index, isSelected, selectedRegions) {
+        console.log(index, isSelected, selectedRegions)
+      },
+      onRegionTooltipShow: function (tooltip, index) {
+        console.log(tooltip, index)
+
+        tooltip.css({ backgroundColor: 'white', color: '#35373e' }).text(
+          tooltip.text() + ' (Hello World `region`)'
+        )
+      },
+      onMarkerSelected: function (code, isSelected, selectedMarkers) {
+        console.log(code, isSelected, selectedMarkers)
+      },
+      onMarkerTooltipShow: function (tooltip, code) {
+        tooltip.text(
+          tooltip.text() + ' (Hello World (marker))'
+        )
       },
     })
   </script>
