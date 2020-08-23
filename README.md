@@ -161,18 +161,20 @@ Let's see an example instead, since the options is so clear.
 ## Events
 | Name  | Description  | Params  |
 | :------------ | :------------ | :------------ |
-| `onViewportChange` | Triggered when map viewport was changed  | scale - transX - transY  |
-| `onRegionSelected`  | Triggered when a region was selected  | index, isSelected, selectedRegions |
-| `onMarkerSelected`  | Triggered when a marker was selected | code, isSelected, selectedMarkers |
+| `onLoaded` | Triggered when map is fully rendered (available since v1.1.0+) | a map instance |
+| `onViewportChange` | Triggered when map viewport was changed | scale - transX - transY |
+| `onRegionSelected` | Triggered when a region was selected | index, isSelected, selectedRegions |
+| `onMarkerSelected` | Triggered when a marker was selected | code, isSelected, selectedMarkers |
 | `onRegionTooltipShow` | Triggered when region tooltip was shown | tooltip, code |
 | `onMarkerTooltipShow` | Triggered when marker tooltip was shown | tooltip, code |
 
 ## Contributions
 Your contributions always **welcome**
+Note: please don't update the build files when sending pull requests, modifications should be committed within src/js/*.
 
 ## Notes
 If you're good at React or Angular and you want to make a wrapper component<br>
-please feel free to do it and contact me at `themustafaomar@gmail.com` to add your repository here here!
+please feel free to do it and contact me at `themustafaomar@gmail.com` to add mention your repository here.
 
 ## License
 jsvectormap licensed under MIT.
