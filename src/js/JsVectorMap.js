@@ -6,6 +6,8 @@
 import './Util/Polyfills'
 import Map from './Map'
 
+import '../scss/jsvectormap.scss'
+
 /**
  * ------------------------------------------------------------------------
  * Class Definition

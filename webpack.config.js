@@ -17,6 +17,16 @@ module.exports = {
       use: {
         loader: 'babel-loader',
       }
+    }, {
+      test: /\.scss$/,
+      use: [
+        // Inject Css to the head
+        'style-loader',
+        // Convert Css to common js
+        'css-loader',
+        // Convert Sass to Css
+        'sass-loader',
+      ]
     }]
   },
   devServer: {
