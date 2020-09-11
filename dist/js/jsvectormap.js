@@ -1,5 +1,8 @@
-var JsVectorMap = (function () {
-  'use strict';
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global = global || self, global.JsVectorMap = factory());
+}(this, (function () { 'use strict';
 
   // Matches polyfill
   // https://developer.mozilla.org/en-US/docs/Web/API/Element/matches
@@ -67,10 +70,10 @@ var JsVectorMap = (function () {
       if (selector instanceof Element) {
         this.selector = selector;
         return this;
-      } else {
-        this.selector = document.querySelector(selector);
-        return this;
       }
+
+      this.selector = document.querySelector(selector);
+      return this;
     }
 
     var _proto = JsVMapDOMHandler.prototype;
@@ -102,10 +105,9 @@ var JsVectorMap = (function () {
     _proto.text = function text(string) {
       if (!string) {
         return this.selector.textContent;
-      } else {
-        this.selector.textContent = string;
       }
 
+      this.selector.textContent = string;
       return this;
     };
 
@@ -303,6 +305,12 @@ var JsVectorMap = (function () {
     isObject: function isObject(obj) {
       return typeof obj === 'object';
     },
+    isStr: function isStr(str) {
+      return typeof str === 'string';
+    },
+    isArr: function isArr(array) {
+      return Array.isArray(array);
+    },
     merge: function merge(target, source) {
       return deepmerge(target, source);
     }
@@ -320,11 +328,13 @@ var JsVectorMap = (function () {
     zoomAnimate: true,
     showTooltip: true,
     zoomStep: 1.5,
+    bindTouchEvents: true,
 
     /**
      * Markers options
      */
     markersSelectable: false,
+    markersSelectableOne: false,
     markerStyle: {
       // Marker style
       initial: {
@@ -364,6 +374,7 @@ var JsVectorMap = (function () {
      * Region style
      */
     regionsSelectable: false,
+    regionsSelectableOne: false,
     regionStyle: {
       // Region style
       initial: {
@@ -444,7 +455,7 @@ var JsVectorMap = (function () {
     };
 
     _proto.set = function set(property, value) {
-      if (typeof property === 'object') {
+      if (Util.isObject(property)) {
         for (var key in property) {
           this.properties[key] = property[key];
           this.applyAttr(key, property[key]);
@@ -632,7 +643,7 @@ var JsVectorMap = (function () {
   var SVGCanvasElement = /*#__PURE__*/function (_SVGElement) {
     _inheritsLoose(SVGCanvasElement, _SVGElement);
 
-    function SVGCanvasElement(container, width, height) {
+    function SVGCanvasElement(container) {
       var _this;
 
       // Create svg element for holding the whole map
@@ -715,71 +726,6 @@ var JsVectorMap = (function () {
     return SVGCanvasElement;
   }(SVGElement);
 
-  var Events = {
-    onViewportChange: 'viewport:changed',
-    onRegionSelected: 'region:select',
-    onMarkerSelected: 'marker:select',
-    onRegionTooltipShow: 'region.tooltip:show',
-    onMarkerTooltipShow: 'marker.tooltip:show'
-  };
-
-  /**
-   * ------------------------------------------------------------------------
-   * Class Definition
-   * ------------------------------------------------------------------------
-   */
-
-  var EventEmitter = /*#__PURE__*/function () {
-    function EventEmitter() {
-      this.events = {};
-    }
-
-    var _proto = EventEmitter.prototype;
-
-    _proto.on = function on(event, listener) {
-      var _this = this;
-
-      if (!Util.isObject(this.events[event])) {
-        this.events[event] = [];
-      }
-
-      this.events[event].push(listener);
-      return function () {
-        return _this.removeListener(event, listener);
-      };
-    };
-
-    _proto.emit = function emit(event, args) {
-      if (Util.isObject(this.events[event])) {
-        this.events[event].forEach(function (listener) {
-          return listener.apply(null, args);
-        });
-      }
-    };
-
-    _proto.removeListener = function removeListener(event, listener) {
-      if (Util.isObject(this.events[event])) {
-        var idx = this.events[event].indexOf(listener);
-
-        if (idx > -1) {
-          this.events[event].splice(idx, 1);
-        }
-      }
-    };
-
-    return EventEmitter;
-  }();
-
-  function bindEvents() {
-    this.emitter = new EventEmitter(); // Register events
-
-    for (var event in Events) {
-      if (Util.isFunc(this.params[event])) {
-        this.emitter.on(Events[event], this.params[event]);
-      }
-    }
-  }
-
   function handleContainerEvents() {
     var _this = this;
 
@@ -811,22 +757,19 @@ var JsVectorMap = (function () {
     }
 
     if (this.params.zoomOnScroll) {
-      this.container.on('mousewheel', function (event) {
-        var deltaY = event.deltaY; // Fix issue with IE (9, 10, 11)
-        // get the reversed version of event.wheelDelta result
-        // if -100 it'll return 100 etc.
+      this.container.on('wheel', function (event) {
+        var deltaY = 0;
+        event.preventDefault();
+        deltaY = (event.deltaY || -event.wheelDelta || event.detail) >> 10 || 1;
+        deltaY = deltaY * 75;
 
-        if (deltaY == undefined) {
-          deltaY = ~event.wheelDelta + 1;
-        }
-
-        var bClientRect = _this.container.selector.getBoundingClientRect(),
-            centerY = event.clientY - bClientRect.top,
-            centerX = event.clientX - bClientRect.left,
-            zoomStep = Math.pow(1 + map.params.zoomOnScrollSpeed / 1000, -1.25 * deltaY);
+        var rect = _this.container.selector.getBoundingClientRect(),
+            offsetX = event.pageX - rect.left - window.pageXOffset,
+            offsetY = event.pageY - rect.top - window.pageYOffset,
+            zoomStep = Math.pow(1 + map.params.zoomOnScrollSpeed / 1000, -1.5 * deltaY);
 
         map.tooltip.hide();
-        map.setScale(map.scale * zoomStep, centerX, centerY);
+        map.setScale(map.scale * zoomStep, offsetX, offsetY);
         event.preventDefault();
       });
     }
@@ -836,8 +779,8 @@ var JsVectorMap = (function () {
     var _this = this;
 
     var map = this,
-        zoomin = Util.createEl('div', 'jsvmap-zoomin', '&#43;', true),
-        zoomout = Util.createEl('div', 'jsvmap-zoomout', '&#x2212', true);
+        zoomin = Util.createEl('div', 'jsvmap-zoom-btn jsvmap-zoomin', '&#43;', true),
+        zoomout = Util.createEl('div', 'jsvmap-zoom-btn jsvmap-zoomout', '&#x2212', true);
     this.container.append(zoomin).append(zoomout);
     zoomin.addEventListener('click', function () {
       _this.setScale(map.scale * map.params.zoomStep, map.width / 2, map.height / 2, false, map.params.zoomAnimate);
@@ -920,7 +863,8 @@ var JsVectorMap = (function () {
 
     _proto.deselect = function deselect() {
       this._selectStatus(false);
-    };
+    } // Private
+    ;
 
     _proto._selectStatus = function _selectStatus(status) {
       this.shape.isSelected = status;
@@ -1184,7 +1128,7 @@ var JsVectorMap = (function () {
     var _this = this;
 
     var map = this,
-        tooltip = Util.createEl('div', 'jsvmap-toolip');
+        tooltip = Util.createEl('div', 'jsvmap-tooltip');
     this.tooltip = Util.$(document.body.appendChild(tooltip));
     this.container.on('mousemove', function (event) {
       if (map.tooltip.selector.style.display === 'block') {
@@ -1458,7 +1402,7 @@ var JsVectorMap = (function () {
           map.tooltip.show();
           map.tooltipHeight = map.tooltip.height();
           map.tooltipWidth = map.tooltip.width();
-          map.emitter.emit(data.event, [map.tooltip, data.code]);
+          map.emit(data.event, [map.tooltip, data.code]);
         }
       } else {
         data.element.hoverStatus(false);
@@ -1482,10 +1426,124 @@ var JsVectorMap = (function () {
           }
 
           data.element.isSelected ? el.deselect() : el.select();
-          map.emitter.emit(data.event, [data.code, data.element.isSelected, map.getSelected(data.type + 's')]);
+          map.emit(data.event, [data.code, data.element.isSelected, map.getSelected(data.type + 's')]);
         }
       }
     });
+  }
+
+  function setFocus(config) {
+    var _this = this;
+
+    var bbox, codes;
+    config = config || {};
+
+    if (config.region && Util.isStr(config.region)) {
+      codes = [config.region];
+    } else if (config.regions && Util.isArr(config.regions)) {
+      codes = config.regions;
+    }
+
+    if (codes) {
+      codes.forEach(function (code) {
+        // Check if the region code is valid.
+        if (_this.regions[code]) {
+          var itemBbox = _this.regions[code].element.shape.getBBox();
+
+          if (itemBbox) {
+            // Handle the first loop
+            if (typeof bbox == 'undefined') {
+              bbox = itemBbox;
+            } else {
+              // get the old bbox properties plus the current
+              // this kinda incrementing the old values and the new values
+              bbox = {
+                x: Math.min(bbox.x, itemBbox.x),
+                y: Math.min(bbox.y, itemBbox.y),
+                width: Math.max(bbox.x + bbox.width, itemBbox.x + itemBbox.width) - Math.min(bbox.x, itemBbox.x),
+                height: Math.max(bbox.y + bbox.height, itemBbox.y + itemBbox.height) - Math.min(bbox.y, itemBbox.y)
+              };
+            }
+          }
+        }
+      });
+      return this.setScale(Math.min(this.width / bbox.width, this.height / bbox.height), -(bbox.x + bbox.width / 2), -(bbox.y + bbox.height / 2), true, config.animate);
+    }
+  }
+
+  function bindContainerTouchEvents() {
+    var map = this,
+        touchStartScale,
+        touchStartDistance,
+        touchX,
+        touchY,
+        centerTouchX,
+        centerTouchY,
+        lastTouchesLength;
+
+    var handleTouchEvent = function handleTouchEvent(e) {
+      var touches = e.touches,
+          offset,
+          scale,
+          transXOld,
+          transYOld;
+
+      if (e.type == 'touchstart') {
+        lastTouchesLength = 0;
+      }
+
+      if (touches.length == 1) {
+        if (lastTouchesLength == 1) {
+          transXOld = map.transX;
+          transYOld = map.transY;
+          map.transX -= (touchX - touches[0].pageX) / map.scale;
+          map.transY -= (touchY - touches[0].pageY) / map.scale;
+          map.tooltip.hide();
+          map.applyTransform();
+
+          if (transXOld != map.transX || transYOld != map.transY) {
+            e.preventDefault();
+          }
+        }
+
+        touchX = touches[0].pageX;
+        touchY = touches[0].pageY;
+      } else if (touches.length == 2) {
+        if (lastTouchesLength == 2) {
+          scale = Math.sqrt(Math.pow(touches[0].pageX - touches[1].pageX, 2) + Math.pow(touches[0].pageY - touches[1].pageY, 2)) / touchStartDistance;
+          map.setScale(touchStartScale * scale, centerTouchX, centerTouchY);
+          map.tooltip.hide();
+          e.preventDefault();
+        } else {
+          var rect = map.container.selector.getBoundingClientRect();
+          offset = {
+            top: rect.top + window.scrollY,
+            left: rect.left + window.scrollX
+          };
+
+          if (touches[0].pageX > touches[1].pageX) {
+            centerTouchX = touches[1].pageX + (touches[0].pageX - touches[1].pageX) / 2;
+          } else {
+            centerTouchX = touches[0].pageX + (touches[1].pageX - touches[0].pageX) / 2;
+          }
+
+          if (touches[0].pageY > touches[1].pageY) {
+            centerTouchY = touches[1].pageY + (touches[0].pageY - touches[1].pageY) / 2;
+          } else {
+            centerTouchY = touches[0].pageY + (touches[1].pageY - touches[0].pageY) / 2;
+          }
+
+          centerTouchX -= offset.left;
+          centerTouchY -= offset.top;
+          touchStartScale = map.scale;
+          touchStartDistance = Math.sqrt(Math.pow(touches[0].pageX - touches[1].pageX, 2) + Math.pow(touches[0].pageY - touches[1].pageY, 2));
+        }
+      }
+
+      lastTouchesLength = touches.length;
+    };
+
+    this.container.on('touchstart', handleTouchEvent).on('touchmove', handleTouchEvent);
   }
 
   function applyTransform() {
@@ -1741,7 +1799,7 @@ var JsVectorMap = (function () {
         if (i == count) {
           clearInterval(interval);
 
-          _this.$emit('viewport:changed', [_this.scale, _this.transX, _this.transY]);
+          _this.emit('viewport:changed', [_this.scale, _this.transX, _this.transY]);
         }
       }, 10);
     } else {
@@ -1749,7 +1807,7 @@ var JsVectorMap = (function () {
       this.transY = transY;
       this.scale = scale;
       this.applyTransform();
-      this.$emit('viewport:changed', [this.scale, this.transX, this.transY]);
+      this.emit('viewport:changed', [this.scale, this.transX, this.transY]);
     }
   }
 
@@ -1805,7 +1863,6 @@ var JsVectorMap = (function () {
 
   var MapPrototypes = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    bindEvents: bindEvents,
     handleContainerEvents: handleContainerEvents,
     handleZoomButtons: handleZoomButtons,
     createRegions: createRegions,
@@ -1813,6 +1870,8 @@ var JsVectorMap = (function () {
     createTooltip: createTooltip,
     createSeries: createSeries,
     handleElementEvents: handleElementEvents,
+    setFocus: setFocus,
+    bindContainerTouchEvents: bindContainerTouchEvents,
     applyTransform: applyTransform,
     resize: resize,
     updateSize: updateSize,
@@ -1823,6 +1882,15 @@ var JsVectorMap = (function () {
     repositionLabels: repositionLabels
   });
 
+  var Events = {
+    onViewportChange: 'viewport:changed',
+    onRegionSelected: 'region:select',
+    onMarkerSelected: 'marker:select',
+    onRegionTooltipShow: 'region.tooltip:show',
+    onMarkerTooltipShow: 'marker.tooltip:show',
+    onLoaded: 'map:loaded'
+  };
+
   /**
    * ------------------------------------------------------------------------
    * Class Definition
@@ -1831,15 +1899,13 @@ var JsVectorMap = (function () {
 
   var Map = /*#__PURE__*/function () {
     function Map(options) {
-      var _this = this;
-
       if (options === void 0) {
         options = {};
       }
 
       // Merge the given options with the default options
       this.params = Util.merge(Map.defaults, options); // Throw an error if the given map name doesn't match
-      // the map that was setted in map file
+      // the map that was set in map file
 
       if (!Map.maps[this.params.map]) {
         throw new Error('Attempt to use map which was not loaded: ' + options.map);
@@ -1859,74 +1925,90 @@ var JsVectorMap = (function () {
       this.transY = 0;
       this.baseTransX = 0;
       this.baseTransY = 0;
-      this.regions = {}; // When working with Vue and create an instance of JsVectorMap before the Vue instance,
-      // the map doesn't work, it sounds a little bit weird
-      // but when DOM loaded it works..
+      this.regions = {}; // `document` is already ready, just initialise now
 
-      window.addEventListener('DOMContentLoaded', function () {
-        _this.container = Util.$(options.selector).attr('class', 'jsvmap-container');
-        _this.canvas = new SVGCanvasElement(_this.container, _this.width, _this.height);
+      if (window.document.readyState !== 'loading') {
+        this.init(options.selector);
+      } else {
+        // Wait until `document` is ready
+        window.addEventListener('DOMContentLoaded', this.init.bind(this, options.selector));
+      }
+    } // Initialize the map
 
-        _this.setBackgroundColor(_this.params.backgroundColor); // Make a new instance of event emitter
-        // and listen for the emitted events
-
-
-        _this.bindEvents(); // handle the container
-
-
-        _this.handleContainerEvents(); // Create regions/markers, then handle events for both
-
-
-        _this.createRegions(); // Update size
-
-
-        _this.updateSize(); // Create markers
-
-
-        _this.createMarkers(_this.params.markers || {}); // Create toolip
-
-
-        if (_this.params.showTooltip) {
-          _this.createTooltip();
-        } // Create zoom buttons if zoomButtons is set to true
-
-
-        if (_this.params.zoomButtons) {
-          _this.handleZoomButtons();
-        } // Set selected regions if passed
-
-
-        if (_this.params.selectedRegions) {
-          _this.setSelected('regions', _this.params.selectedRegions);
-        } // Set selected regions if passed
-
-
-        if (_this.params.selectedMarkers) {
-          _this.setSelected('markers', _this.params.selectedMarkers);
-        } // Handle regions/markers events
-
-
-        _this.handleElementEvents(); // Position labels
-
-
-        _this.repositionLabels(); // Handle legends
-
-
-        _this.container.append(_this.legendHorizontal = Util.createEl('div', 'jsvmap-series-container jsvmap-series-h')).append(_this.legendVertical = Util.createEl('div', 'jsvmap-series-container jsvmap-series-v')); // Create series if passed
-
-
-        if (_this.params.series) {
-          _this.createSeries();
-        }
-      });
-    }
 
     var _proto = Map.prototype;
 
-    _proto.$emit = function $emit(event, args) {
-      this.emitter.emit(event, args);
+    _proto.init = function init(selector) {
+      // @TODO: We can get the selector from params `this.params.selector` but unfortunately
+      // when passing a DOM element to jsVectorMap constructor, the DOM element doesn't get merged
+      // with defaults during merging the options so we need to get the selector directly from the options.
+      this.container = Util.$(selector).attr('class', 'jsvmap-container');
+      this.canvas = new SVGCanvasElement(this.container, this.width, this.height); // Set the map's background color
+
+      this.setBackgroundColor(this.params.backgroundColor); // Handle the container
+
+      this.handleContainerEvents(); // Create regions/markers, then handle events for both
+
+      this.createRegions(); // Update size
+
+      this.updateSize(); // Create markers
+
+      this.createMarkers(this.params.markers || {}); // Create toolip
+
+      if (this.params.showTooltip) {
+        this.createTooltip();
+      } // Create zoom buttons if zoomButtons is set to true
+
+
+      if (this.params.zoomButtons) {
+        this.handleZoomButtons();
+      } // Set selected regions if passed
+
+
+      if (this.params.selectedRegions) {
+        this.setSelected('regions', this.params.selectedRegions);
+      } // Set selected regions if passed
+
+
+      if (this.params.selectedMarkers) {
+        this.setSelected('markers', this.params.selectedMarkers);
+      } // Set focus on a spcific region
+
+
+      if (this.params.focusOn) {
+        this.setFocus(this.params.focusOn);
+      } // Bind touch events if true
+
+
+      if (this.params.bindTouchEvents) {
+        if ('ontouchstart' in window || window.DocumentTouch && document instanceof DocumentTouch) {
+          this.bindContainerTouchEvents();
+        }
+      } // Handle regions/markers events
+
+
+      this.handleElementEvents(); // Position labels
+
+      this.repositionLabels(); // Handle legends
+
+      this.container.append(this.legendHorizontal = Util.createEl('div', 'jsvmap-series-container jsvmap-series-h')).append(this.legendVertical = Util.createEl('div', 'jsvmap-series-container jsvmap-series-v')); // Create series if passed
+
+      if (this.params.series) {
+        this.createSeries();
+      } // Fire loaded event
+
+
+      this.emit('map:loaded', [this]);
     } // Public
     ;
+
+    _proto.emit = function emit(eventValue, args) {
+      for (var event in Events) {
+        if (Events[event] === eventValue && Util.isFunc(this.params[event])) {
+          this.params[event].apply(this, args);
+        }
+      }
+    };
 
     _proto.setBackgroundColor = function setBackgroundColor(color) {
       this.container.css({
@@ -1935,9 +2017,9 @@ var JsVectorMap = (function () {
     };
 
     _proto.getInsetForPoint = function getInsetForPoint(x, y) {
-      var insets = Map.maps[this.params.map].insets,
-          index,
-          bbox;
+      var index,
+          bbox,
+          insets = Map.maps[this.params.map].insets;
 
       for (index = 0; index < insets.length; index++) {
         bbox = insets[index].bbox;
@@ -1963,19 +2045,19 @@ var JsVectorMap = (function () {
     };
 
     _proto.clearSelected = function clearSelected(type) {
-      var _this2 = this;
+      var _this = this;
 
       this.getSelected(type).forEach(function (i) {
-        _this2[type][i].element.deselect();
+        _this[type][i].element.deselect();
       });
     };
 
     _proto.setSelected = function setSelected(type, keys) {
-      var _this3 = this;
+      var _this2 = this;
 
       keys.forEach(function (key) {
-        if (_this3[type][key]) {
-          _this3[type][key].element.select();
+        if (_this2[type][key]) {
+          _this2[type][key].element.select();
         }
       });
     } // Region methods
@@ -1986,10 +2068,10 @@ var JsVectorMap = (function () {
     };
 
     _proto.clearSelectedRegions = function clearSelectedRegions() {
-      var _this4 = this;
+      var _this3 = this;
 
       this.getSelected('regions').forEach(function (code) {
-        _this4.regions[code].element.deselect();
+        _this3.regions[code].element.deselect();
       });
     } // Markers methods
     ;
@@ -1999,10 +2081,10 @@ var JsVectorMap = (function () {
     };
 
     _proto.clearSelectedMarkers = function clearSelectedMarkers() {
-      var _this5 = this;
+      var _this4 = this;
 
       this.getSelected('markers').forEach(function (index) {
-        _this5.markers[index].element.deselect();
+        _this4.markers[index].element.deselect();
       });
     };
 
@@ -2013,14 +2095,14 @@ var JsVectorMap = (function () {
     };
 
     _proto.removeMarkers = function removeMarkers(markers) {
-      var _this6 = this;
+      var _this5 = this;
 
       markers.forEach(function (index) {
         // Remove the element from the DOM
-        _this6.markers[index].element.remove(); // Remove the element from markers object
+        _this5.markers[index].element.remove(); // Remove the element from markers object
 
 
-        delete _this6.markers[index];
+        delete _this5.markers[index];
       });
     } // Reset map
     ;
@@ -2035,6 +2117,8 @@ var JsVectorMap = (function () {
       this.scale = this.baseScale;
       this.transX = this.baseTransX;
       this.transY = this.baseTransY;
+      this.clearSelectedMarkers();
+      this.clearSelectedRegions();
       this.applyTransform();
     };
 
@@ -2047,7 +2131,7 @@ var JsVectorMap = (function () {
 
   /**
    * JsVectorMap
-   * Copyrights (c) MustafaOmar https://github.com/themustafaomar
+   * Copyrights (c) Mustafa Omar https://github.com/themustafaomar
    * Released under the MIT License.
    */
   /**
@@ -2079,8 +2163,8 @@ var JsVectorMap = (function () {
     return JsVectorMap;
   }();
 
-  var JsVectorMap$1 = window.JsVectorMap = JsVectorMap;
+  var JsVectorMap$1 = window.jsVectorMap = window.JsVectorMap = JsVectorMap;
 
   return JsVectorMap$1;
 
-}());
+})));

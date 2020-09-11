@@ -2,7 +2,7 @@ import Util from '../Util/Util'
 
 export default function createTooltip() {
 
-  const map = this, tooltip = Util.createEl('div', 'jsvmap-toolip')
+  const map = this, tooltip = Util.createEl('div', 'jsvmap-tooltip')
 
   this.tooltip = Util.$(document.body.appendChild(tooltip))
 
