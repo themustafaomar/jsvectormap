@@ -2,8 +2,8 @@ import Util from '../Util/Util'
 
 export default function handleZoomButtons() {
   var map = this,
-    zoomin = Util.createEl('div', 'jsvmap-zoomin', '&#43;', true),
-    zoomout = Util.createEl('div', 'jsvmap-zoomout', '&#x2212', true)
+    zoomin = Util.createEl('div', 'jsvmap-zoom-btn jsvmap-zoomin', '&#43;', true),
+    zoomout = Util.createEl('div', 'jsvmap-zoom-btn jsvmap-zoomout', '&#x2212', true)
 
   this.container.append(zoomin).append(zoomout)
 

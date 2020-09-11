@@ -1,55 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>JsVectorMap</title>
-  <link rel="stylesheet" href="../assets/css/style.css" />
-  <link rel="stylesheet" href="../dist/css/jsvectormap.css" />
-  <script src="../dist/js/jsvectormap.min.js"></script>
-  <script src="../dist/maps/world.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JsVectorMap (Workspace)</title>
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../dist/css/jsvectormap.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="../dist/js/jsvectormap.js"></script>
+    <script src="../dist/maps/world.js"></script>
 </head>
 <body>
-  <div class="map" style="text-align: center;">
-    <div id="map-wrapper" class="jvectormap-container" style="height: 500px;margin: auto"></div>
-    <div class="task-bar d-none border-top pt-3">
-      <button id="change-bg-color" class="btn btn-link">Change bg color randomly</button>
-      <button id="reset" class="btn btn-link">Reset Map</button>
-      <button id="get-regions" class="btn btn-link btn-sm">Get selected regions</button>
-      <button id="clear-regions" class="btn btn-link btn-sm">Clear selected regions</button>
-      <button id="get-markers" class="btn btn-link btn-sm">Get selected markers</button>
-      <button id="clear-markers" class="btn btn-link btn-sm">Clear selected markers</button>
-      <button id="add-marker" class="btn btn-link btn-sm">Add Marker</button>
+  <div class="text-center mt-4">
+
+    <div id="map-wrapper" style="width: 750px; height: 400px; margin: auto; border: 1px solid #EEE"></div>
+
+    <div class="container mt-4">
+      <button id="change-bg-color" class="btn btn-primary">Change bg color randomly</button>
+      <button id="reset" class="btn btn-primary">Reset Map</button>
+      <button id="get-regions" class="btn btn-primary">Get selected regions</button>
+      <button id="clear-regions" class="btn btn-primary">Clear selected regions</button>
+    </div>
+
+    <div class="container mt-1">
+      <button id="get-markers" class="btn btn-primary">Get selected markers</button>
+      <button id="clear-markers" class="btn btn-primary">Clear selected markers</button>
+      <button id="add-marker" class="btn btn-primary">Add Marker</button>
     </div>
   </div>
+
   <script>
     var markers = [{
         name: 'Russia',
         coords: [61, 105],
         style: {
-          r: 12
+          r: 8
         }
       },
       {
         name: 'Geenland',
         coords: [72, -42],
         style: {
-          r: 15,
+          r: 8,
         }
       },
       {
         name: 'Canada',
         coords: [56, -106],
         style: {
-          r: 12,
+          r: 8,
         }
       },
       {
         name: 'Palestine',
         coords: [31.5, 34.8],
         style: {
-          r: 5,
+          r: 7,
         }
       },
       {
@@ -57,10 +64,10 @@
         coords: [-14.2350, -51.9253],
       },
       {
-        name: 'United States',
-        coords: [37.0902, -95.7129],
+        name: 'China',
+        coords: [35.8617, 104.1954],
         style: {
-          image: "../assets/images/marker.png"
+          image: "../assets/images/pin.png"
         },
         offset: [2, 2]
       },
@@ -72,8 +79,6 @@
 
       regionsSelectable: true,
       markersSelectable: true,
-      // regionsSelectableOne: true,
-      // markersSelectableOne: true,
 
       // -------- Events --------
       onRegionSelected: function (index, isSelected, selectedRegions) {
@@ -88,7 +93,7 @@
         }
       },
       onMarkerTooltipShow: function (tooltip, index) {
-        tooltip.selector.innerHTML = '<h4>'+tooltip.text()+'</h4>' + '<p>Is a good country..</p>'
+        tooltip.selector.innerHTML = '<h5 class="mb-0">'+tooltip.text()+'</h5>' + '<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p><small class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.</small>'
       },
 
       // -------- Labels --------
@@ -106,7 +111,7 @@
             var codes = ['EG', 'KZ', 'CN']
 
             if (codes.indexOf(code) > -1) {
-              return code
+              return ''
             }
           },
         }
@@ -124,12 +129,13 @@
       markers: markers,
       markerStyle: {
         initial: {
+          fill: '#ff5566'
         },
         hover: {
-          stroke: "#000",
+          stroke: "#676767",
           fillOpacity: 1,
-          strokeWidth: 1.5,
-          fill: 'orange'
+          strokeWidth: 2.5,
+          fill: '#ff5566'
         },
         selected: {
           fill: '#ff9251'
@@ -148,18 +154,19 @@
       series: {
         markers: [
           {
-            attribute: 'fill',
+            attribute: "fill",
             legend: {
-              title: 'Something! (marker)',
+              title: "Something (marker)",
+              // vertical: true,
             },
             scale: {
-              red: 'red',
-              blue: 'blue'
+              "Criteria one": "#ffd400",
+              "Criteria two": "#4761ff"
             },
             values: {
-              0: 'red',
-              1: 'blue',
-              2: 'blue'
+              0: "Criteria one",
+              1: "Criteria two",
+              2: "Criteria two"
             }
           },
         ],
@@ -172,18 +179,17 @@
               // EG: 'red'
             },
             legend: {
-              title: 'Good countries (region)',
-              // horizontal: true,
+              title: 'Some title (region)',
+              vertical: true,
             },
             scale: {
-              grey: '#99a7b1',
-              grey2: '#93a8b5'
+              "Criteria": "#4bdc77",
+              "Another Criteria": "#ff5566"
             },
-            normalizeFunction: 'polynomial',
             values: {
-              US: 'grey2',
-              CA: 'grey',
-              MX: 'grey',
+              GB: "Another Criteria",
+              MX: "Criteria",
+              // LY: "Criteria",
             },
           },
         ]
@@ -202,7 +208,7 @@
       if (! map.getSelectedRegions().length) {
         alert('No regions selected')
       } else {
-        console.log(map.getSelectedRegions())
+        alert(map.getSelectedRegions())
       }
     })
 
@@ -216,7 +222,7 @@
       if (! selectedMarkers.length) {
         alert('No regions markers')
       } else {
-        console.log(selectedMarkers)
+        alert(selectedMarkers)
       }
     })
 

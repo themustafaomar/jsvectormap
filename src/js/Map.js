@@ -232,13 +232,12 @@ class Map {
       }
     }
 
-    this.height = 0;
-    this.width = 0;
-
     this.scale = this.baseScale
     this.transX = this.baseTransX
     this.transY = this.baseTransY
 
+    this.clearSelectedMarkers()
+    this.clearSelectedRegions()
     this.applyTransform()
   }
 
