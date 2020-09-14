@@ -1,5 +1,5 @@
 # Jsvectormap
-#### A lightweight Javascript library for creating interactive maps.
+A lightweight Javascript library for creating interactive maps.
 
 <img src="assets/images/jsvectormap.jpg" />
 
@@ -64,7 +64,7 @@ If you're using webpack or something like that you'll need to import the map you
 @import 'jsvectormap'
 @import 'jsvectormap/dist/maps/world.js'
 
-const map = new JsVectorMap({
+const map = new jsVectorMap({
   selector: '#map',
   map: 'world',
 })
@@ -77,7 +77,9 @@ const map = new JsVectorMap({
 ## Options
 **map** *'world'*
 
-**mapBgColor** *'transparent'*
+The map type
+
+**backgroundColor** *'transparent'*
 
 The map's container background color
 
@@ -122,7 +124,7 @@ Set focus on a specific region/regions
 
 The marker is selectable
 
-**marker/regionSelectableOne**
+**markers/regionsSelectableOne**
 
 Allow only one marker to be selected
 
@@ -131,7 +133,7 @@ Allow only one marker to be selected
 Let's see an example instead, since the options is so clear.
 
 ```js
-'marker/regionStyle': {
+markerStyle: { // Or: regionStyle
   initial: {
     r: 8, // Marker/region width
     fill: 'black', // Marker/region color
@@ -170,7 +172,7 @@ Let's see an example instead, since the options is so clear.
 
 ## Contributions
 Your contributions always **welcome**
-Note: please don't update the build files when sending pull requests, modifications should be committed within src/js/*.
+1) please don't update the build files when sending pull requests, modifications should be committed within src/js/*.
 
 ## Notes
 If you're good at React or Angular and you want to make a wrapper component<br>
