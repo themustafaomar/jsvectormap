@@ -62,6 +62,15 @@ class JsVMapDOMHandler {
     return this.selector.getAttribute(attr)
   }
 
+  addClass(classes) {
+    // Support IE9
+    if (this.selector.className.split(" ").indexOf(classes) == -1) {
+      this.selector.className += " " + classes;
+    }
+
+    return this
+  }
+
   append(node) {
     this.selector.appendChild(node)
     return this

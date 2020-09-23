@@ -1,6 +1,6 @@
 {
   "name": "jsvectormap",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "A lightweight Javascript library for creating interactive maps",
   "main": "dist/js/jsvectormap.min.js",
   "style": "dist/css/jsvectormap.min.css",
@@ -13,8 +13,20 @@
     "watch": "webpack-dev-server --config webpack.config.js --mode development --watch --open",
     "build": "rollup -c"
   },
-  "keywords": ["javascript", "interactive", "vector", "map", "svg"],
-  "files": ["dist", "src", "assets", "samples", "LICENSE"],
+  "keywords": [
+    "javascript",
+    "interactive",
+    "vector",
+    "map",
+    "svg"
+  ],
+  "files": [
+    "dist",
+    "src",
+    "assets",
+    "samples",
+    "LICENSE"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/themustafaomar/jsvectormap.git"
@@ -25,8 +37,8 @@
   "homepage": "https://github.com/themustafaomar/jsvectormap#readme",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.11.1",
-    "@babel/preset-env": "^7.11.0",
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
     "@rollup/plugin-node-resolve": "^7.1.3",
     "autoprefixer": "^9.8.6",
     "babel-loader": "^8.1.0",
@@ -36,7 +48,7 @@
     "rollup": "^1.32.1",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-scss": "^2.6.0",
-    "rollup-plugin-terser": "^5.3.0",
+    "rollup-plugin-terser": "^5.3.1",
     "sass-loader": "^10.0.2",
     "style-loader": "^1.2.1",
     "webpack": "^4.44.1",
@@ -48,6 +60,5 @@
     "production": [
       "ie >= 9"
     ]
-  },
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" }
+  }
 }
