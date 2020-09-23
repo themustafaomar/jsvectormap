@@ -1,39 +1,38 @@
-
 // Tooltip
-$tooltip-shadow: 1px 2px 12px rgba(0, 0, 0, .2);
-$tooltip-font-family: sans-serif, Verdana;
-$tooltip-bg-color: #5c5cff;
-$tooltip-radius: 3px;
-$tooltip-font-size: smaller;
-$tooltip-padding: 3px 5px;
+$tooltip-shadow: 1px 2px 12px rgba(0, 0, 0, .2) !default;
+$tooltip-font-family: sans-serif, Verdana !default;
+$tooltip-bg-color: #5c5cff !default;
+$tooltip-radius: 3px !default;
+$tooltip-font-size: smaller !default;
+$tooltip-padding: 3px 5px !default;
 
 // Zoom buttons
-$zoom-btns-bg-color: #292929;
-$zoom-btns-radius: 3px;
-$zoom-btns-height: 15px;
-$zoom-btns-padding: 3px;
-$zoom-btns-width: 15px;
+$zoom-btns-bg-color: #292929 !default;
+$zoom-btns-radius: 3px !default;
+$zoom-btns-height: 15px !default;
+$zoom-btns-padding: 3px !default;
+$zoom-btns-width: 15px !default;
 
 // Series
-$series-container-right: 15px;
+$series-container-right: 15px !default;
 
 // Legends
-$legend-background-color: #FFF;
-$legend-border-color: #e6e6e6;
-$legend-radius: 3px;
-$legend-margin-left: 15px;
-$legend-padding: 0.5rem;
-$legend-title-padding-bottom: 3px;
-$legend-title-margin-bottom: 7px;
+$legend-background-color: #FFF !default;
+$legend-border-color: #e6e6e6 !default;
+$legend-radius: 3px !default;
+$legend-margin-left: 15px !default;
+$legend-padding: 0.5rem !default;
+$legend-title-padding-bottom: 3px !default;
+$legend-title-margin-bottom: 7px !default;
 
 // Legend ticks
-$legend-tick-margin-top: 10px;
-$legend-tick-sample-margin: 4px auto;
-$legend-tick-sample-radius: 4px;
-$legend-tick-sample-height: 20px;
-$legend-tick-sample-width: 20px;
-$legend-tick-text-font-size: 12px;
-$legend-tick-text-margin-top: 3px;
+$legend-tick-margin-top: 10px !default;
+$legend-tick-sample-margin: 4px auto !default;
+$legend-tick-sample-radius: 4px !default;
+$legend-tick-sample-height: 20px !default;
+$legend-tick-sample-width: 20px !default;
+$legend-tick-text-font-size: 12px !default;
+$legend-tick-text-margin-top: 3px !default;
 
 // Global resets
 svg { touch-action: none }
