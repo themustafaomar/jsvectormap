@@ -25,8 +25,7 @@ class Marker extends MapObject {
     }
 
     if (label && labelText) {
-      this.offsets = isRecentlyCreated && label.render && isRecentlyCreated.offset 
-        ? isRecentlyCreated.offset
+      this.offsets = (isRecentlyCreated && label.render && isRecentlyCreated.offset) ? isRecentlyCreated.offset
         : super.getLabelOffsets(index)
 
       this.labelX = cx / map.scale - map.transX

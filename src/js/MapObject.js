@@ -19,11 +19,18 @@ class MapObject {
 
     if (label) {
       if (Util.isFunc(label.render)) {
-        return label.render(key)
-      } else {
-        return key
+        let params = [key]
+
+        // Pass additional paramater (Marker object) in case the parent is a Marker.
+        if (this.config.marker) {
+          params.push(this.config.marker)
+        }
+
+        return label.render.apply(this, params)
       }
-    } 
+
+      return key
+    }
   }
 
   getLabelOffsets(key) {
