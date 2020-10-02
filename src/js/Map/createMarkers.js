@@ -25,6 +25,7 @@ export default function createMarkers(markers, isRecentlyCreated) {
         cx: point.x,
         cy: point.y,
         group: this.markersGroup,
+        marker: markers[index],
         // @todo: this may be a little bit complicated :(
         // When adding a new marker by submitting some button and labels key is existed and has render function
         // the render function may returns something like that: return markers[index].name;
