@@ -3,6 +3,7 @@ import Defaults from './Defaults/Index'
 import SVGCanvasElement from './SVG/CanvasElement'
 import * as MapPrototypes from './Map/Index'
 import Events from './Defaults/Events'
+import EventHandler from './EventHandler'
 
 /**
  * ------------------------------------------------------------------------
@@ -239,6 +240,30 @@ class Map {
     this.clearSelectedMarkers()
     this.clearSelectedRegions()
     this.applyTransform()
+  }
+
+  // Destroy the map
+  destroy(destroyInstance = true) {
+    const eventRegistry = EventHandler.getEventRegistry()
+    const tooltip = this.tooltip.selector
+    const keys = Object.keys
+
+    // Remove tooltip from the DOM
+    tooltip.parentElement.removeChild(tooltip)
+
+    // Remove event registry
+    keys(eventRegistry).forEach(event => {
+      EventHandler.off(eventRegistry[event].selector, event, eventRegistry[event].handler)
+    })
+
+    // For perfomance issues remove all possible properties
+    if (destroyInstance) {
+      keys(this).forEach(key => {
+        try {
+          delete this[key]
+        } catch (e) {}
+      })
+    }
   }
 
 }

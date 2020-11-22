@@ -1,4 +1,4 @@
-import Util from "./Util/Util";
+import EventHandler from "./EventHandler"
 
 /**
  * ------------------------------------------------------------------------
@@ -19,8 +19,9 @@ class JsVMapDOMHandler {
     return this
   }
 
-  on(event, callback) {
-    this.selector.addEventListener(event, callback)
+  on(event, handler) {
+    EventHandler.on(this.selector, event, handler)
+
     return this
   }
 
