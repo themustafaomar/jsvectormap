@@ -1,4 +1,5 @@
 import Util from '../Util/Util'
+import EventHandler from '../EventHandler'
 
 export default function handleZoomButtons() {
   var map = this,
@@ -7,7 +8,7 @@ export default function handleZoomButtons() {
 
   this.container.append(zoomin).append(zoomout)
 
-  zoomin.addEventListener('click', () => {
+  EventHandler.on(zoomin, 'click', () => {
     this.setScale(
       map.scale * map.params.zoomStep,
       map.width / 2,
@@ -17,7 +18,7 @@ export default function handleZoomButtons() {
     )
   })
 
-  zoomout.addEventListener('click', () => {
+  EventHandler.on(zoomout, 'click', () => {
     this.setScale(
       map.scale / map.params.zoomStep,
       map.width / 2,

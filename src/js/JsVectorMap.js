@@ -30,4 +30,5 @@ class JsVectorMap {
 
 }
 
+// @TODO: JsVectorMap is deprecated and will be removed soon.
 export default window.jsVectorMap = window.JsVectorMap = JsVectorMap
