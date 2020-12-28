@@ -26,6 +26,7 @@ class Map {
 
     this.regionsData = {}
     this.regionsColors = {}
+    this.lines = {}
     this.markers = {}
 
     this.defaultWidth = this.mapData.width
@@ -64,6 +65,9 @@ class Map {
 
       // Update size
       this.updateSize()
+
+      // Create lines
+      this.createLines(this.params.lines || {}, this.params.markers || {})
 
       // Create markers
       this.createMarkers(this.params.markers || {})

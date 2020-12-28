@@ -57,6 +57,13 @@ class SVGCanvasElement extends SVGElement {
     return el
   }
 
+  createLine(config, style, group) {
+    const el = new SVGShapeElement('line', config, style)
+
+    this.add(el, group)
+    return el
+  }
+
   createImage(config, style, group) {
     const el = new SVGImageElement(config, style) // extends SVGShapeElement
 

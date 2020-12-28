@@ -2,6 +2,7 @@ import handleContainerEvents from './handleContainerEvents'
 import handleZoomButtons from './handleZoomButtons'
 
 import createRegions from './createRegions'
+import createLines from './createLines'
 import createMarkers from './createMarkers'
 import createTooltip from './createTooltip'
 import createSeries from './createSeries'
@@ -16,6 +17,7 @@ import coordsToPoint from './coordsToPoint'
 import setScale from './setScale'
 
 import getMarkerPosition from './getMarkerPosition'
+import repositionLines from './repositionLines'
 import repositionMarkers from './repositionMarkers'
 import repositionLabels from './repositionLabels'
 
@@ -24,6 +26,7 @@ export {
   handleZoomButtons,
 
   createRegions,
+  createLines,
   createMarkers,
   createTooltip,
   createSeries,
@@ -38,6 +41,7 @@ export {
   setScale,
 
   getMarkerPosition,
+  repositionLines,
   repositionMarkers,
   repositionLabels,
 }

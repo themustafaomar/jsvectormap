@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JsVectorMap (Lines)</title>
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../dist/css/jsvectormap.css" />
+    <script src="../dist/js/jsvectormap.min.js"></script>
+    <script src="../dist/maps/world.js"></script>
+    <style>
+      circle {
+        transition: .25s ease-in-out;
+      }
+    </style>
+</head>
+<body>
+  <div class="map">
+    <div
+      id="map"
+      class="jsvmap-container"
+      style="height: 700px;margin: auto">
+    </div>
+  </div>
+  <script>
+    var markers = [{
+        name: 'TLV',
+        coords: [32.0055, 34.8854]
+      },
+      {
+        name: 'ZRH',
+        coords: [47.4612, 8.5535]
+      },
+      {
+        name: 'IAD',
+        coords: [38.9531, -77.4565]
+      },
+      {
+        name: 'STL',
+        coords: [38.7499, -90.3748]
+      },
+    ];
+    var lines = [
+      { from: 'TLV', to: 'ZRH', style: { stroke: 'black', strokeWidth: 2} },
+      { from: 'ZRH', to: 'IAD', style: { stroke: 'black', strokeWidth: 2} },
+      { from: 'IAD', to: 'STL', style: { stroke: 'gray', strokeWidth: 2 } }
+    ];
+
+    var map = new JsVectorMap({
+      map: 'world',
+      selector: '#map',
+
+      // -------- Labels --------
+      labels: {
+        markers: {
+          render: function(index) {
+            return markers[index].name
+          },
+        },
+      },
+
+      markers: markers,
+      lines: lines
+    })
+  </script>
+</body>
+</html>
