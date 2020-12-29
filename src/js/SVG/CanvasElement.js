@@ -57,6 +57,13 @@ class SVGCanvasElement extends SVGElement {
     return el
   }
 
+  createLine(config, style, group) {
+    const el = new SVGShapeElement('line', config, style) // extends SVGShapeElement
+
+    this.add(el, group)
+    return el
+  }
+
   createImage(config, style, group) {
     const el = new SVGImageElement(config, style) // extends SVGShapeElement
 
@@ -71,8 +78,12 @@ class SVGCanvasElement extends SVGElement {
     return el
   }
 
-  createGroup(parentGroup) {
+  createGroup(parentGroup, id) {
     const el = new SVGElement('g')
+
+    if (id) {
+      el.node.id = id
+    }
 
     if (parentGroup) {
       parentGroup.node.appendChild(el.node)

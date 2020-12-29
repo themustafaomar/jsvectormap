@@ -12,9 +12,35 @@ export default {
   zoomStep: 1.5,
   bindTouchEvents: true,
 
-	/**
-	 * Markers options
-	 */
+
+
+
+  /**
+   * Lines options
+   */
+  lineStyle: {
+    initial: {
+      stroke: '#808080',
+      strokeWidth: 1,
+      strokeLinecap: 'round',
+    },
+    hover: {
+      stroke: '#A9A9A9',
+      cursor: 'pointer',
+      strokeWidth: 3
+    },
+    selected: {
+      stroke: '#696969'
+    },
+    selectedHover: {}
+  },
+
+
+
+
+  /**
+   * Markers options
+   */
   markersSelectable: false,
   markersSelectableOne: false,
   markerStyle: {  // Marker style
@@ -55,9 +81,9 @@ export default {
 
 
 
-	/**
-	 * Region style
-	 */
+  /**
+   * Region style
+   */
   regionsSelectable: false,
   regionsSelectableOne: false,
   regionStyle: { // Region style

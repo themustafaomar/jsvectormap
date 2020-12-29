@@ -35,6 +35,10 @@ export default function applyTransform() {
     this.repositionMarkers()
   }
 
+  if (this.lines) {
+    this.repositionLines()
+  }
+
   this.repositionLabels()
 
 }
