@@ -1,7 +1,11 @@
 import Util from '../Util/Util'
 import Line from '../Line'
 
-export default function createLines(lines, markers) {
+function createLineUid(from, to) {
+  return `${from.toLowerCase()}:to:${to.toLowerCase()}`
+}
+
+export default function createLines(lines, markers, isRecentlyCreated) {
   let line, point1 = false, point2 = false
 
   // Create group for holding lines
@@ -10,21 +14,25 @@ export default function createLines(lines, markers) {
   this.linesGroup = this.linesGroup || this.canvas.createGroup(null, 'lines-group')
 
   for (let index in lines) {
+    const lineConfig = lines[index]
+
     for (let mindex in markers) {
-      if (markers[mindex].name === lines[index].from) {
+      if (markers[mindex].name === lineConfig.from) {
         point1 = this.getMarkerPosition(markers[mindex])
       }
-      if (markers[mindex].name === lines[index].to) {
+
+      if (markers[mindex].name === lineConfig.to) {
         point2 = this.getMarkerPosition(markers[mindex])
       }
     }
+
     if (point1 !== false && point2 !== false) {
       line = new Line({
         index: index,
         map: this,
         // Merge the lineStyle object with the line config style
         style: Util.merge(this.params.lineStyle, {
-          initial: lines[index].style || {}
+          initial: lineConfig.style || {}
         }),
         x1: point1.x,
         y1: point1.y,
@@ -33,8 +41,18 @@ export default function createLines(lines, markers) {
         group: this.linesGroup,
       })
 
-      this.lines[index] = {
-        element: line, config: lines[index]
+      // Prevent line duplication elements in the DOM
+      if (isRecentlyCreated) {
+        Object.keys(this.lines).forEach(key => {
+          if (key === createLineUid(lines[0].from, lines[0].to)) {
+            this.lines[key].element.remove()
+          }
+        })
+      }
+
+      // Register lines with unique keys
+      this.lines[createLineUid(lineConfig.from, lineConfig.to)] = {
+        element: line, config: lineConfig
       }
     }
   }

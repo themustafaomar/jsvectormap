@@ -219,6 +219,11 @@ class Map {
     })
   }
 
+  // Create line
+  addLine(from, to, style = {}) {
+    this.createLines([{ from, to, style }], this.params.markers, true)
+  }
+
   // Reset map
   reset() {
     for (let key in this.series) {

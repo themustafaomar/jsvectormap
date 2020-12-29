@@ -22,34 +22,32 @@
       class="jsvmap-container"
       style="height: 700px;margin: auto">
     </div>
+    <div style="text-align: center;">
+      <button id="add-line">Add line</button>
+    </div>
   </div>
   <script>
-    var markers = [{
-        name: 'TLV',
-        coords: [32.0055, 34.8854]
-      },
-      {
-        name: 'ZRH',
-        coords: [47.4612, 8.5535]
-      },
-      {
-        name: 'IAD',
-        coords: [38.9531, -77.4565]
-      },
-      {
-        name: 'STL',
-        coords: [38.7499, -90.3748]
-      },
-    ];
-    var lines = [
-      { from: 'TLV', to: 'ZRH', style: { stroke: 'black', strokeWidth: 2} },
-      { from: 'ZRH', to: 'IAD', style: { stroke: 'black', strokeWidth: 2} },
-      { from: 'IAD', to: 'STL', style: { stroke: 'gray', strokeWidth: 2 } }
-    ];
+    var markers = [
+      { name: 'Russia', coords: [61.5240, 105.3188] },
+      { name: 'Egypt', coords: [26.8206, 30.8025] },
+      { name: 'Greenland', coords: [71.7069, -42.6043], offset: [2, 10] },
+      { name: 'Canada', coords: [56, -106], offset: [-7, 12] },
+    ]
 
-    var map = new JsVectorMap({
+    var lines = [
+      { from: 'Russia', to: 'Egypt', style: { stroke: '#abb0b7', strokeWidth: 1.5 } },
+      { from: 'Canada', to: 'Russia', style: { stroke: '#abb0b7', strokeWidth: 1.5 } },
+    ]
+
+    new jsVectorMap({
       map: 'world',
-      selector: '#map',
+      selector: document.querySelector('#map'),
+
+      onLoaded(map) {
+        document.querySelector('#add-line').addEventListener('click', () => {
+          map.addLine('Canada', 'Greenland', {})
+        })
+      },
 
       // -------- Labels --------
       labels: {
@@ -57,11 +55,30 @@
           render: function(index) {
             return markers[index].name
           },
+          offsets: function (index) {
+            return markers[index].offset || [0, 0]
+          }
         },
       },
 
+      // -------- Marker and label style --------
       markers: markers,
-      lines: lines
+      lines: lines,
+      markerStyle: {
+        initial: {
+          r: 6,
+          fill: '#1266f1',
+          stroke: '#fff',
+          strokeWidth: 3,
+        }
+      },
+      markerLabelStyle: {
+        initial: {
+          fontSize: 13,
+          fontWeight: 500,
+          fill: '#35373e',
+        },
+      },
     })
   </script>
 </body>
