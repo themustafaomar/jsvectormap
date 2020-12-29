@@ -1,5 +1,5 @@
 # Lines
-The lines section will provide you with all you need to know about markers.
+The lines section will provide you with all you need to know about lines.
 
 <br>
 
@@ -22,7 +22,7 @@ const map = new jsVectorMap({
 ```
 
 
-## Control marker style.
+## Control line style.
 You may also want to control the the initial and hover styles.
 
 Notice: each style property in initial object can be added to hover and selected objects as well.

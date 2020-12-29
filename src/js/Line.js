@@ -6,32 +6,19 @@ import MapObject from './MapObject'
  * ------------------------------------------------------------------------
  */
 class Line extends MapObject {
-  constructor({ index, style, label, labelsGroup, x1, y1, x2, y2, map, isRecentlyCreated }) {
+  constructor({ index, map, style, x1, y1, x2, y2, group }) {
 
     super()
 
-    var labelText
+    // Actually, I don't remember why we're doing this, tested it many times it has no effect
+    // Currently it's commented until something goes wrong.
+    // if (this.shape) {
+    //   this.shape.remove()
+    // }
 
-    this.map = map
-    this.config = arguments[0]
+    this.shape = map.canvas.createLine({ x1, y1, x2, y2, 'data-index': index, stroke: "black" }, style, group)
 
-    this.createShape()
-  }
-
-  createShape() {
-    if (this.shape) {
-      this.shape.remove()
-    }
-
-    this.shape = this.config.map.canvas.createLine({
-      x1: this.config.x1,
-      y1: this.config.y1,
-      x2: this.config.x2,
-      y2: this.config.y2,
-      stroke: "black"
-    }, this.config.style, this.config.group)
-
-    this.shape.addClass('jsvmap-line jsvmap-element')
+    this.shape.addClass('jsvmap-line')
   }
 }
 

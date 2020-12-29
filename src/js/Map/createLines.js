@@ -4,11 +4,10 @@ import Line from '../Line'
 export default function createLines(lines, markers) {
   let line, point1 = false, point2 = false
 
-  // Create groups for holding lines and line labels
-  // we check if linesGroup is existed or not becuase we may add lines after the map has loaded
+  // Create group for holding lines
+  // we're checking if `linesGroup` exists or not becuase we may add lines after the map has loaded
   // so we will append the futured lines to this group as well.
-  this.linesGroup = this.linesGroup || this.canvas.createGroup()
-  this.lineLabelsGroup = this.lineLabelsGroup || this.canvas.createGroup()
+  this.linesGroup = this.linesGroup || this.canvas.createGroup(null, 'lines-group')
 
   for (let index in lines) {
     for (let mindex in markers) {
@@ -27,8 +26,6 @@ export default function createLines(lines, markers) {
         style: Util.merge(this.params.lineStyle, {
           initial: lines[index].style || {}
         }),
-        label: this.params.labels && this.params.labels.lines,
-        labelsGroup: this.lineLabelsGroup,
         x1: point1.x,
         y1: point1.y,
         x2: point2.x,
