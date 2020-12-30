@@ -1,7 +1,6 @@
 import Util from '../Util/Util'
 
 export default function createTooltip() {
-
   const map = this, tooltip = Util.createEl('div', 'jsvmap-tooltip')
 
   this.tooltip = Util.$(document.body.appendChild(tooltip))
@@ -9,19 +8,34 @@ export default function createTooltip() {
   this.container.on('mousemove', event => {
 
     if (map.tooltip.selector.style.display === 'block') {
+      const container = this.container.selector
+      const space = 5 // Space between the cursor and tooltip element
 
-      let left = event.pageX - 10 - map.tooltip.width() + 'px',
-          top = event.pageY - 10 - map.tooltip.height() + 'px'
+      // Tooltip
+      const { height, width } = tooltip.getBoundingClientRect()
+      const topIsPassed = event.pageY <= (container.offsetTop + height + space)
+      let top = event.pageY - height - space
+      let left = event.pageX - width - space
 
-      if (left < 5) {
-        left = event.pageX + 15
+      // Ensure the tooltip will never cross outside the canvas area(map)
+      if (topIsPassed) { // Top:
+        top += height + space
+
+        // The cursor is a bit larger from left side
+        left -= space * 2
       }
-      if (left < 5) {
-        top = event.pageY + 15
+
+      if (event.pageX < (container.offsetLeft + width + space)) { // Left:
+        left = event.pageX + space + 2
+
+        if (topIsPassed) {
+          left += space * 2
+        }
       }
 
       this.tooltip.css({
-        left, top
+        top: `${top}px`,
+        left: `${left}px`,
       })
     }
   })
