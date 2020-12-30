@@ -3,7 +3,7 @@ The lines section will provide you with all you need to know about lines.
 
 <br>
 
-**markers**: `Array`
+**lines**: `Array`
 
 **Default**: `undefined`
 
@@ -16,7 +16,7 @@ const map = new jsVectorMap({
     { name: 'Bar', coords: [35.8617, 104.1954] }
   ]
   lines: [
-    { from: 'Foo', to: 'Bar'}
+    { from: 'Foo', to: 'Bar', style: { stroke: 'red', strokeWidth: 1.5 } }
   ]
 })
 ```
