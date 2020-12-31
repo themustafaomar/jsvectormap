@@ -43,92 +43,85 @@ class Map {
     this.baseTransY = 0
     this.regions = {}
 
-    // When working with Vue and create an instance of JsVectorMap before the Vue instance,
-    // the map doesn't work, it sounds a little bit weird
-    // but when DOM loaded it works..
-    window.addEventListener('DOMContentLoaded', () => {
+    // `document` is already ready, just initialise now
+    if (window.document.readyState !== 'loading') {
+      this.init(options.selector)
+    } else {
+      // Wait until `document` is ready
+      window.addEventListener('DOMContentLoaded', this.init.bind(
+        this, options.selector
+      ))
+    }
+  }
 
-      this.container = Util.$(options.selector).attr('class', 'jsvmap-container')
+  // Initialize the map
+  init(selector) {
+    // @TODO: We can get the selector from params `this.params.selector` but unfortunately
+    // when passing an element to jsVectorMap constructor, the DOM element doesn't get merged
+    // with defaults during merging the options so we need to get the selector directly from the options.
+    this.container = Util.$(options.selector).attr('class', 'jsvmap-container')
 
-      this.canvas = new SVGCanvasElement(
-        this.container, this.width, this.height
+    this.canvas = new SVGCanvasElement(
+      this.container, this.width, this.height
+    )
+   // Set the map's background color
+    this.setBackgroundColor(this.params.backgroundColor)
+   // Handle the container
+    this.handleContainerEvents()
+   // Create regions/markers, then handle events for both
+    this.createRegions()
+   // Update size
+    this.updateSize()
+   // Create lines
+    this.createLines(this.params.lines || {}, this.params.markers || {})
+   // Create markers
+    this.createMarkers(this.params.markers || {})
+   // Create toolip
+    if (this.params.showTooltip) {
+      this.createTooltip()
+    }
+   // Create zoom buttons if zoomButtons is set to true
+    if (this.params.zoomButtons) {
+      this.handleZoomButtons()
+    }
+   // Set selected regions if passed
+    if (this.params.selectedRegions) {
+      this.setSelected('regions', this.params.selectedRegions)
+    }
+   // Set selected regions if passed
+    if (this.params.selectedMarkers) {
+      this.setSelected('markers', this.params.selectedMarkers)
+    }
+   // Set focus on a spcific region
+    if (this.params.focusOn) {
+      this.setFocus(this.params.focusOn)
+    }
+   // Bind touch events if true
+    if (this.params.bindTouchEvents) {
+      if (('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch)) {
+        this.bindContainerTouchEvents()
+      }
+    }
+   // Handle regions/markers events
+    this.handleElementEvents()
+   // Position labels
+    this.repositionLabels()
+   // Handle legends
+    this.container.append(
+      this.legendHorizontal = Util.createEl(
+        'div', 'jsvmap-series-container jsvmap-series-h'
       )
-
-      // Set the map's background color
-      this.setBackgroundColor(this.params.backgroundColor)
-
-      // Handle the container
-      this.handleContainerEvents()
-
-      // Create regions/markers, then handle events for both
-      this.createRegions()
-
-      // Update size
-      this.updateSize()
-
-      // Create lines
-      this.createLines(this.params.lines || {}, this.params.markers || {})
-
-      // Create markers
-      this.createMarkers(this.params.markers || {})
-
-      // Create toolip
-      if (this.params.showTooltip) {
-        this.createTooltip()
-      }
-
-      // Create zoom buttons if zoomButtons is set to true
-      if (this.params.zoomButtons) {
-        this.handleZoomButtons()
-      }
-
-      // Set selected regions if passed
-      if (this.params.selectedRegions) {
-        this.setSelected('regions', this.params.selectedRegions)
-      }
-
-      // Set selected regions if passed
-      if (this.params.selectedMarkers) {
-        this.setSelected('markers', this.params.selectedMarkers)
-      }
-
-      // Set focus on a spcific region
-      if (this.params.focusOn) {
-        this.setFocus(this.params.focusOn)
-      }
-
-      // Bind touch events if true
-      if (this.params.bindTouchEvents) {
-        if (('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch)) {
-          this.bindContainerTouchEvents()
-        }
-      }
-
-      // Handle regions/markers events
-      this.handleElementEvents()
-
-      // Position labels
-      this.repositionLabels()
-
-      // Handle legends
-      this.container.append(
-        this.legendHorizontal = Util.createEl(
-          'div', 'jsvmap-series-container jsvmap-series-h'
-        )
-      ).append(
-        this.legendVertical = Util.createEl(
-          'div', 'jsvmap-series-container jsvmap-series-v'
-        )
+    ).append(
+      this.legendVertical = Util.createEl(
+        'div', 'jsvmap-series-container jsvmap-series-v'
       )
-
-      // Create series if passed
-      if (this.params.series) {
-        this.createSeries()
-      }
-
-      // Fire loaded event
-      this.emit('map:loaded', [this])
-    })
+    )
+    // Create series if passed
+    if (this.params.series) {
+      this.createSeries()
+    }
+    // Fire loaded event
+    this.emit('map:loaded', [this])
   }
 
   // Public
