@@ -1,3 +1,8 @@
+// Class prefix
+$classPrefix: jvm- !default;
+$border-color: #e5e7eb;
+$box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
 // Tooltip
 $tooltip-shadow: 1px 2px 12px rgba(0, 0, 0, .2) !default;
 $tooltip-font-family: sans-serif, Verdana !default;
@@ -18,28 +23,28 @@ $series-container-right: 15px !default;
 
 // Legends
 $legend-background-color: #FFF !default;
-$legend-border-color: #e6e6e6 !default;
-$legend-radius: 3px !default;
-$legend-margin-left: 15px !default;
-$legend-padding: 0.5rem !default;
-$legend-title-padding-bottom: 3px !default;
-$legend-title-margin-bottom: 7px !default;
+$legend-radius: 0.25rem !default;
+$legend-margin-left: .75rem !default;
+$legend-padding: 0.6rem !default;
+
+// Legend title
+$legend-title-padding-bottom: 0.5rem !default;
+$legend-title-margin-bottom: 0.575rem !default;
 
 // Legend ticks
-$legend-tick-margin-top: 10px !default;
-$legend-tick-sample-margin: 4px auto !default;
+$legend-tick-margin-top: .575rem !default;
 $legend-tick-sample-radius: 4px !default;
-$legend-tick-sample-height: 20px !default;
-$legend-tick-sample-width: 20px !default;
+$legend-tick-sample-height: 16px !default;
+$legend-tick-sample-width: 16px !default;
 $legend-tick-text-font-size: 12px !default;
 $legend-tick-text-margin-top: 3px !default;
 
 // Global resets
 svg { touch-action: none }
-image, text, .jsvmap-zoomin, .jsvmap-zoomout { user-select: none }
+image, text, .#{$classPrefix}zoomin, .#{$classPrefix}zoomout { user-select: none }
 
 // jsVectorMap container
-.jsvmap-container {
+.#{$classPrefix}container {
   touch-action: none;
   position: relative;
   overflow: hidden;
@@ -48,7 +53,7 @@ image, text, .jsvmap-zoomin, .jsvmap-zoomout { user-select: none }
 }
 
 // Tooltip
-.jsvmap-tooltip {
+.#{$classPrefix}tooltip {
   border-radius: $tooltip-radius;
   background-color: $tooltip-bg-color;
   font-family: $tooltip-font-family;
@@ -61,7 +66,7 @@ image, text, .jsvmap-zoomin, .jsvmap-zoomout { user-select: none }
 }
 
 // Zoom buttons
-.jsvmap-zoom-btn {
+.#{$classPrefix}zoom-btn {
   border-radius: $zoom-btns-radius;
   background-color: $zoom-btns-bg-color;
   padding: $zoom-btns-padding;
@@ -74,60 +79,67 @@ image, text, .jsvmap-zoomin, .jsvmap-zoomout { user-select: none }
   width: 15px;
   left: 10px;
 
-  &.jsvmap-zoomout {
+  &.#{$classPrefix}zoomout {
     top: 30px
   }
 
-  &.jsvmap-zoomin {
+  &.#{$classPrefix}zoomin {
     top: 10px
   }
 }
 
 // Series
-.jsvmap-series-container {
+.#{$classPrefix}series-container {
   right: $series-container-right;
   position: absolute;
 
   // horizontal
-  &.jsvmap-series-h { bottom: 15px }
+  &.#{$classPrefix}series-h { bottom: 15px }
 
   // Vertical
-  &.jsvmap-series-v { top: 15px }
+  &.#{$classPrefix}series-v { top: 15px }
 
   // Legends
-  .jsvmap-legend {
+  .#{$classPrefix}legend {
     background-color: $legend-background-color;
-    border: 1px solid $legend-border-color;
+    border: 1px solid $border-color;
     margin-left: $legend-margin-left;
     border-radius: $legend-radius;
+    border-color: $border-color;
     padding: $legend-padding;
+    box-shadow: $box-shadow;
     float: left;
 
-    .jsvmap-legend-title {
-      border-bottom: 1px solid $legend-border-color;
+    .#{$classPrefix}legend-title {
+      line-height: 1;
+      border-bottom: 1px solid $border-color;
       padding-bottom: $legend-title-padding-bottom;
       margin-bottom: $legend-title-margin-bottom;
-      text-align: left
+      text-align: left;
     }
 
-    .jsvmap-legend-inner {
+    .#{$classPrefix}legend-inner {
       overflow: hidden;
 
-      .jsvmap-legend-tick {
-        margin-top: $legend-tick-margin-top;
+      .#{$classPrefix}legend-tick {
+        overflow: hidden;
         min-width: 40px;
-
-        .jsvmap-legend-tick-sample {
-          border-radius: $legend-tick-sample-radius;
-          margin: $legend-tick-sample-margin;
-          height: $legend-tick-sample-height;
-          width: $legend-tick-sample-width;
+        &:not(:first-child) {
+          margin-top: $legend-tick-margin-top;
         }
 
-        .jsvmap-legend-tick-text {
-          margin-top: $legend-tick-text-margin-top;
+        .#{$classPrefix}legend-tick-sample {
+          border-radius: $legend-tick-sample-radius;
+          margin-right: .65rem;
+          height: $legend-tick-sample-height;
+          width: $legend-tick-sample-width;
+          float: left;
+        }
+
+        .#{$classPrefix}legend-tick-text {
           font-size: $legend-tick-text-font-size;
           text-align: center;
+          float: left;
         }
       }
     }

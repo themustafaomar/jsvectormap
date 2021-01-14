@@ -90,13 +90,13 @@ If you are new to Node, consider doing the following (Linux) to get started quic
 git clone https://github.com/themustafaomar/jsvectormap.git && cd jsvectormap
 
 # Start up the live web server
-npm run watch
+npm run dev
 
 # Make your changes and view them in your browser. By default, it will answer on port 9000
 your-browser http://localhost:9000/
 
 # Perform a build to view your changes on the samples directory
-npm run-script build && npm run watch
+npm run-script build && npm run dev
 your-browser http://localhost:9000/samples/
 ```
 
@@ -104,7 +104,7 @@ your-browser http://localhost:9000/samples/
 * If you need to expose the webpack runtime (such as if you are developing inside a container), you will need to modify `webpack.config.js`
   * Set [devServer.host](https://webpack.js.org/configuration/dev-server/#devserverhost) to the IP address you wish to expose (`0.0.0.0` for all addresses)
   * Set [devServer.allowedHosts](https://webpack.js.org/configuration/dev-server/#devserverallowedhosts) or [devServer.disableHostCheck](https://webpack.js.org/configuration/dev-server/#devserverdisablehostcheck) to permit access
-* When using `npm run watch`, changes made on the filesystem are immediately available on the `index.html` page. This is not the case for the samples directory.
+* When using `npm run dev`, changes made on the filesystem are immediately available on the `index.html` page. This is not the case for the samples directory.
 
 
 ## License

@@ -6,7 +6,7 @@ import scss from 'rollup-plugin-scss'
 import postcss from 'postcss'
 
 const input = 'src/js/JsVectorMap.js'
-const name = 'JsVectorMap'
+const name = 'jsVectorMap'
 
 function scssOptions(filename, outputStyle = 'expanded') {
   return {
@@ -27,9 +27,7 @@ module.exports = [
     plugins: [
       resolve(),
       babel({ exclude: 'node_modules/**' }),
-      scss(
-        scssOptions('jsvectormap')
-      )
+      scss(scssOptions('jsvectormap'))
     ]
   },
   {
@@ -43,9 +41,7 @@ module.exports = [
     plugins: [
       resolve(),
       babel({ exclude: 'node_modules/**' }),
-      scss(
-        scssOptions('jsvectormap.min', 'compressed')
-      )
+      scss(scssOptions('jsvectormap.min', 'compressed'))
     ]
   }
 ]

@@ -10,7 +10,7 @@
     "email": "themustafaomar@gmail.com"
   },
   "scripts": {
-    "watch": "webpack-dev-server --config webpack.config.js --mode development --watch --open",
+    "dev": "webpack-dev-server --config webpack.config.js --mode development --watch --open",
     "build": "rollup -c"
   },
   "keywords": [
@@ -23,7 +23,6 @@
   "files": [
     "dist",
     "src",
-    "assets",
     "samples",
     "LICENSE"
   ],
@@ -34,14 +33,14 @@
   "bugs": {
     "url": "https://github.com/themustafaomar/jsvectormap/issues"
   },
-  "homepage": "https://github.com/themustafaomar/jsvectormap#readme",
+  "homepage": "https://themustafaomar.com/open-source/jsvectormap",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.12.7",
-    "@babel/preset-env": "^7.12.7",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
     "@rollup/plugin-node-resolve": "^7.1.3",
     "autoprefixer": "^9.8.6",
-    "babel-loader": "^8.2.1",
+    "babel-loader": "^8.2.2",
     "css-loader": "^4.3.0",
     "node-sass": "^4.14.1",
     "postcss": "^7.0.35",
@@ -49,11 +48,11 @@
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-scss": "^2.6.1",
     "rollup-plugin-terser": "^5.3.1",
-    "sass-loader": "^10.1.0",
+    "sass-loader": "^10.1.1",
     "style-loader": "^1.3.0",
-    "webpack": "^4.44.2",
+    "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {},
   "browserslist": {
