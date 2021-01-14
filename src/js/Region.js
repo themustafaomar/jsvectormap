@@ -1,24 +1,23 @@
-import MapObject from './MapObject'
+import MapElement from './MapElement'
 
 /**
  * ------------------------------------------------------------------------
  * Class Definition
  * ------------------------------------------------------------------------
  */
-class Region extends MapObject {
+class Region extends MapElement {
   constructor({ map, code, path, style, label, labelStyle, labelsGroup }) {
-
     super()
 
     this.config = arguments[0]
     this.canvas = map.canvas
     this.map = map
 
-    this.shape = this.canvas.createPath({ 'data-code': code, d: path }, style, this.canvas.rootElement)
-    this.shape.addClass('jsvmap-region jsvmap-element')
+    this.shape = this.canvas.createPath({ d: path, dataCode: code }, style)
+    this.shape.addClass('jvm-region jvm-element')
 
     let bbox = this.shape.getBBox(),
-      text = this.getLabelText(code)
+      text = this.getLabelText(code, label)
 
     // If label is passed and render function returns something 
     if (label && text) {
@@ -26,17 +25,16 @@ class Region extends MapObject {
       this.labelX = bbox.x + bbox.width / 2 + offsets[0]
       this.labelY = bbox.y + bbox.height / 2 + offsets[1]
 
-      // SVGTextElement class:: name, properties, node, style, isHovered, isSelected, canvas
       this.label = this.canvas.createText({
         text,
-        "text-anchor": 'middle',
-        "alignment-baseline": 'central',
-        "data-code": code,
+        textAnchor: 'middle',
+        alignmentBaseline: 'central',
+        dataCode: code,
         x: this.labelX,
         y: this.labelY,
       }, labelStyle, labelsGroup)
 
-      this.label.addClass('jsvmap-region jsvmap-element')
+      this.label.addClass('jvm-region jvm-element')
     }
   }
 
@@ -48,7 +46,6 @@ class Region extends MapObject {
       })
     }
   }
-
 }
 
 export default Region

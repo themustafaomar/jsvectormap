@@ -5,24 +5,26 @@ function createLineUid(from, to) {
   return `${from.toLowerCase()}:to:${to.toLowerCase()}`
 }
 
-export default function createLines(lines, markers, isRecentlyCreated) {
+export default function createLines(lines, markers, isRecentlyCreated = false) {
   let line, point1 = false, point2 = false
 
   // Create group for holding lines
   // we're checking if `linesGroup` exists or not becuase we may add lines after the map has loaded
   // so we will append the futured lines to this group as well.
-  this.linesGroup = this.linesGroup || this.canvas.createGroup(null, 'lines-group')
+  this.linesGroup = this.linesGroup || this.canvas.createGroup('lines-group')
 
   for (let index in lines) {
     const lineConfig = lines[index]
 
     for (let mindex in markers) {
-      if (markers[mindex].name === lineConfig.from) {
-        point1 = this.getMarkerPosition(markers[mindex])
+      const markerConfig = isRecentlyCreated ? markers[mindex].config : markers[mindex]
+
+      if (markerConfig.name === lineConfig.from) {
+        point1 = this.getMarkerPosition(markerConfig)
       }
 
-      if (markers[mindex].name === lineConfig.to) {
-        point2 = this.getMarkerPosition(markers[mindex])
+      if (markerConfig.name === lineConfig.to) {
+        point2 = this.getMarkerPosition(markerConfig)
       }
     }
 
@@ -31,7 +33,7 @@ export default function createLines(lines, markers, isRecentlyCreated) {
         index: index,
         map: this,
         // Merge the lineStyle object with the line config style
-        style: Util.merge(this.params.lineStyle, {
+        style: Util.mergeDeeply({ initial: this.params.lineStyle }, {
           initial: lineConfig.style || {}
         }),
         x1: point1.x,

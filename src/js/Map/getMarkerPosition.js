@@ -1,7 +1,6 @@
 import Map from '../Map'
 
 export default function getMarkerPosition({ coords }) {
-
   if (Map.maps[this.params.map].projection) {
     return this.coordsToPoint(...coords)
   }

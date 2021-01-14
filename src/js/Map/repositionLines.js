@@ -1,14 +1,16 @@
-
 export default function repositionLines() {
   let point1 = false, point2 = false
 
   for (let index in this.lines) {
     for (let mindex in this.markers) {
-      if (this.markers[mindex].config.name === this.lines[index].config.from) {
-        point1 = this.getMarkerPosition(this.markers[mindex].config)
+      const marker = this.markers[mindex]
+
+      if (marker.config.name === this.lines[index].config.from) {
+        point1 = this.getMarkerPosition(marker.config)
       }
-      if (this.markers[mindex].config.name === this.lines[index].config.to) {
-        point2 = this.getMarkerPosition(this.markers[mindex].config)
+
+      if (marker.config.name === this.lines[index].config.to) {
+        point2 = this.getMarkerPosition(marker.config)
       }
     }
 

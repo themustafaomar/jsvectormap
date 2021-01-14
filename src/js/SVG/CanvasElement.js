@@ -10,26 +10,24 @@ import SVGImageElement from './ImageElement'
  */
 class SVGCanvasElement extends SVGElement {
   constructor(container) {
+    super('svg') // Create svg element for holding the whole map
 
-    // Create svg element for holding the whole map
-    super('svg')
-
-    this.container = container
+    this._container = container
 
     // Create the defs element
-    this.defsElement = new SVGElement('defs')
-
-    // Append the defs element to the this.node (SVG tag)
-    this.node.appendChild(this.defsElement.node)
+    this._defsElement = new SVGElement('defs')
 
     // Create group element which will hold the paths (regions)
-    this.rootElement = new SVGElement('g')
+    this._rootElement = new SVGElement('g')
+
+    // Append the defs element to the this.node (SVG tag)
+    this.node.appendChild(this._defsElement.node)
 
     // Append the group to this.node (SVG tag)
-    this.node.appendChild(this.rootElement.node)
+    this.node.appendChild(this._rootElement.node)
 
     // Append this.node (SVG tag) to the container
-    this.container.append(this.node)
+    this._container.append(this.node)
   }
 
   setSize(width, height) {
@@ -38,57 +36,54 @@ class SVGCanvasElement extends SVGElement {
   }
 
   applyTransformParams(scale, transX, transY) {
-    this.rootElement.node.setAttribute('transform', `scale(${scale}) translate(${transX}, ${transY})`)
+    this._rootElement.node.setAttribute('transform', `scale(${scale}) translate(${transX}, ${transY})`)
   }
 
-  createPath(config, style, group) {
+  // Create `path` element
+  createPath(config, style) {
     const el = new SVGShapeElement('path', config, style)
 
     el.node.setAttribute('fill-rule', 'evenodd')
 
-    this.add(el, group)
-    return el
+    return this.add(el)
   }
 
+  // Create `circle` element
   createCircle(config, style, group) {
     const el = new SVGShapeElement('circle', config, style)
 
-    this.add(el, group)
-    return el
+    return this.add(el, group)
   }
 
+  // Create `line` element
   createLine(config, style, group) {
-    const el = new SVGShapeElement('line', config, style) // extends SVGShapeElement
+    const el = new SVGShapeElement('line', config, style)
 
-    this.add(el, group)
-    return el
+    return this.add(el, group)
   }
 
+  // Create `text` element
+  createText(config, style, group) {
+    const el = new SVGTextElement(config, style) // extends SVGShapeElement
+
+    return this.add(el, group)
+  }
+
+  // Create `image` element
   createImage(config, style, group) {
     const el = new SVGImageElement(config, style) // extends SVGShapeElement
 
-    this.add(el, group)
-    return el
+    return this.add(el, group)
   }
 
-  createText(config, style, group) {
-    const el = new SVGTextElement(config, style) // extends SVGShapeElement
-  
-    this.add(el, group)
-    return el
-  }
-
-  createGroup(parentGroup, id) {
+  // Create `g` element
+  createGroup(id) {
     const el = new SVGElement('g')
+
+    this.node.appendChild(el.node)
 
     if (id) {
       el.node.id = id
-    }
-
-    if (parentGroup) {
-      parentGroup.node.appendChild(el.node)
-    } else {
-      this.node.appendChild(el.node)
     }
 
     el.canvas = this
@@ -98,13 +93,14 @@ class SVGCanvasElement extends SVGElement {
 
   // Add some element to a spcific group or the root element if the group isn't given
   add(element, group) {
-    group = group || this.rootElement
+    group = group || this._rootElement
 
     group.node.appendChild(element.node)
 
-    element.canvas = this
-  }
+    // element.canvas = this
 
+    return element
+  }
 }
 
 export default SVGCanvasElement

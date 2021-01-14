@@ -6,13 +6,12 @@ import SVGShapeElement from './ShapeElement'
  * ------------------------------------------------------------------------
  */
 class SVGTextElement extends SVGShapeElement {
-
   constructor(config, style) {
     super('text', config, style)
   }
 
-  applyAttr(attr, v) {
-    attr === 'text' ? this.node.textContent = v : super.applyAttr(attr, v)
+  applyAttr(attr, value) {
+    attr === 'text' ? this.node.textContent = value : super.applyAttr(attr, value)
   }
 }
 

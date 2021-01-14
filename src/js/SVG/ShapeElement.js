@@ -7,65 +7,48 @@ import SVGElement from './Element'
  * ------------------------------------------------------------------------
  */
 class SVGShapeElement extends SVGElement {
-  constructor(name, config, style) {
-
+  constructor(name, config, style = {}) {
     super(name, config)
 
-    this.style = style || {}
-    this.style.current = this.style.current || {}
     this.isHovered = false
     this.isSelected = false
+    this.style = style
+    this.style.current = {}
 
     this.updateStyle()
   }
 
   setStyle(property, value) {
-    let styles = {}
-
-    if (Util.isObject(property)) {
-      styles = property
+    if (Util.isObj(property)) {
+      Util.merge(this.style.current, property)
     } else {
-      styles[property] = value
+      Util.merge(this.style.current, { [property]: value })
     }
-
-    Object.assign(this.style.current, styles)
 
     this.updateStyle()
   }
- 
+
   updateStyle() {
     const attrs = {}
 
-    this.mergeStyles(attrs, this.style.initial)
-    this.mergeStyles(attrs, this.style.current)
+    Util.merge(attrs, this.style.initial)
+
+    Util.merge(attrs, this.style.current)
 
     if (this.isHovered) {
-      this.mergeStyles(attrs, this.style.hover)
+      Util.merge(attrs, this.style.hover)
     }
 
     if (this.isSelected) {
-      this.mergeStyles(attrs, this.style.selected)
+      Util.merge(attrs, this.style.selected)
 
       if (this.isHovered) {
-        this.mergeStyles(attrs, this.style.selectedHover)
+        Util.merge(attrs, this.style.selectedHover)
       }
     }
 
     this.set(attrs)
   }
-
-  mergeStyles(styles, newStyles) {
-    newStyles = newStyles || {}
-
-    for (let key in newStyles) {
-      if (newStyles[key] === null) {
-        delete styles[key]
-      } else {
-        styles[key] = newStyles[key]
-      }
-    }
-  }
-
 }
 
 export default SVGShapeElement

@@ -1,7 +1,7 @@
 import Util from '../Util/Util'
 
 export default function handleContainerEvents() {
-  var mouseDown = false, oldPageX, oldPageY, map = this
+  let mouseDown = false, oldPageX, oldPageY, map = this
 
   if (this.params.draggable) {
     this.container
@@ -27,22 +27,22 @@ export default function handleContainerEvents() {
   }
 
   if (this.params.zoomOnScroll) {
-    this.container.on('wheel', (event) => {
-      var deltaY = 0
-
-			event.preventDefault()
+    this.container.on('wheel', event => {
+      let deltaY = 0
 
       deltaY = ((event.deltaY || -event.wheelDelta || event.detail) >> 10) || 1
       deltaY = deltaY * 75
 
-      var rect = this.container.selector.getBoundingClientRect(),
+      const rect = this.container.selector.getBoundingClientRect(),
         offsetX = event.pageX - rect.left - window.pageXOffset,
         offsetY = event.pageY - rect.top - window.pageYOffset,
         zoomStep = Math.pow(1 + (map.params.zoomOnScrollSpeed / 1000), -1.5 * deltaY)
 
       map.tooltip.hide()
       map.setScale(map.scale * zoomStep, offsetX, offsetY)
-      event.preventDefault()
+    }, {
+      // https://www.chromestatus.com/feature/5745543795965952
+      passive: true
     })
   }
 }

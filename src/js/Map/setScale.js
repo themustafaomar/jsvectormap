@@ -1,5 +1,5 @@
 export default function setScale(scale, anchorX, anchorY, isCentered, animate) {
-  var zoomStep,
+  let zoomStep,
     interval,
     i = 0,
     count = Math.abs(Math.round((scale - this.scale) * 60 / Math.max(scale, this.scale))),
@@ -60,5 +60,4 @@ export default function setScale(scale, anchorX, anchorY, isCentered, animate) {
       this.scale, this.transX, this.transY
     ])
   }
-
 }

@@ -1,4 +1,3 @@
-
 let eventRegistry = {}
 let eventUid = 1
 
@@ -8,13 +7,13 @@ let eventUid = 1
  * ------------------------------------------------------------------------
  */
 const EventHandler = {
-  on(element, event, handler) {
+  on(element, event, handler, options = {}) {
     eventRegistry[`jvm:${event}::${eventUid++}`] = {
       selector: element,
       handler,
     }
 
-    element.addEventListener(event, handler)
+    element.addEventListener(event, handler, options)
   },
   off(element, event, handler) {
     const eventType = event.split(':')[1]
