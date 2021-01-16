@@ -36,7 +36,8 @@ export default function handleElementEvents() {
         data.element.hover(true)
 
         if (showTooltip) {
-          map.tooltip.text(data.tooltipText).show()
+          map.tooltip.text(data.tooltipText)
+          map.tooltip.show()
           map.emit(data.event, [map.tooltip, data.code])
         }
       }

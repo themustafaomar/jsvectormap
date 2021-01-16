@@ -18,7 +18,7 @@ class Map {
     // Throw an error if the given map name doesn't match
     // the map that was set in map file
     if (!Map.maps[this.params.map]) {
-      throw new Error('Attempt to use map which was not loaded: ' + options.map)
+      throw new Error(`Attempt to use map which was not loaded: ${options.map}`)
     }
 
     this.mapData = Map.maps[this.params.map]
@@ -141,9 +141,9 @@ class Map {
 
   // Public
 
-  emit(eventValue, args) {
+  emit(eventName, args) {
     for (let event in Events) {
-      if (Events[event] === eventValue && Util.isFunc(this.params[event])) {
+      if (Events[event] === eventName && Util.isFunc(this.params[event])) {
         this.params[event].apply(this, args)
       }
     }
@@ -168,14 +168,14 @@ class Map {
 
   clearSelected(type) {
     this.getSelected(type).forEach(i => {
-      this[type][i].element.deselect()
+      this[type][i].element.select(false)
     })
   }
 
   setSelected(type, keys) {
     keys.forEach(key => {
       if (this[type][key]) {
-        this[type][key].element.select()
+        this[type][key].element.select(true)
       }
     })
   }
@@ -187,7 +187,7 @@ class Map {
 
   clearSelectedRegions() {
     this.getSelected('regions').forEach(code => {
-      this.regions[code].element.deselect()
+      this.regions[code].element.select(false)
     })
   }
 
@@ -198,7 +198,7 @@ class Map {
 
   clearSelectedMarkers() {
     this.getSelected('markers').forEach(index => {
-      this.markers[index].element.deselect()
+      this.markers[index].element.select(false)
     })
   }
 
