@@ -60,9 +60,10 @@ image, text, .#{$classPrefix}zoomin, .#{$classPrefix}zoomout { user-select: none
   font-size: $tooltip-font-size;
   box-shadow: $tooltip-shadow;
   padding: $tooltip-padding;
+  white-space: nowrap;
   position: absolute;
   display: none;
-  color: #FFF
+  color: #FFF;
 }
 
 // Zoom buttons
