@@ -1,5 +1,5 @@
 export default function applyTransform() {
-  var maxTransX, maxTransY, minTransX, minTransY
+  let maxTransX, maxTransY, minTransX, minTransY
 
   if (this.defaultWidth * this.scale <= this.width) {
     maxTransX = (this.width - this.defaultWidth * this.scale) / (2 * this.scale)
@@ -40,5 +40,4 @@ export default function applyTransform() {
   }
 
   this.repositionLabels()
-
 }

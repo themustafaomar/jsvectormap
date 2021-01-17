@@ -7,9 +7,8 @@ import EventHandler from "./EventHandler"
  * This class was designed to handle one single element
  * since we don't need to select more than one element in this plugin
  */
-class JsVMapDOMHandler {
+class DomHandler {
   constructor(selector) {
-
     if ((selector instanceof Element)) {
       this.selector = selector
       return this
@@ -19,9 +18,8 @@ class JsVMapDOMHandler {
     return this
   }
 
-  on(event, handler) {
-    EventHandler.on(this.selector, event, handler)
-
+  on(event, handler, options = {}) {
+    EventHandler.on(this.selector, event, handler, options)
     return this
   }
 
@@ -49,24 +47,27 @@ class JsVMapDOMHandler {
     }
 
     this.selector.textContent = string
-
     return this
   }
 
   attr(attr, value) {
     if (attr && value) {
       this.selector.setAttribute(attr, value)
-
       return this
     }
 
     return this.selector.getAttribute(attr)
   }
 
-  addClass(classes) {
+  addClass(className) {
+    if (this.selector.classList) {
+      this.selector.classList.add(className)
+      return this
+    }
+
     // Support IE9
-    if (this.selector.className.split(" ").indexOf(classes) == -1) {
-      this.selector.className += " " + classes;
+    if (this.selector.className.split(" ").indexOf(className) == -1) {
+      this.selector.className += " " + className;
     }
 
     return this
@@ -94,4 +95,4 @@ class JsVMapDOMHandler {
   }
 }
 
-export default JsVMapDOMHandler
+export default DomHandler

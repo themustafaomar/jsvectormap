@@ -1,37 +1,50 @@
 import Util from '../Util/Util'
 import Marker from '../Marker'
 
-export default function createMarkers(markers, isRecentlyCreated) {
-  let marker, point/* , markers = { ...markers } */
+export default function createMarkers(markers = {}, isRecentlyCreated = false) {
+  let markerConfig, marker, point, uid
 
   // Create groups for holding markers and markers labels
-  // we check if markersGroup is existed or not becuase we may add markers after the map has loaded
-  // so we will append the futured markers to this group as well.
-  this.markersGroup = this.markersGroup || this.canvas.createGroup()
-  this.markerLabelsGroup = this.markerLabelsGroup || this.canvas.createGroup()
+  // We're checking if `markersGroup` exists or not becuase we may add markers after the map has loaded
+  // So we will append the futured markers to this group as well.
+  this.markersGroup = this.markersGroup || this.canvas.createGroup('jvm-markers-group')
+  this.markerLabelsGroup = this.markerLabelsGroup || this.canvas.createGroup('jvm-markers-labels-group')
 
   for (let index in markers) {
+    markerConfig = markers[index]
+    point = this.getMarkerPosition(markerConfig)
+    uid = markerConfig.coords.join(':')
 
-    point = this.getMarkerPosition(markers[index])
+    // We're checking if recently created marker is already exists
+    // If exists we don't need to create it again, so we'll continute
+    // Becuase we may have more than one marker.
+    if (isRecentlyCreated) {
+      if (
+        Util.keys(this.markers).filter(i => this.markers[i]._uid === uid).length
+      ) {
+        continue
+      }
+
+      index = Util.keys(this.markers).length
+    }
 
     if (point !== false) {
       marker = new Marker({
         index,
         map: this,
-        // Merge the markerStyle object with the marker config style
-        style: Util.merge(this.params.markerStyle, { initial: markers[index].style || {} }),
-        label: (this.params.labels && this.params.labels.markers),
+        // Merge the `markerStyle` object with the marker config `style` if presented.
+        style: Util.mergeDeeply(this.params.markerStyle, { initial: markerConfig.style || {} }),
+        label: this.params.labels && this.params.labels.markers,
         labelsGroup: this.markerLabelsGroup,
         cx: point.x,
         cy: point.y,
         group: this.markersGroup,
-        marker: markers[index],
-        // @todo: this may be a little bit complicated :(
-        // When adding a new marker by submitting some button and labels key is existed and has render function
-        // the render function may returns something like that: return markers[index].name;
-        // it will throw an error and the label won't be shown: this was made to show the label
-        // an example for this problem will be in examples directory (addmarkers.html)
-        isRecentlyCreated: isRecentlyCreated ? markers[index] : false,
+        marker: markerConfig,
+        // @TODO: this may be a little bit complicated :(
+        // When adding a new marker by `addMarker` method and labels.markers.render() key exists
+        // the render function may returns something like that: return markers[name].name;
+        // it will throw an error and the label won't be shown: this was created to solve showing the label
+        isRecentlyCreated,
       })
 
       // Check for marker duplication
@@ -42,7 +55,9 @@ export default function createMarkers(markers, isRecentlyCreated) {
       }
 
       this.markers[index] = {
-        element: marker, config: markers[index]
+        _uid: uid,
+        config: markerConfig,
+        element: marker
       }
     }
   }

@@ -12,26 +12,23 @@ import EventHandler from './EventHandler'
  */
 class Map {
   constructor(options = {}) {
-
     // Merge the given options with the default options
-    this.params = Util.merge(Map.defaults, options)
+    this.params = Util.mergeDeeply(Map.defaults, options)
 
     // Throw an error if the given map name doesn't match
     // the map that was set in map file
     if (!Map.maps[this.params.map]) {
-      throw new Error('Attempt to use map which was not loaded: ' + options.map)
+      throw new Error(`Attempt to use map which was not loaded: ${options.map}`)
     }
 
     this.mapData = Map.maps[this.params.map]
 
-    this.regionsData = {}
-    this.regionsColors = {}
-    this.lines = {}
+    this.regions = {}
     this.markers = {}
+    this.lines = {}
 
     this.defaultWidth = this.mapData.width
     this.defaultHeight = this.mapData.height
-
     this.height = 0
     this.width = 0
 
@@ -41,101 +38,112 @@ class Map {
     this.transY = 0
     this.baseTransX = 0
     this.baseTransY = 0
-    this.regions = {}
 
-    // When working with Vue and create an instance of JsVectorMap before the Vue instance,
-    // the map doesn't work, it sounds a little bit weird
-    // but when DOM loaded it works..
-    window.addEventListener('DOMContentLoaded', () => {
+    // `document` is already ready, just initialise now
+    if (window.document.readyState !== 'loading') {
+      this.init(options.selector)
+    } else {
+      // Wait until `document` is ready
+      window.addEventListener('DOMContentLoaded', this.init.bind(
+        this, options.selector
+      ))
+    }
+  }
 
-      this.container = Util.$(options.selector).attr('class', 'jsvmap-container')
+  // Initialize the map
+  init(selector) {
+    // @TODO: We can get the selector from params `this.params.selector` but unfortunately
+    // when passing a DOM element to jsVectorMap constructor, the DOM element doesn't get merged
+    // with defaults during merging the options so we need to get the selector directly from the options.
+    this.container = Util.$(selector).addClass('jvm-container')
 
-      this.canvas = new SVGCanvasElement(
-        this.container, this.width, this.height
-      )
+    this.canvas = new SVGCanvasElement(
+      this.container, this.width, this.height
+    )
 
-      // Set the map's background color
-      this.setBackgroundColor(this.params.backgroundColor)
+    // Set the map's background color
+    this.setBackgroundColor(this.params.backgroundColor)
 
-      // Handle the container
-      this.handleContainerEvents()
+    // Handle the container
+    this.handleContainerEvents()
 
-      // Create regions/markers, then handle events for both
-      this.createRegions()
+    // Create regions/markers, then handle events for both
+    this.createRegions()
 
-      // Update size
-      this.updateSize()
+    // Update size
+    this.updateSize()
 
-      // Create lines
-      this.createLines(this.params.lines || {}, this.params.markers || {})
+    // Create lines
+    this.createLines(this.params.lines || {}, this.params.markers || {})
 
-      // Create markers
-      this.createMarkers(this.params.markers || {})
+    // Create markers
+    this.createMarkers(this.params.markers)
 
-      // Create toolip
-      if (this.params.showTooltip) {
-        this.createTooltip()
+    // Handle regions/markers events
+    this.handleElementEvents()
+
+    // Position labels
+    this.repositionLabels()
+
+    // Create toolip
+    if (this.params.showTooltip) {
+      this.createTooltip()
+    }
+
+    // Create zoom buttons if zoomButtons is set to true
+    if (this.params.zoomButtons) {
+      this.handleZoomButtons()
+    }
+
+    // Set selected regions if passed
+    if (this.params.selectedRegions) {
+      this.setSelected('regions', this.params.selectedRegions)
+    }
+
+    // Set selected regions if passed
+    if (this.params.selectedMarkers) {
+      this.setSelected('markers', this.params.selectedMarkers)
+    }
+
+    // Set focus on a spcific region
+    if (this.params.focusOn) {
+      this.setFocus(this.params.focusOn)
+    }
+
+    // Visualize data
+    if (this.params.visualizeData) {
+      this.visualizeData(this.params.visualizeData)
+    }
+
+    // Bind touch events if true
+    if (this.params.bindTouchEvents) {
+      if (
+        ('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch)
+      ) {
+        this.bindContainerTouchEvents()
       }
+    }
 
-      // Create zoom buttons if zoomButtons is set to true
-      if (this.params.zoomButtons) {
-        this.handleZoomButtons()
-      }
-
-      // Set selected regions if passed
-      if (this.params.selectedRegions) {
-        this.setSelected('regions', this.params.selectedRegions)
-      }
-
-      // Set selected regions if passed
-      if (this.params.selectedMarkers) {
-        this.setSelected('markers', this.params.selectedMarkers)
-      }
-
-      // Set focus on a spcific region
-      if (this.params.focusOn) {
-        this.setFocus(this.params.focusOn)
-      }
-
-      // Bind touch events if true
-      if (this.params.bindTouchEvents) {
-        if (('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch)) {
-          this.bindContainerTouchEvents()
-        }
-      }
-
-      // Handle regions/markers events
-      this.handleElementEvents()
-
-      // Position labels
-      this.repositionLabels()
-
-      // Handle legends
+    // Create series if passed
+    if (this.params.series) {
       this.container.append(
-        this.legendHorizontal = Util.createEl(
-          'div', 'jsvmap-series-container jsvmap-series-h'
-        )
+        this.legendHorizontal = Util.createElement('div', 'jvm-series-container jvm-series-h')
       ).append(
-        this.legendVertical = Util.createEl(
-          'div', 'jsvmap-series-container jsvmap-series-v'
-        )
+        this.legendVertical = Util.createElement('div', 'jvm-series-container jvm-series-v')
       )
 
-      // Create series if passed
-      if (this.params.series) {
-        this.createSeries()
-      }
+      this.createSeries()
+    }
 
-      // Fire loaded event
-      this.emit('map:loaded', [this])
-    })
+    // Fire loaded event
+    this.emit('map:loaded', [this])
   }
 
   // Public
 
-  emit(eventValue, args) {
+  emit(eventName, args) {
     for (let event in Events) {
-      if (Events[event] === eventValue && Util.isFunc(this.params[event])) {
+      if (Events[event] === eventName && Util.isFunc(this.params[event])) {
         this.params[event].apply(this, args)
       }
     }
@@ -143,18 +151,6 @@ class Map {
 
   setBackgroundColor(color) {
     this.container.css({ backgroundColor: color })
-  }
-
-  getInsetForPoint(x, y) {
-    var index, bbox, insets = Map.maps[this.params.map].insets
-
-    for (index = 0; index < insets.length; index++) {
-      bbox = insets[index].bbox
-
-      if (x > bbox[0].x && x < bbox[1].x && y > bbox[0].y && y < bbox[1].y) {
-        return insets[index]
-      }
-    }
   }
 
   // Markers/Regions
@@ -172,14 +168,14 @@ class Map {
 
   clearSelected(type) {
     this.getSelected(type).forEach(i => {
-      this[type][i].element.deselect()
+      this[type][i].element.select(false)
     })
   }
 
   setSelected(type, keys) {
     keys.forEach(key => {
       if (this[type][key]) {
-        this[type][key].element.select()
+        this[type][key].element.select(true)
       }
     })
   }
@@ -191,7 +187,7 @@ class Map {
 
   clearSelectedRegions() {
     this.getSelected('regions').forEach(code => {
-      this.regions[code].element.deselect()
+      this.regions[code].element.select(false)
     })
   }
 
@@ -202,12 +198,12 @@ class Map {
 
   clearSelectedMarkers() {
     this.getSelected('markers').forEach(index => {
-      this.markers[index].element.deselect()
+      this.markers[index].element.select(false)
     })
   }
 
-  addMarker(code, config) {
-    this.createMarkers({ [code]: config }, true)
+  addMarker(config) {
+    this.createMarkers([config], true)
   }
 
   removeMarkers(markers) {
@@ -221,7 +217,7 @@ class Map {
 
   // Create line
   addLine(from, to, style = {}) {
-    this.createLines([{ from, to, style }], this.params.markers, true)
+    this.createLines([{ from, to, style }], this.markers, true)
   }
 
   // Reset map
@@ -264,7 +260,6 @@ class Map {
       })
     }
   }
-
 }
 
 Map.maps = {}

@@ -19,20 +19,9 @@ export default {
    * Lines options
    */
   lineStyle: {
-    initial: {
-      stroke: '#808080',
-      strokeWidth: 1,
-      strokeLinecap: 'round',
-    },
-    hover: {
-      stroke: '#A9A9A9',
-      cursor: 'pointer',
-      strokeWidth: 3
-    },
-    selected: {
-      stroke: '#696969'
-    },
-    selectedHover: {}
+    stroke: '#808080',
+    strokeWidth: 1,
+    strokeLinecap: 'round',
   },
 
 
@@ -46,17 +35,15 @@ export default {
   markerStyle: {  // Marker style
     initial: {
       r: 7,
-      fill: 'black',
+      fill: '#374151',
       fillOpacity: 1,
       stroke: '#FFF',
       strokeWidth: 5,
-      strokeOpacity: .65,
+      strokeOpacity: .5,
     },
     hover: {
       fill: '#3cc0ff',
-      stroke: '#5cc0ff',
       cursor: 'pointer',
-      strokeWidth: 2,
     },
     selected: {
       fill: 'blue'
@@ -69,13 +56,15 @@ export default {
     initial: {
       fontFamily: 'Verdana',
       fontSize: 12,
-      fontWeight: 'bold',
+      fontWeight: 500,
       cursor: 'default',
-      fill: 'black'
+      fill: '#374151'
     },
     hover: {
       cursor: 'pointer'
-    }
+    },
+    selected: {},
+    selectedHover: {}
   },
 
 
@@ -86,20 +75,19 @@ export default {
    */
   regionsSelectable: false,
   regionsSelectableOne: false,
-  regionStyle: { // Region style
+  regionStyle: {
     initial: {
-      fill: '#e3eaef',
+      fill: '#dee2e8',
       fillOpacity: 1,
       stroke: 'none',
       strokeWidth: 0,
-      strokeOpacity: 1
     },
     hover: {
       fillOpacity: .7,
       cursor: 'pointer'
     },
     selected: {
-      fill: '#000'
+      fill: '#9ca3af'
     },
     selectedHover: {}
   },

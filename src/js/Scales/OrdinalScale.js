@@ -6,26 +6,22 @@
  */
 class OrdinalScale {
   constructor(scale) {
-    this.scale = scale
+    this._scale = scale
   }
 
   getValue(value){
-    return this.scale[value]
+    return this._scale[value]
   }
 
   getTicks() {
-    var ticks = []
-  
-    for (let key in this.scale) {
-      ticks.push({
-        label: key,
-        value: this.scale[key]
-      })
+    const ticks = []
+
+    for (let key in this._scale) {
+      ticks.push({ label: key, value: this._scale[key] })
     }
 
     return ticks
   }
-
 }
 
 export default OrdinalScale

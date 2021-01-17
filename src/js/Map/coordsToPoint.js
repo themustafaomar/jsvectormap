@@ -2,7 +2,6 @@ import Map from '../Map'
 import Proj from '../Proj'
 
 export default function coordsToPoint(lat, lng) {
-
   let point,
     proj = Map.maps[this.params.map].projection,
     centralMeridian = proj.centralMeridian,
@@ -22,7 +21,7 @@ export default function coordsToPoint(lat, lng) {
       x: point.x + this.transX * this.scale + inset.left * this.scale,
       y: point.y + this.transY * this.scale + inset.top * this.scale
     }
-    } else {
-     return false
-    }
+  }
+
+  return false
 }

@@ -1,15 +1,15 @@
 import Util from '../Util/Util'
 
 function parseEvent(map, selector, isTooltip) {
-  var el = Util.$(selector),
-    elClassList = el.attr('class'),
-    type = elClassList.indexOf('jsvmap-region') === -1 ? 'marker' : 'region',
-    code = type === 'region' ? el.attr('data-code') : el.attr('data-index'),
-    event = type + ':select'
+  var ele = Util.$(selector),
+    elClassList = ele.attr('class'),
+    type = elClassList.indexOf('jvm-region') === -1 ? 'marker' : 'region',
+    code = type === 'region' ? ele.attr('data-code') : ele.attr('data-index'),
+    event = `${type}:select`
 
   // Init tooltip event
   if (isTooltip) {
-    event = type + '.tooltip:show'
+    event = `${type}.tooltip:show`
   }
 
   return {
@@ -24,34 +24,25 @@ function parseEvent(map, selector, isTooltip) {
 export default function handleElementEvents() {
   const map = this
 
-  // When the mouse is over the region/marker
-  // When the mouse is out the region/marker
-  this.container.delegate('.jsvmap-element', 'mouseover mouseout', function (event) {
-
-    const data = parseEvent(map, this, true),
-      showTooltip = map.params.showTooltip
+  // When the mouse is over the region/marker | When the mouse is out the region/marker
+  this.container.delegate('.jvm-element', 'mouseover mouseout', function (event) {
+    const data = parseEvent(map, this, true)
+    const showTooltip = map.params.showTooltip
 
     if (event.type === 'mouseover') {
       const defaultPrevented = event.defaultPrevented
 
       if (!defaultPrevented) {
-        data.element.hoverStatus(true)
+        data.element.hover(true)
+
+        if (showTooltip) {
+          map.tooltip.text(data.tooltipText)
+          map.tooltip.show()
+          map.emit(data.event, [map.tooltip, data.code])
+        }
       }
-
-      if (showTooltip && !defaultPrevented) {
-        map.tooltip.text(data.tooltipText)
-        map.tooltip.show()
-        map.tooltipHeight = map.tooltip.height()
-        map.tooltipWidth = map.tooltip.width()
-
-        map.emit(data.event, [
-          map.tooltip,
-          data.code,
-        ])
-      }
-
     } else {
-      data.element.hoverStatus(false)
+      data.element.hover(false)
 
       if (showTooltip) {
         map.tooltip.hide()
@@ -60,33 +51,33 @@ export default function handleElementEvents() {
   })
 
   // When the click is released
-  this.container.delegate('.jsvmap-element', 'mouseup', function (event) {
-
+  this.container.delegate('.jvm-element', 'mouseup', function (event) {
     const data = parseEvent(map, this)
 
     if (
-      (data.type === 'region' && map.params.regionsSelectable) ||
-      (data.type === 'marker' && map.params.markersSelectable)
+      data.type === 'region' && map.params.regionsSelectable ||
+      data.type === 'marker' && map.params.markersSelectable &&
+      !event.defaultPrevented
     ) {
-      if (!event.defaultPrevented) {
-        const el = data.element
+      const ele = data.element
 
-        // If regions/markers:SelectableOne option is passed, remove all selected regions/markers
-        if (map.params[data.type + 'sSelectableOne']) {
-          // Clear all selected regions/markers
-          map.clearSelected(data.type + 's')
-        }
-
-        data.element.isSelected ? el.deselect() : el.select()
-
-        map.emit(
-          data.event, [
-            data.code,
-            data.element.isSelected,
-            map.getSelected(data.type + 's')
-          ]
-        )
+      // We're checking if regions/markers|SelectableOne option is presented
+      // clear all selected regions/markers
+      if (map.params[`${data.type}sSelectableOne`]) {
+        map.clearSelected(`${data.type}s`)
       }
+
+      if (data.element.isSelected) {
+        ele.select(false)
+      } else {
+        ele.select(true)
+      }
+
+      map.emit(data.event, [
+        data.code,
+        ele.isSelected,
+        map.getSelected(`${data.type}s`)
+      ])
     }
   })
 }

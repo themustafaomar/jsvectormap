@@ -1,5 +1,5 @@
 /**
- * JsVectorMap
+ * jsVectorMap
  * Copyrights (c) Mustafa Omar https://github.com/themustafaomar
  * Released under the MIT License.
  */
@@ -13,7 +13,7 @@ import '../scss/jsvectormap.scss'
  * Class Definition
  * ------------------------------------------------------------------------
  */
-class JsVectorMap {
+class jsVectorMap {
   constructor(options = {}) {
     if (! options.selector) {
       throw new Error('Selector is not given.')
@@ -23,12 +23,9 @@ class JsVectorMap {
   }
 
   // Public
-
   addMap(name, map) {
-		Map.maps[name] = map
+    Map.maps[name] = map
   }
-
 }
 
-// @TODO: JsVectorMap is deprecated and will be removed soon.
-export default window.jsVectorMap = window.JsVectorMap = JsVectorMap
+export default window.jsVectorMap = jsVectorMap

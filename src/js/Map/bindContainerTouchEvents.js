@@ -8,7 +8,7 @@ export default function bindContainerTouchEvents() {
       centerTouchY,
       lastTouchesLength
 
-  let handleTouchEvent = (e) => {
+  let handleTouchEvent = e => {
     var touches = e.touches,
         offset,
         scale,
@@ -38,7 +38,6 @@ export default function bindContainerTouchEvents() {
       touchY = touches[0].pageY
 
     } else if (touches.length == 2) {
-
       if (lastTouchesLength == 2) {
         scale = Math.sqrt(
           Math.pow(touches[0].pageX - touches[1].pageX, 2) +
@@ -49,7 +48,6 @@ export default function bindContainerTouchEvents() {
 
         map.tooltip.hide()
         e.preventDefault()
-
       } else {
         var rect = map.container.selector.getBoundingClientRect()
 

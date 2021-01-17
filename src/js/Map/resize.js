@@ -1,5 +1,5 @@
 export default function resize() {
-  var curBaseScale = this.baseScale
+  const curBaseScale = this.baseScale
 
   if (this.width / this.height > this.defaultWidth / this.defaultHeight) {
     this.baseScale = this.height / this.defaultHeight

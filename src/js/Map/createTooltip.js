@@ -1,19 +1,18 @@
 import Util from '../Util/Util'
 
 export default function createTooltip() {
-  const map = this, tooltip = Util.createEl('div', 'jsvmap-tooltip')
+  const map = this, tooltip = Util.createElement('div', 'jvm-tooltip')
 
   this.tooltip = Util.$(document.body.appendChild(tooltip))
 
   this.container.on('mousemove', event => {
-
     if (map.tooltip.selector.style.display === 'block') {
-      const container = this.container.selector
+      const container = this.container.selector.querySelector('#jvm-regions-group').getBoundingClientRect()
       const space = 5 // Space between the cursor and tooltip element
 
       // Tooltip
       const { height, width } = tooltip.getBoundingClientRect()
-      const topIsPassed = event.pageY <= (container.offsetTop + height + space)
+      const topIsPassed = event.clientY <= (container.top + height + space)
       let top = event.pageY - height - space
       let left = event.pageX - width - space
 
@@ -25,7 +24,7 @@ export default function createTooltip() {
         left -= space * 2
       }
 
-      if (event.pageX < (container.offsetLeft + width + space)) { // Left:
+      if (event.clientX < (container.left + width + space)) { // Left:
         left = event.pageX + space + 2
 
         if (topIsPassed) {

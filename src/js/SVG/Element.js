@@ -7,15 +7,16 @@ import Util from "../Util/Util"
  */
 class SVGElement {
   constructor(name, config) {
-
-    this.name = name
-    this.properties = {}
+    this._name = name
     this.node = this.createElement(name)
-
-    if (config) this.set(config)
-
+    
+    if (config) {
+      this.set(config)
+    }
   }
 
+  // Create new SVG element `svg`, `g`, `path`, `line`, `circle`, `image`, etc.
+  // https://developer.mozilla.org/en-US/docs/Web/API/Document/createElementNS#important_namespace_uris
   createElement(tagName) {
     return document.createElementNS('http://www.w3.org/2000/svg', tagName)
   }
@@ -24,28 +25,23 @@ class SVGElement {
     this.node.setAttribute('class', className)
   }
 
-  getElementCtr(ctr) {
-    return SVG + ctr
-  }
-
   getBBox() {
     return this.node.getBBox()
   }
 
+  // Apply attributes on the current node element
   set(property, value) {
-    if (Util.isObject(property)) {
-      for (var key in property) {
-        this.properties[key] = property[key]
-        this.applyAttr(key, property[key])
+    if (Util.isObj(property)) {
+      for (let attr in property) {
+        this.applyAttr(attr, property[attr])
       }
     } else {
-      this.properties[property] = value
       this.applyAttr(property, value)
     }
   }
 
   get(property) {
-    return this.properties[property]
+    return this.style.initial[property]
   }
 
   applyAttr(property, value) {
@@ -55,7 +51,6 @@ class SVGElement {
   remove() {
     this.node.parentNode.removeChild(this.node)
   }
-
 }
 
 export default SVGElement
