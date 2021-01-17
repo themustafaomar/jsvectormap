@@ -145,3 +145,13 @@ image, text, .#{$classPrefix}zoomin, .#{$classPrefix}zoomout { user-select: none
     }
   }
 }
+
+// Line animation
+.jvm-line[animation="true"] {
+  -webkit-animation: jvm-line-animation 10s linear forwards infinite;
+  animation: jvm-line-animation 10s linear forwards infinite;
+
+  @keyframes jvm-line-animation {
+    from { stroke-dashoffset: 250; }
+  }
+}
