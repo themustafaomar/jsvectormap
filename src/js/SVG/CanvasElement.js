@@ -18,7 +18,7 @@ class SVGCanvasElement extends SVGElement {
     this._defsElement = new SVGElement('defs')
 
     // Create group element which will hold the paths (regions)
-    this._rootElement = new SVGElement('g')
+    this._rootElement = new SVGElement('g', { id: 'jvm-regions-group' })
 
     // Append the defs element to the this.node (SVG tag)
     this.node.appendChild(this._defsElement.node)

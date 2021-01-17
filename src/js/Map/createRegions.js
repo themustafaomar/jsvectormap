@@ -4,7 +4,7 @@ import Util from '../Util/Util'
 export default function createRegions() {
   let code, region
 
-  this.regionLabelsGroup = this.regionLabelsGroup || this.canvas.createGroup('regions-labels-group')
+  this.regionLabelsGroup = this.regionLabelsGroup || this.canvas.createGroup('jvm-regions-labels-group')
 
   for (code in this.mapData.paths) {
     region = new Region({

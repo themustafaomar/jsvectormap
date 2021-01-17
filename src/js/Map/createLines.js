@@ -11,7 +11,7 @@ export default function createLines(lines, markers, isRecentlyCreated = false) {
   // Create group for holding lines
   // we're checking if `linesGroup` exists or not becuase we may add lines after the map has loaded
   // so we will append the futured lines to this group as well.
-  this.linesGroup = this.linesGroup || this.canvas.createGroup('lines-group')
+  this.linesGroup = this.linesGroup || this.canvas.createGroup('jvm-lines-group')
 
   for (let index in lines) {
     const lineConfig = lines[index]

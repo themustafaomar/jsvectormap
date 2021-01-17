@@ -7,8 +7,8 @@ export default function createMarkers(markers = {}, isRecentlyCreated = false) {
   // Create groups for holding markers and markers labels
   // We're checking if `markersGroup` exists or not becuase we may add markers after the map has loaded
   // So we will append the futured markers to this group as well.
-  this.markersGroup = this.markersGroup || this.canvas.createGroup('markers-group')
-  this.markerLabelsGroup = this.markerLabelsGroup || this.canvas.createGroup('markers-labels-group')
+  this.markersGroup = this.markersGroup || this.canvas.createGroup('jvm-markers-group')
+  this.markerLabelsGroup = this.markerLabelsGroup || this.canvas.createGroup('jvm-markers-labels-group')
 
   for (let index in markers) {
     markerConfig = markers[index]
