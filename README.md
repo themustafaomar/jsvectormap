@@ -33,7 +33,7 @@ Jsvectormap supports all modern brownsers including IE9+
 <img src="https://img.shields.io/bundlephobia/min/jsvectormap" alt="Minified">
 <img src="https://img.shields.io/bundlephobia/minzip/jsvectormap" alt="Minizipped">
 
-## What's interactive maps
+## What's an interactive map
 
 * Interactive maps are powerful tools for presentation.
 * The ability to create layers of information that can be shown or hidden at the click of a button on a region or maybe a marker.
