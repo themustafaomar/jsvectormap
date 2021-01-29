@@ -4,14 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>JsVectorMap (Workspace)</title>
+    <title>Jsvectormap (Workspace)</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
     <link rel="stylesheet" href="./dist/css/jsvectormap.css" />
     <script src="js/jsvectormap.js"></script>
-    <script src="./dist/maps/world.js"></script>
+    <script src="./dist/maps/world-merc.js"></script>
 </head>
 <body>
-  <div id="map" style="width: 600px;height: 300px;margin: 100px auto"></div>
+  <div class="workspace-wrapper">
+    <header>
+      <div>
+        <h1>Jsvectormap workspace.</h1>
+        <p>Here you can test the maps and find out how it works if you want to contribute to Jsvectormap fork this repository<br>then clone it, commit your changes, push it to your forked version and finally you can open a pull request.</p>
+      </div>
+      <a href="#">Github Repository</a>
+    </header>
+    <div id="map"></div>
+  </div>
 
   <script>
     var markers = [
@@ -22,38 +31,33 @@
       { name: 'Brazil', coords: [-14.2350, -51.9253] },
     ];
 
-    var jsvmap = new jsVectorMap({
-      map: 'world',
+    var map = new jsVectorMap({
+      map: 'world_merc',
       selector: document.querySelector('#map'),
+      zoomButtons: false,
 
       regionsSelectable: true,
       markersSelectable: true,
       markersSelectableOne: true,
 
-      // -------- Labels --------
+      regionStyle: {
+        initial: { fill: '#d1d5db' }
+      },
+
+      // Labels
       labels: {
         markers: {
-          render: function(index) {
-            return markers[index].name
+          render: function(marker) {
+            return marker.name
           },
         },
       },
 
-      // -------- Marker and label style --------
+      // Marker and label style
       markers: markers,
-      markerStyle: {
-        initial: {
-          fill: '#66f'
-        }
-      },
-      markerLabelStyle: {
-        initial: {
-          fontFamily: 'Poppins',
-          fontSize: 13,
-          fontWeight: 500,
-          fill: '#35373e',
-        },
-      },
+      markerStyle: { initial: { fill: '#66F' } },
+
+      // Event handling
       onLoaded: function(map) {
         console.log(map);
       },

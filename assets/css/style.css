@@ -1,3 +1,5 @@
+@import 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap';
+
 * {
   margin: 0;
   padding: 0;
@@ -5,8 +7,29 @@
 }
 
 body {
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.5;
   font-size: 1rem;
   padding: 1rem;
   color: #3a3f4e
+}
+
+.workspace-wrapper header {
+  max-width: 1170px;
+  margin: auto;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.workspace-wrapper header p {
+  margin-top: .5rem;
+  font-size: .925rem;
+}
+
+.workspace-wrapper #map {
+  width: 800px;
+  height: 475px;
+  margin: 2rem auto 0;
 }
