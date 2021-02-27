@@ -38,7 +38,9 @@ export default function handleContainerEvents() {
         offsetY = event.pageY - rect.top - window.pageYOffset,
         zoomStep = Math.pow(1 + (map.params.zoomOnScrollSpeed / 1000), -1.5 * deltaY)
 
-      map.tooltip.hide()
+      if (map.tooltip) {
+        map.tooltip.hide()
+      }
       map.setScale(map.scale * zoomStep, offsetX, offsetY)
     }, {
       // https://www.chromestatus.com/feature/5745543795965952
