@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>JsVectorMap (Markers)</title>
+    <title>Jsvectormap (Markers)</title>
     <link rel="stylesheet" href="../assets/css/style.css" />
     <link rel="stylesheet" href="../dist/css/jsvectormap.css" />
     <script src="../dist/js/jsvectormap.min.js"></script>
@@ -16,13 +16,8 @@
     </style>
 </head>
 <body>
-  <div class="map">
-    <div
-      id="map"
-      class="jsvmap-container"
-      style="height: 500px;margin: auto">
-    </div>
-  </div>
+  <div id="map" style="width: 750px; height: 400px; margin: auto; border: 1px solid #EEE"></div>
+
   <script>
     var markers = [{
         name: 'Russia',
@@ -65,11 +60,11 @@
         style: {
           image: "../assets/images/marker.png"
         },
-        offset: [2, 2]
+        offsets: [2, 2]
       }, */
     ];
 
-    var map = new JsVectorMap({
+    var map = new jsVectorMap({
       map: 'world',
       selector: '#map',
       markersSelectable: true,
@@ -82,8 +77,8 @@
       // -------- Labels --------
       labels: {
         markers: {
-          render: function(index) {
-            return markers[index].name + '.';
+          render: function(marker) {
+            return marker.name
           },
         },
       },

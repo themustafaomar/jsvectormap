@@ -69,11 +69,11 @@
         style: {
           image: "../assets/images/pin.png"
         },
-        offset: [2, 2]
+        offsets: [2, 2]
       },
     ];
 
-    var map = new JsVectorMap({
+    var map = new jsVectorMap({
       map: 'world',
       selector: '#map-wrapper',
 
@@ -99,11 +99,11 @@
       // -------- Labels --------
       labels: {
         markers: {
-          render: function(index) {
-            return markers[index].name;
+          render: function(marker) {
+            return marker.name;
           },
           offsets: function(index) {
-            return markers[index].offset || [0, 0]
+            return markers[index].offsets || [0, 0]
           }
         },
         regions: {
@@ -231,11 +231,10 @@
     })
 
     $('#add-marker').addEventListener('click', function () {
-      map.addMarker('EG', {
+      map.addMarker({
         name: 'Egypt',
         coords: [26.8, 30],
-        label: 'Egypt',
-        offset: [0, 0]
+        offsets: [0, 0]
       })
     })
 

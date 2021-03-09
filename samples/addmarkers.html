@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>JsVectorMap (Add markers)</title>
+    <title>Jsvectormap (Add markers)</title>
     <link rel="stylesheet" href="../assets/css/style.css" />
     <link rel="stylesheet" href="../dist/css/jsvectormap.css" />
     <script src="../dist/js/jsvectormap.min.js"></script>
@@ -17,13 +17,11 @@
   <div class="map">
     <div
       id="map"
-      class="jsvmap-container"
       style="height: 400px;margin: auto">
     </div>
     <button id="add-marker">Add marker</button>
     <h2 style="margin: 20px 0">Add marker</h2>
     <input type="text" id="coords"  placeholder="Coords seprated by (,) 28, 30" /><br>
-    <input type="text" id="code" placeholder="Region code or any unqiue id" /><br>
     <input type="text" id="label" placeholder="Region label" />
     <button id="add">Add</button>
   </div>
@@ -48,13 +46,13 @@
       },
     ];
 
-    var map = new JsVectorMap({
+    var map = new jsVectorMap({
       map: 'world',
       selector: '#map',
       labels: {
         markers: {
-          render: function(index) {
-            return markers[index].name;
+          render: function(marker) {
+            return marker.name;
           },
           offsets: function (index) {
             return markers[index].offset || [0,0]
@@ -70,16 +68,15 @@
     })
 
     document.querySelector('#add-marker').addEventListener('click', function () {
-      map.addMarker('RU', {
+      map.addMarker({
         name: 'Russia',
         coords: [61, 105],
         // These are special..
-        label: 'Russia',
-        offset: [15, 10]
+        offsets: [15, 10]
       })
       // If you're coming from createMarkers.js uncomment the following to see the problem
       // the problem
-      /* map.addMarker('RU', {
+      /* map.addMarker({
         name: 'Russia',
         coords: [61, 105],
       }) */
@@ -88,13 +85,12 @@
     // 
     document.querySelector('#add').addEventListener('click', function () {
       var coords = document.querySelector('#coords').value.split(","),
-          code = document.querySelector('#code').value,
           label = document.querySelector('#label').value
 
-      map.addMarker(code, {
+      map.addMarker({
+        name: label,
         coords: [coords[0], coords[1]],
-        label: label,
-        offset: [0, 0]
+        offsets: [0, 10]
       })
     })
   </script>

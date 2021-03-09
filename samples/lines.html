@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>JsVectorMap (Lines)</title>
+    <title>Jsvectormap (Lines)</title>
     <link rel="stylesheet" href="../assets/css/style.css" />
     <link rel="stylesheet" href="../dist/css/jsvectormap.css" />
     <script src="../dist/js/jsvectormap.min.js"></script>
@@ -16,12 +16,7 @@
     </style>
 </head>
 <body>
-  <div class="map">
-    <div
-      id="map"
-      class="jsvmap-container"
-      style="height: 700px;margin: auto">
-    </div>
+  <div id="map" style="width: 750px; height: 400px; margin: auto; border: 1px solid #EEE"></div>
     <div style="text-align: center;">
       <button id="add-line">Add line</button>
     </div>
@@ -30,8 +25,8 @@
     var markers = [
       { name: 'Russia', coords: [61.5240, 105.3188] },
       { name: 'Egypt', coords: [26.8206, 30.8025] },
-      { name: 'Greenland', coords: [71.7069, -42.6043], offset: [2, 10] },
-      { name: 'Canada', coords: [56, -106], offset: [-7, 12] },
+      { name: 'Greenland', coords: [71.7069, -42.6043], offsets: [2, 10] },
+      { name: 'Canada', coords: [56, -106], offsets: [-7, 12] },
     ]
 
     var lines = [
@@ -52,11 +47,11 @@
       // -------- Labels --------
       labels: {
         markers: {
-          render: function(index) {
-            return markers[index].name
+          render: function(marker) {
+            return marker.name
           },
           offsets: function (index) {
-            return markers[index].offset || [0, 0]
+            return markers[index].offsets || [0, 0]
           }
         },
       },
@@ -64,6 +59,10 @@
       // -------- Marker and label style --------
       markers: markers,
       lines: lines,
+      lineStyle: {
+        animation: true,
+        strokeDasharray: "6 3 6",
+      },
       markerStyle: {
         initial: {
           r: 6,

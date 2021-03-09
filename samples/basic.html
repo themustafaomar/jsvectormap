@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>JsVectorMap (Basic)</title>
+  <title>Jsvectormap (Basic)</title>
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="../dist/css/jsvectormap.css" />
   <script src="../dist/js/jsvectormap.min.js"></script>
@@ -20,20 +20,11 @@
     </style>
 </head>
 <body>
-  <div class="map-wrapper">
-    <div id="map" style="height: 400px;margin: auto"></div>
-    <button id="focus">Focus On Russia</button>
-  </div>
+  <div id="map" style="width: 750px; height: 400px; margin: auto; border: 1px solid #EEE"></div>
   <script>
-    var map = new JsVectorMap({
+    var map = new jsVectorMap({
       map: 'world',
       selector: '#map',
-      focusOn: {
-        regions: ['EG', 'SA'],
-        // Or
-        // region: 'EG',
-        animate: true
-      },
     })
 
     document.querySelector('#focus').addEventListener('click', () => {

@@ -4,20 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>JsVectorMap (Events)</title>
+    <title>Jsvectormap (Events)</title>
     <link rel="stylesheet" href="../assets/css/style.css" />
     <link rel="stylesheet" href="../dist/css/jsvectormap.css" />
     <script src="../dist/js/jsvectormap.min.js"></script>
     <script src="../dist/maps/world.js"></script>
 </head>
 <body>
-  <div class="map">
-    <div
-      id="map"
-      class="jsvmap-container"
-      style="height: 500px;margin: auto">
-    </div>
-  </div>
+  <div id="map" style="width: 750px; height: 400px; margin: auto; border: 1px solid #EEE"></div>
   <script>
     var markers = [
       {
@@ -38,7 +32,7 @@
       },
     ];
 
-    var map = new JsVectorMap({
+    var map = new jsVectorMap({
       map: 'world',
       selector: '#map',
 
@@ -47,8 +41,8 @@
 
       labels: {
         markers: {
-          render: function (index) {
-            return markers[index].name
+          render: function (marker) {
+            return marker.name
           }
         }
       },
