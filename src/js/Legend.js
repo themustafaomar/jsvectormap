@@ -6,47 +6,46 @@ import Util from "./Util/Util"
  * ------------------------------------------------------------------------
  */
 class Legend {
-  constructor(params) {
-    this.params = params || {}
-    this.map = this.params.map
-    this.series = this.params.series
+  constructor(options = {}) {
+    this._options = options
+    this._map = this._options.map
+    this._series = this._options.series
+    this._body = Util.createElement('div', 'jvm-legend')
 
-    this.body = Util.createElement('div', 'jvm-legend')
-
-    if (this.params.cssClass) {
-      this.body.setAttribute('class', this.params.cssClass)
+    if (this._options.cssClass) {
+      this._body.setAttribute('class', this._options.cssClass)
     }
 
-    if (params.vertical) {
-      this.map.legendVertical.appendChild(this.body)
+    if (options.vertical) {
+      this._map.legendVertical.appendChild(this._body)
     } else {
-      this.map.legendHorizontal.appendChild(this.body)
+      this._map.legendHorizontal.appendChild(this._body)
     }
 
     this.render()
   }
 
   render() {
-    let ticks = this.series.scale.getTicks(),
+    let ticks = this._series.scale.getTicks(),
       inner = Util.createElement('div', 'jvm-legend-inner'),
       tick,
       sample,
       label
 
-    this.body.innderHTML = ''
+    this._body.innderHTML = ''
 
-    if (this.params.title) {
-      let legendTitle = Util.createElement('div', 'jvm-legend-title', this.params.title)
-      this.body.appendChild(legendTitle)
+    if (this._options.title) {
+      let legendTitle = Util.createElement('div', 'jvm-legend-title', this._options.title)
+      this._body.appendChild(legendTitle)
     }
 
-    this.body.appendChild(inner)
+    this._body.appendChild(inner)
 
     for (let i = 0; i < ticks.length; i++) {
       tick = Util.createElement('div', 'jvm-legend-tick',)
       sample = Util.createElement('div', 'jvm-legend-tick-sample')
 
-      switch (this.series.config.attribute) {
+      switch (this._series.config.attribute) {
         case 'fill':
           if (Util.isImageUrl(ticks[i].value)) {
             sample.style.background = `url(${ticks[i].value})`
@@ -58,7 +57,7 @@ class Legend {
           sample.style.background = ticks[i].value
           break
         case 'image':
-          sample.style.background = `url(${Util.isObject(ticks[i].value) ? ticks[i].value.url : ticks[i].value}) no-repeat center center`
+          sample.style.background = `url(${Util.isObj(ticks[i].value) ? ticks[i].value.url : ticks[i].value}) no-repeat center center`
           sample.style.backgroundSize = 'cover'
           break
       }
@@ -66,8 +65,8 @@ class Legend {
       tick.appendChild(sample)
       label = ticks[i].label
 
-      if (this.params.labelRender) {
-        label = this.params.labelRender(label)
+      if (this._options.labelRender) {
+        label = this._options.labelRender(label)
       }
 
       const tickText = Util.createElement('div', 'jvm-legend-tick-text', label)

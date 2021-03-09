@@ -18,7 +18,7 @@ class SVGImageElement extends SVGShapeElement {
       // This get executed when we have url in series.markers[0].scale.someScale.url
       if (Util.isObj(value)) {
         imageUrl = value.url
-        this.offset = value.offset
+        this.offset = value.offset || [0, 0]
       } else {
         imageUrl = value
         this.offset = [0, 0]
