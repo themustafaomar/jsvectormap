@@ -1,5 +1,10 @@
-# Installation
-This section proivde you with several ways to install jsvectormap.
+---
+title: 'Installation'
+description: This section proivde you with several ways to install jsvectormap.
+menu: Installation
+category: overview
+position: 2
+---
 
 ## NPM
 Install jsvectormap via npm (recommended)
