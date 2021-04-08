@@ -55,7 +55,7 @@ class DataVisualization {
   
     for (var i = 0; i < 3; i++) {
       hex = Math.round(
-        this._fromColor[i] + (this._toColor[i] - this._fromColor[i]) * (value / (this.max - this.min))
+        this._fromColor[i] + (this._toColor[i] - this._fromColor[i]) * (value / this.max)
       ).toString(16)
 
       color += (hex.length === 1 ? "0" : "") + hex
