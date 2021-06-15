@@ -52,6 +52,8 @@ class Map {
 
   // Initialize the map
   init(selector) {
+    const params = this.params
+
     // @TODO: We can get the selector from params `this.params.selector` but unfortunately
     // when passing a DOM element to jsVectorMap constructor, the DOM element doesn't get merged
     // with defaults during merging the options so we need to get the selector directly from the options.
@@ -62,22 +64,22 @@ class Map {
     )
 
     // Set the map's background color
-    this.setBackgroundColor(this.params.backgroundColor)
+    this.setBackgroundColor(params.backgroundColor)
 
     // Handle the container
     this.handleContainerEvents()
 
-    // Create regions/markers, then handle events for both
+    // Create regions
     this.createRegions()
 
     // Update size
     this.updateSize()
 
     // Create lines
-    this.createLines(this.params.lines || {}, this.params.markers || {})
+    this.createLines(params.lines || {}, params.markers || {})
 
     // Create markers
-    this.createMarkers(this.params.markers)
+    this.createMarkers(params.markers)
 
     // Handle regions/markers events
     this.handleElementEvents()
@@ -86,37 +88,37 @@ class Map {
     this.repositionLabels()
 
     // Create toolip
-    if (this.params.showTooltip) {
+    if (params.showTooltip) {
       this.createTooltip()
     }
 
-    // Create zoom buttons if zoomButtons is set to true
-    if (this.params.zoomButtons) {
+    // Create zoom buttons if `zoomButtons` is set to true
+    if (params.zoomButtons) {
       this.handleZoomButtons()
     }
 
-    // Set selected regions if passed
-    if (this.params.selectedRegions) {
-      this.setSelected('regions', this.params.selectedRegions)
+    // Set selected regions if any
+    if (params.selectedRegions) {
+      this.setSelected('regions', params.selectedRegions)
     }
 
-    // Set selected regions if passed
-    if (this.params.selectedMarkers) {
-      this.setSelected('markers', this.params.selectedMarkers)
+    // Set selected regions if any
+    if (params.selectedMarkers) {
+      this.setSelected('markers', params.selectedMarkers)
     }
 
     // Set focus on a spcific region
-    if (this.params.focusOn) {
-      this.setFocus(this.params.focusOn)
+    if (params.focusOn) {
+      this.setFocus(params.focusOn)
     }
 
     // Visualize data
-    if (this.params.visualizeData) {
-      this.visualizeData(this.params.visualizeData)
+    if (params.visualizeData) {
+      this.visualizeData(params.visualizeData)
     }
 
     // Bind touch events if true
-    if (this.params.bindTouchEvents) {
+    if (params.bindTouchEvents) {
       if (
         ('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch)
       ) {
@@ -124,8 +126,8 @@ class Map {
       }
     }
 
-    // Create series if passed
-    if (this.params.series) {
+    // Create series if any
+    if (params.series) {
       this.container.append(
         this.legendHorizontal = Util.createElement('div', 'jvm-series-container jvm-series-h')
       ).append(
