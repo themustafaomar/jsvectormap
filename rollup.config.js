@@ -1,6 +1,6 @@
 import resolve from '@rollup/plugin-node-resolve'
 import { terser } from 'rollup-plugin-terser'
-import babel from 'rollup-plugin-babel'
+import babel from '@rollup/plugin-babel'
 import autoprefixer from 'autoprefixer'
 import scss from 'rollup-plugin-scss'
 import postcss from 'postcss'
@@ -26,7 +26,7 @@ module.exports = [
     },
     plugins: [
       resolve(),
-      babel({ exclude: 'node_modules/**' }),
+      babel({ babelHelpers: 'bundled' }),
       scss(scssOptions('jsvectormap'))
     ]
   },
@@ -40,7 +40,7 @@ module.exports = [
     },
     plugins: [
       resolve(),
-      babel({ exclude: 'node_modules/**' }),
+      babel({ babelHelpers: 'bundled' }),
       scss(scssOptions('jsvectormap.min', 'compressed'))
     ]
   }

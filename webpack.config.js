@@ -1,7 +1,8 @@
 const path = require('path')
 
 module.exports = {
-  devtool: 'none',
+  mode: 'development',
+  devtool: 'eval',
   target: 'node',
   entry: {
     jsvectormap: './src/js/JsVectorMap.js',
