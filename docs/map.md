@@ -31,12 +31,12 @@ position: 0
 - `zoomOnScroll`
   - Type: `Boolean`
   - Default: `true`
-  - Description: Zoom the map when scolling.
+  - Description: Zoom the map when wheeling
 
 - `zoomOnScrollSpeed`
   - Type: `Number`
   - Default: `3`
-  - Description: The scroll speed when scrolling
+  - Description: The scroll speed when wheeling
 
 - `zoomMax`
   - Type: `Number`
@@ -56,7 +56,7 @@ position: 0
 - `showTooltip`
   - Type: `Boolean`
   - Default: `true`
-  - Description: Show tooltip when hovering over a region and marker
+  - Description: Show the tooltip when hovering over a region and marker
 
 - `focusOn`
   - Type: `Object`

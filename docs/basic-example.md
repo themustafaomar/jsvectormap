@@ -7,9 +7,9 @@ position: 1
 ---
 
 ## Using cli
-If you're using `webpack` or something like that you'll need to import the map you want to work with after importing jsvectormap.
+If you're using `webpack` or any module bundler, you need to import the map you want to work with after importing jsvectormap.
 
-**Notice**: We're using `world_merc` map not `world` in examples
+**Notice**: We're using `world_merc` in the docs not `world` map.
 
 ```javascript
 @import 'jsvectormap'
@@ -22,7 +22,7 @@ const map = new jsVectorMap({
 ```
 
 ## Overwrite style
-Style was written using `Scss` so you can overwrite the default style using variables without twaeaking it, you may want to take a look at [jsvectormap.scss](https://github.com/themustafaomar/jsvectormap/blob/master/src/scss/jsvectormap.scss) to know about all possiable variables.
+Style was written using `Sass` so you can overwrite the default style using variables without twaeaking it, you may want to take a look at [jsvectormap.scss](https://github.com/themustafaomar/jsvectormap/blob/master/src/scss/jsvectormap.scss) to know about all possiable variables.
 ```scss
 // app.scss
 

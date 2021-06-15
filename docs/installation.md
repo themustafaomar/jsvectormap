@@ -14,7 +14,7 @@ $ npm install jsvectormap
 ```
 
 ## Download
-You can download the latest version from the Github: Download, or clone the repository:
+You can download the latest version from the Github: [Download](https://github.com/themustafaomar/jsvectormap/archive/refs/heads/master.zip), or clone the repository:
 
 ```shell
 $ git clone https://github.com/themustafaomar/jsvectormap.git

@@ -1,3 +1,3 @@
-# jsVectorMap docs
+# Jsvectormap docs
 
-The *[jsVectorMap](https://themustafaomar.com/open-source/jsvectormap)* documentation.
+The *[Jsvectormap](https://themustafaomar.com/open-source/jsvectormap)* documentation.
