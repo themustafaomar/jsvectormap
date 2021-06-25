@@ -1,12 +1,12 @@
 import Util from '../Util/Util'
 
 export default function createTooltip() {
-  const map = this, tooltip = Util.createElement('div', 'jvm-tooltip')
+  const tooltip = Util.createElement('div', 'jvm-tooltip')
 
   this.tooltip = Util.$(document.body.appendChild(tooltip))
 
   this.container.on('mousemove', event => {
-    if (map.tooltip.selector.style.display === 'block') {
+    if (this.tooltip.selector.style.display === 'block') {
       const container = this.container.selector.querySelector('#jvm-regions-group').getBoundingClientRect()
       const space = 5 // Space between the cursor and tooltip element
 

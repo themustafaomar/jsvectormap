@@ -15,7 +15,7 @@ export default function createMarkers(markers = {}, isRecentlyCreated = false) {
     point = this.getMarkerPosition(markerConfig)
     uid = markerConfig.coords.join(':')
 
-    // We're checking if recently created marker is already exists
+    // We're checking if recently created marker is already existed
     // If exists we don't need to create it again, so we'll continute
     // Becuase we may have more than one marker.
     if (isRecentlyCreated) {

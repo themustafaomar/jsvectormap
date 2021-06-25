@@ -25,6 +25,10 @@ const Util = {
     return el
   },
 
+  removeElement(target) {
+    target.parentNode.removeChild(target)
+  },
+
   $: selector => new DomHandler(selector),
 
   hyphenate: string => string.replace(/[\w]([A-Z])/g, m => `${m[0]}-${m[1]}`).toLowerCase(),
