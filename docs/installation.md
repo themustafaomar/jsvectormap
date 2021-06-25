@@ -21,7 +21,7 @@ $ git clone https://github.com/themustafaomar/jsvectormap.git
 ```
 
 ## CDN
-You can install jsvectormap by declare cdn links.
+You can also install it via cdn links
 
 ```html
 <link rel="stylesheet" href="https://unpkg.com/jsvectormap/dist/css/jsvectormap.css" />
