@@ -39,6 +39,8 @@ class Map {
     this.baseTransX = 0
     this.baseTransY = 0
 
+    this.selector = options.selector
+
     // `document` is already ready, just initialise now
     if (window.document.readyState !== 'loading') {
       this.init(options.selector)
@@ -204,11 +206,21 @@ class Map {
     })
   }
 
+  // Deprecated
   addMarker(config) {
+    console.warn('`addMarker` method is depreacted, please use `addMarkers` instead.')
     this.createMarkers([config], true)
   }
 
+  addMarkers(config) {
+    this.createMarkers(config, true)
+  }
+
   removeMarkers(markers) {
+    if (!markers) {
+      markers = Object.keys(this.markers)
+    }
+
     markers.forEach(index => {
       // Remove the element from the DOM
       this.markers[index].element.remove()
@@ -230,13 +242,24 @@ class Map {
       }
     }
 
+    if (this.legendHorizontal) {
+      Util.removeElement(this.legendHorizontal)
+      this.legendHorizontal = null
+    }
+
+    if (this.legendVertical) {
+      Util.removeElement(this.legendVertical)
+      this.legendVertical = null
+    }
+
     this.scale = this.baseScale
     this.transX = this.baseTransX
     this.transY = this.baseTransY
 
+    this.applyTransform()
     this.clearSelectedMarkers()
     this.clearSelectedRegions()
-    this.applyTransform()
+    this.removeMarkers()
   }
 
   // Destroy the map
@@ -246,7 +269,7 @@ class Map {
     const keys = Object.keys
 
     // Remove tooltip from the DOM
-    tooltip.parentElement.removeChild(tooltip)
+    Util.removeElement(tooltip)
 
     // Remove event registry
     keys(eventRegistry).forEach(event => {
@@ -261,6 +284,14 @@ class Map {
         } catch (e) {}
       })
     }
+  }
+
+  extend(name, callback) {
+    Map.prototype[name] = callback
+  }
+
+  getUtils() {
+    return Util
   }
 }
 
