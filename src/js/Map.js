@@ -213,6 +213,10 @@ class Map {
   }
 
   addMarkers(config) {
+    if (typeof config === 'object') {
+      return this.createMarkers([config], true);
+    }
+
     this.createMarkers(config, true)
   }
 
