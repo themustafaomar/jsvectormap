@@ -35,8 +35,8 @@ Jsvectormap supports all modern brownsers including IE9+
 
 ## What's an interactive map
 
-* Interactive maps are powerful tools for presentation.
-* The ability to create layers of information that can be shown or hidden at the click of a button on a region or maybe a marker.
+* Interactive map is a powerful tool for presentation.
+* It give the ability to create layers of information that can be shown or hidden at the click of a button on a region or maybe a marker.
 * Data can be quickly updated, and these updates made transparent to users. 
 * Zoom functions that allow users to focus on either the details of a particular region, or to gain a quick overview of a wider area.
 
@@ -62,7 +62,7 @@ const map = new jsVectorMap({
 ## Contributions
 Your contributions always **welcome**
 
-* Please don't update the build files when sending pull requests, modifications should be committed within src/js/*.
+* The build files shouldn't be updated when sending pull requests
 
 ## Developing
 To work on the code, you will require the following:
