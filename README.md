@@ -43,15 +43,15 @@ Jsvectormap supports all modern brownsers including IE9+
 ## Quick start
 
 Installing via npm
-```js
+```bash
 npm i jsvectormap
 ```
 
 import your preferred map you want to work with, after importing the `jsvectormap`
 
 ```js
-@import 'jsvectormap'
-@import 'jsvectormap/dist/maps/world.js'
+import 'jsvectormap'
+import 'jsvectormap/dist/maps/world.js'
 
 const map = new jsVectorMap({
   selector: '#map',
