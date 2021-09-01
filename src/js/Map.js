@@ -38,6 +38,7 @@ class Map {
     this.transY = 0
     this.baseTransX = 0
     this.baseTransY = 0
+    this.isBeingDragged = false
 
     this.selector = options.selector
 

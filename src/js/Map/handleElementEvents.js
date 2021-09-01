@@ -24,6 +24,11 @@ function parseEvent(map, selector, isTooltip) {
 export default function handleElementEvents() {
   const map = this
 
+  // Prevent 
+  this.container.delegate('.jvm-element', 'mousedown', (e) => {
+    this.isBeingDragged = false
+  })
+
   // When the mouse is over the region/marker | When the mouse is out the region/marker
   this.container.delegate('.jvm-element', 'mouseover mouseout', function (event) {
     const data = parseEvent(map, this, true)
@@ -54,15 +59,17 @@ export default function handleElementEvents() {
   this.container.delegate('.jvm-element', 'mouseup', function (event) {
     const data = parseEvent(map, this)
 
+    if (map.isBeingDragged || event.defaultPrevented) {
+      return
+    }
+
     if (
-      data.type === 'region' && map.params.regionsSelectable ||
-      data.type === 'marker' && map.params.markersSelectable &&
-      !event.defaultPrevented
+      (data.type === 'region' && map.params.regionsSelectable) ||
+      (data.type === 'marker' && map.params.markersSelectable)
     ) {
       const ele = data.element
 
       // We're checking if regions/markers|SelectableOne option is presented
-      // clear all selected regions/markers
       if (map.params[`${data.type}sSelectableOne`]) {
         map.clearSelected(`${data.type}s`)
       }

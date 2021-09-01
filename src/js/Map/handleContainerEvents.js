@@ -12,6 +12,7 @@ export default function handleContainerEvents() {
           map.applyTransform()
           oldPageX = e.pageX
           oldPageY = e.pageY
+          this.isBeingDragged = true
         }
         return false
       }).on('mousedown', (e) => {
