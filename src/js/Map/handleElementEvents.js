@@ -24,8 +24,7 @@ function parseEvent(map, selector, isTooltip) {
 export default function handleElementEvents() {
   const map = this
 
-  // Prevent 
-  this.container.delegate('.jvm-element', 'mousedown', (e) => {
+  this.container.delegate('.jvm-element', 'mousedown', () => {
     this.isBeingDragged = false
   })
 
