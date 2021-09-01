@@ -8,10 +8,14 @@ let eventUid = 1
  */
 const EventHandler = {
   on(element, event, handler, options = {}) {
-    eventRegistry[`jvm:${event}::${eventUid++}`] = {
+    const uid = `jvm:${event}::${eventUid++}`
+
+    eventRegistry[uid] = {
       selector: element,
       handler,
     }
+
+    handler._uid = uid
 
     element.addEventListener(event, handler, options)
   },
@@ -21,7 +25,7 @@ const EventHandler = {
     element.removeEventListener(eventType, handler)
 
     // Remove reference
-    delete eventRegistry[event]
+    delete eventRegistry[handler._uid]
   },
   getEventRegistry() {
     return eventRegistry
