@@ -281,6 +281,8 @@ class Map {
       EventHandler.off(eventRegistry[event].selector, event, eventRegistry[event].handler)
     })
 
+    this.emit('map:destroyed')
+
     // For perfomance issues remove all possible properties
     if (destroyInstance) {
       keys(this).forEach(key => {
