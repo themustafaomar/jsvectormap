@@ -5,7 +5,7 @@ function parseEvent(map, selector, isTooltip) {
     elClassList = ele.attr('class'),
     type = elClassList.indexOf('jvm-region') === -1 ? 'marker' : 'region',
     code = type === 'region' ? ele.attr('data-code') : ele.attr('data-index'),
-    event = `${type}:select`
+    event = `${type}:selected`
 
   // Init tooltip event
   if (isTooltip) {
