@@ -43,9 +43,8 @@ export default function handleContainerEvents() {
         map.tooltip.hide()
       }
       map.setScale(map.scale * zoomStep, offsetX, offsetY)
-    }, {
-      // https://www.chromestatus.com/feature/5745543795965952
-      passive: true
-    })
+      
+      event.preventDefault()
+    });
   }
 }
