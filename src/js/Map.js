@@ -214,11 +214,11 @@ class Map {
   }
 
   addMarkers(config) {
-    if (typeof config === 'object') {
-      return this.createMarkers([config], true);
+    if (Array.isArray(config)) {
+      return this.createMarkers(config, true)
     }
 
-    this.createMarkers(config, true)
+    this.createMarkers([config], true);
   }
 
   removeMarkers(markers) {
