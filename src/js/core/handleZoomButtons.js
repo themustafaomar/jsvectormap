@@ -1,4 +1,4 @@
-import Util from '../Util/Util'
+import Util from '../util/index'
 import EventHandler from '../EventHandler'
 
 export default function handleZoomButtons() {

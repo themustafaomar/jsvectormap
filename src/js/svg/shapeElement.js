@@ -1,5 +1,5 @@
-import Util from '../Util/Util'
-import SVGElement from './Element'
+import Util from '../util/index'
+import SVGElement from './baseElement'
 
 /**
  * ------------------------------------------------------------------------

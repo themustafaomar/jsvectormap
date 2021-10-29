@@ -1,4 +1,4 @@
-import Util from '../Util/Util'
+import Util from '../util/index'
 import DataVisualization from '../DataVisualization'
 
 export default function visualizeData(data) {

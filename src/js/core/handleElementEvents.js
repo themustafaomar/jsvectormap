@@ -1,4 +1,4 @@
-import Util from '../Util/Util'
+import Util from '../util/index'
 
 function parseEvent(map, selector, isTooltip) {
   var ele = Util.$(selector),

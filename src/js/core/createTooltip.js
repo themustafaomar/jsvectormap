@@ -1,4 +1,4 @@
-import Util from '../Util/Util'
+import Util from '../util/index'
 
 export default function createTooltip() {
   const tooltip = Util.createElement('div', 'jvm-tooltip')

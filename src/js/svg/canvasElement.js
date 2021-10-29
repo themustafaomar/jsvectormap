@@ -1,7 +1,7 @@
-import SVGElement from './Element'
-import SVGShapeElement from './ShapeElement'
-import SVGTextElement from './TextElement'
-import SVGImageElement from './ImageElement'
+import SVGElement from './baseElement'
+import SVGShapeElement from './shapeElement'
+import SVGTextElement from './textElement'
+import SVGImageElement from './imageElement'
 
 /**
  * ------------------------------------------------------------------------

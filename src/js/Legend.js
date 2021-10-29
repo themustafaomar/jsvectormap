@@ -1,4 +1,4 @@
-import Util from "./Util/Util"
+import Util from './util/index'
 
 /**
  * ------------------------------------------------------------------------

@@ -1,5 +1,5 @@
-import Util from '../Util/Util'
-import Line from '../Line'
+import Util from '../util/index'
+import Line from '../elements/line'
 
 function createLineUid(from, to) {
   return `${from.toLowerCase()}:to:${to.toLowerCase()}`

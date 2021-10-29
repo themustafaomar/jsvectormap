@@ -1,5 +1,5 @@
-import Util from '../Util/Util'
-import Marker from '../Marker'
+import Util from '../util/index'
+import Marker from '../elements/marker'
 
 export default function createMarkers(markers = {}, isRecentlyCreated = false) {
   let markerConfig, marker, point, uid

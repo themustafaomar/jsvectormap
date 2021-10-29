@@ -1,4 +1,4 @@
-import MapElement from './MapElement'
+import MapElement from './baseElement'
 
 /**
  * ------------------------------------------------------------------------

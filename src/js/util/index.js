@@ -1,5 +1,5 @@
 import DomHandler from '../DomHandler'
-import DeepMerge from './DeepMerge'
+import DeepMerge from './deepMerge'
 
 /**
  * --------------------------------------------------------------------------

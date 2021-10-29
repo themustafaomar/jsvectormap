@@ -1,4 +1,4 @@
-import SVGShapeElement from './ShapeElement'
+import SVGShapeElement from './shapeElement'
 
 /**
  * ------------------------------------------------------------------------

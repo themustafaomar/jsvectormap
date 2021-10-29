@@ -1,5 +1,5 @@
-import Region from '../Region'
-import Util from '../Util/Util'
+import Region from '../elements/region'
+import Util from '../util/index'
 
 export default function createRegions() {
   let code, region

@@ -3,7 +3,7 @@
  * Copyrights (c) Mustafa Omar https://github.com/themustafaomar
  * Released under the MIT License.
  */
-import './Util/Polyfills'
+import './util/pollyfills'
 import Map from './Map'
 
 import '../scss/jsvectormap.scss'

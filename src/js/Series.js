@@ -1,4 +1,4 @@
-import Util from './Util/Util'
+import Util from './util/index'
 import Legend from './Legend'
 import OrdinalScale from './Scales/OrdinalScale'
 

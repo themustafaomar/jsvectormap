@@ -1,5 +1,5 @@
-import Util from '../Util/Util'
-import SVGShapeElement from './ShapeElement'
+import Util from '../util/index'
+import SVGShapeElement from './shapeElement'
 
 /**
  * ------------------------------------------------------------------------
