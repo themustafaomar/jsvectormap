@@ -1,4 +1,4 @@
-import EventHandler from "./EventHandler"
+import EventHandler from "./eventHandler"
 
 /**
  * ------------------------------------------------------------------------

@@ -3,7 +3,7 @@ import Defaults from './defaults/options'
 import SVGCanvasElement from './svg/canvasElement'
 import * as MapPrototypes from './core/index'
 import Events from './defaults/events'
-import EventHandler from './EventHandler'
+import EventHandler from './eventHandler'
 
 /**
  * ------------------------------------------------------------------------

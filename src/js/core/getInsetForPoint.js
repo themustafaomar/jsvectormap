@@ -1,4 +1,4 @@
-import Map from '../Map'
+import Map from '../map'
 
 export default function getInsetForPoint(x, y) {
   let index, bbox, insets = Map.maps[this.params.map].insets

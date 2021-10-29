@@ -1,5 +1,5 @@
 import Util from '../util/index'
-import EventHandler from '../EventHandler'
+import EventHandler from '../eventHandler'
 
 export default function handleZoomButtons() {
   const map = this

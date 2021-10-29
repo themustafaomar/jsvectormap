@@ -1,5 +1,5 @@
-import Map from '../Map'
-import Proj from '../Proj'
+import Map from '../map'
+import Proj from '../projection'
 
 export default function coordsToPoint(lat, lng) {
   let point,

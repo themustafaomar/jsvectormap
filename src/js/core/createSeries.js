@@ -1,4 +1,4 @@
-import Series from '../Series'
+import Series from '../series'
 
 export default function createSeries() {
   this.series = { markers: [], regions: [] }
