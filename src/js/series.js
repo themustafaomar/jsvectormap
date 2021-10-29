@@ -1,6 +1,6 @@
-import Util from './util/index'
-import Legend from './Legend'
-import OrdinalScale from './Scales/OrdinalScale'
+import { merge } from './util/index'
+import Legend from './legend'
+import OrdinalScale from './scales/ordinalScale'
 
 /**
  * ------------------------------------------------------------------------
@@ -23,13 +23,13 @@ class Series {
       this.setAttributes(config.attributes)
     }
 
-    if (Util.isObj(config.scale)) {
+    if (typeof config.scale === 'object') {
       this.scale = new OrdinalScale(config.scale)
     }
 
     if (this.config.legend) {
       this.legend = new Legend(
-        Util.merge({ map: this._map, series: this }, this.config.legend)
+        merge({ map: this._map, series: this }, this.config.legend)
       )
     }
 

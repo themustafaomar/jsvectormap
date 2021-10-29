@@ -1,4 +1,4 @@
-import Util from '../util/index'
+import { merge } from '../util/index'
 import SVGElement from './baseElement'
 
 /**
@@ -19,10 +19,10 @@ class SVGShapeElement extends SVGElement {
   }
 
   setStyle(property, value) {
-    if (Util.isObj(property)) {
-      Util.merge(this.style.current, property)
+    if (typeof property === 'object') {
+      merge(this.style.current, property)
     } else {
-      Util.merge(this.style.current, { [property]: value })
+      merge(this.style.current, { [property]: value })
     }
 
     this.updateStyle()
@@ -31,19 +31,19 @@ class SVGShapeElement extends SVGElement {
   updateStyle() {
     const attrs = {}
 
-    Util.merge(attrs, this.style.initial)
+    merge(attrs, this.style.initial)
 
-    Util.merge(attrs, this.style.current)
+    merge(attrs, this.style.current)
 
     if (this.isHovered) {
-      Util.merge(attrs, this.style.hover)
+      merge(attrs, this.style.hover)
     }
 
     if (this.isSelected) {
-      Util.merge(attrs, this.style.selected)
+      merge(attrs, this.style.selected)
 
       if (this.isHovered) {
-        Util.merge(attrs, this.style.selectedHover)
+        merge(attrs, this.style.selectedHover)
       }
     }
 

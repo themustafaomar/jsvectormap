@@ -20,7 +20,7 @@ import repositionMarkers from './repositionMarkers'
 import repositionLabels from './repositionLabels'
 import visualizeData from './visualizeData'
 
-export {
+export default {
   handleContainerEvents,
   handleElementEvents,
   handleZoomButtons,

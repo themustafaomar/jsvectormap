@@ -1,4 +1,3 @@
-import Util from '../util/index'
 
 /**
  * ------------------------------------------------------------------------
@@ -11,7 +10,7 @@ class MapElement {
       return
     }
 
-    if (Util.isFunc(label.render)) {
+    if (typeof label.render === 'function') {
       let params = []
 
       // Pass additional paramater (Marker config object) in case it's a Marker.
@@ -29,12 +28,12 @@ class MapElement {
   }
 
   getLabelOffsets(key, label) {
-    if (Util.isFunc(label.offsets)) {
+    if (typeof label.offsets === 'function') {
       return label.offsets(key)
     }
 
     // If offsets are an array of offsets e.g offsets: [ [0, 25], [10, 15] ]
-    if (Util.isArr(label.offsets)) {
+    if (Array.isArray(label.offsets)) {
       return label.offsets[key]
     }
 

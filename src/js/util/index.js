@@ -1,4 +1,4 @@
-import DomHandler from '../DomHandler'
+import DomHandler from '../domHandler'
 import DeepMerge from './deepMerge'
 
 /**
@@ -6,46 +6,72 @@ import DeepMerge from './deepMerge'
  * Public Util Api
  * --------------------------------------------------------------------------
  */
-const Util = {
-  isImageUrl(url) {
-    return /\.(jpg|gif|png)$/.test(url)
-  },
-
-  createElement(type, classes, text, html = false) {
-    var el = document.createElement(type)
-
-    if (text) {
-      el[! html ? 'textContent' : 'innerHTML'] = text
-    }
-
-    if (classes) {
-      el.className = classes
-    }
-
-    return el
-  },
-
-  removeElement(target) {
-    target.parentNode.removeChild(target)
-  },
-
-  $: selector => new DomHandler(selector),
-
-  hyphenate: string => string.replace(/[\w]([A-Z])/g, m => `${m[0]}-${m[1]}`).toLowerCase(),
-
-  isFunc: fn => typeof fn === 'function',
-
-  isObj: obj => typeof obj === 'object',
-
-  isStr: str => typeof str === 'string',
-
-  isArr: array => Array.isArray(array),
-
-  merge: (target, source) => Object.assign(target, source),
-
-  mergeDeeply: (target, source) => DeepMerge(target, source),
-
-  keys: object => Object.keys(object)
+const $ = selector => {
+  return new DomHandler(selector)
 }
 
-export default Util
+const getElement = selector => {
+  if (typeof selector === 'object' && typeof selector.nodeType !== 'undefined') {
+    return selector
+  }
+
+  if (typeof selector === 'string') {
+    return document.querySelector(selector)
+  }
+
+  return null
+}
+
+const createElement = (type, classes, content, html = false) => {
+  let el = document.createElement(type)
+
+  if (content) {
+    el[!html ? 'textContent' : 'innerHTML'] = content
+  }
+
+  if (classes) {
+    el.className = classes
+  }
+
+  return el
+}
+
+const findElement = (parentElement, selector) => {
+  return Element.prototype.querySelector.call(parentElement, selector)
+}
+
+const removeElement = target => {
+  target.parentNode.removeChild(target)
+}
+
+const isImageUrl = url => {
+  return /\.(jpg|gif|png)$/.test(url)
+}
+
+const hyphenate = string => {
+  return string.replace(/[\w]([A-Z])/g, m => `${m[0]}-${m[1]}`).toLowerCase()
+}
+
+const merge = (target, source, deep = false) => {
+  if (deep) {
+    return DeepMerge(target, source)
+  }
+
+  return Object.assign(target, source)
+}
+
+const keys = object => {
+  return Object.keys(object)
+}
+
+export {
+  $,
+  getElement,
+  createElement,
+  findElement,
+  removeElement,
+  isImageUrl,
+  hyphenate,
+  merge,
+  keys,
+}

@@ -1,4 +1,4 @@
-import Util from '../util/index'
+import { merge } from '../util/index'
 import Line from '../elements/line'
 
 function createLineUid(from, to) {
@@ -33,9 +33,9 @@ export default function createLines(lines, markers, isRecentlyCreated = false) {
         index: index,
         map: this,
         // Merge the lineStyle object with the line config style
-        style: Util.mergeDeeply({ initial: this.params.lineStyle }, {
+        style: merge({ initial: this.params.lineStyle }, {
           initial: lineConfig.style || {}
-        }),
+        }, true),
         x1: point1.x,
         y1: point1.y,
         x2: point2.x,

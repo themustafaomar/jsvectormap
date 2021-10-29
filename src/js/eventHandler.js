@@ -19,12 +19,24 @@ const EventHandler = {
 
     element.addEventListener(event, handler, options)
   },
+  delegate(element, event, selector, handler) {
+    event = event.split(' ')
+
+    event.forEach(eventName => {
+      EventHandler.on(element, eventName, (e) => {
+        const target = e.target
+  
+        if (target.matches(selector)) {
+          handler.call(target, e)
+        }
+      })
+    })
+  },
   off(element, event, handler) {
     const eventType = event.split(':')[1]
 
     element.removeEventListener(eventType, handler)
 
-    // Remove reference
     delete eventRegistry[handler._uid]
   },
   getEventRegistry() {

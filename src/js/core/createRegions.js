@@ -1,5 +1,5 @@
+import { merge } from '../util/index'
 import Region from '../elements/region'
-import Util from '../util/index'
 
 export default function createRegions() {
   let code, region
@@ -11,7 +11,7 @@ export default function createRegions() {
       map: this,
       code: code,
       path: this.mapData.paths[code].path,
-      style: Util.merge({}, this.params.regionStyle),
+      style: merge({}, this.params.regionStyle),
       labelStyle: this.params.regionLabelStyle, 
       labelsGroup: this.regionLabelsGroup,
       label: this.params.labels && this.params.labels.regions,

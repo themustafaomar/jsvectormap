@@ -1,4 +1,7 @@
-import Util from "../util/index"
+import {
+  hyphenate,
+  removeElement
+} from "../util/index"
 
 /**
  * ------------------------------------------------------------------------
@@ -7,7 +10,6 @@ import Util from "../util/index"
  */
 class SVGElement {
   constructor(name, config) {
-    this._name = name
     this.node = this.createElement(name)
     
     if (config) {
@@ -31,7 +33,7 @@ class SVGElement {
 
   // Apply attributes on the current node element
   set(property, value) {
-    if (Util.isObj(property)) {
+    if (typeof property === 'object') {
       for (let attr in property) {
         this.applyAttr(attr, property[attr])
       }
@@ -45,11 +47,11 @@ class SVGElement {
   }
 
   applyAttr(property, value) {
-    this.node.setAttribute(Util.hyphenate(property), value)
+    this.node.setAttribute(hyphenate(property), value)
   }
 
   remove() {
-    this.node.parentNode.removeChild(this.node)
+    removeElement(this.node)
   }
 }
 

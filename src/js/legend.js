@@ -1,4 +1,7 @@
-import Util from './util/index'
+import {
+  createElement,
+  isImageUrl
+} from './util/index'
 
 /**
  * ------------------------------------------------------------------------
@@ -10,7 +13,7 @@ class Legend {
     this._options = options
     this._map = this._options.map
     this._series = this._options.series
-    this._body = Util.createElement('div', 'jvm-legend')
+    this._body = createElement('div', 'jvm-legend')
 
     if (this._options.cssClass) {
       this._body.setAttribute('class', this._options.cssClass)
@@ -27,7 +30,7 @@ class Legend {
 
   render() {
     let ticks = this._series.scale.getTicks(),
-      inner = Util.createElement('div', 'jvm-legend-inner'),
+      inner = createElement('div', 'jvm-legend-inner'),
       tick,
       sample,
       label
@@ -35,19 +38,19 @@ class Legend {
     this._body.innderHTML = ''
 
     if (this._options.title) {
-      let legendTitle = Util.createElement('div', 'jvm-legend-title', this._options.title)
+      let legendTitle = createElement('div', 'jvm-legend-title', this._options.title)
       this._body.appendChild(legendTitle)
     }
 
     this._body.appendChild(inner)
 
     for (let i = 0; i < ticks.length; i++) {
-      tick = Util.createElement('div', 'jvm-legend-tick',)
-      sample = Util.createElement('div', 'jvm-legend-tick-sample')
+      tick = createElement('div', 'jvm-legend-tick',)
+      sample = createElement('div', 'jvm-legend-tick-sample')
 
       switch (this._series.config.attribute) {
         case 'fill':
-          if (Util.isImageUrl(ticks[i].value)) {
+          if (isImageUrl(ticks[i].value)) {
             sample.style.background = `url(${ticks[i].value})`
           } else {
             sample.style.background = ticks[i].value
@@ -57,7 +60,7 @@ class Legend {
           sample.style.background = ticks[i].value
           break
         case 'image':
-          sample.style.background = `url(${Util.isObj(ticks[i].value) ? ticks[i].value.url : ticks[i].value}) no-repeat center center`
+          sample.style.background = `url(${typeof ticks[i].value === 'object' ? ticks[i].value.url : ticks[i].value}) no-repeat center center`
           sample.style.backgroundSize = 'cover'
           break
       }
@@ -69,7 +72,7 @@ class Legend {
         label = this._options.labelRender(label)
       }
 
-      const tickText = Util.createElement('div', 'jvm-legend-tick-text', label)
+      const tickText = createElement('div', 'jvm-legend-tick-text', label)
 
       tick.appendChild(tickText)
       inner.appendChild(tick)

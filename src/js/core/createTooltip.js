@@ -1,13 +1,18 @@
-import Util from '../util/index'
+import {
+  $,
+  createElement,
+  findElement
+} from '../util/index'
+import EventHandler from '../eventHandler'
 
 export default function createTooltip() {
-  const tooltip = Util.createElement('div', 'jvm-tooltip')
+  const tooltip = createElement('div', 'jvm-tooltip')
 
-  this.tooltip = Util.$(document.body.appendChild(tooltip))
+  this.tooltip = $(document.body.appendChild(tooltip))
 
-  this.container.on('mousemove', event => {
+  EventHandler.on(this.container, 'mousemove', event => {
     if (this.tooltip.selector.style.display === 'block') {
-      const container = this.container.selector.querySelector('#jvm-regions-group').getBoundingClientRect()
+      const container = findElement(this.container, '#jvm-regions-group').getBoundingClientRect()
       const space = 5 // Space between the cursor and tooltip element
 
       // Tooltip

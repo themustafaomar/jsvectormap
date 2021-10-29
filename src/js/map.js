@@ -1,7 +1,12 @@
-import Util from './util/index'
+import {
+  merge,
+  getElement,
+  createElement,
+  removeElement,
+} from './util/index'
 import Defaults from './defaults/options'
 import SVGCanvasElement from './svg/canvasElement'
-import * as MapPrototypes from './core/index'
+import MapPrototypes from './core/index'
 import Events from './defaults/events'
 import EventHandler from './eventHandler'
 
@@ -13,7 +18,7 @@ import EventHandler from './eventHandler'
 class Map {
   constructor(options = {}) {
     // Merge the given options with the default options
-    this.params = Util.mergeDeeply(Map.defaults, options)
+    this.params = merge(Map.defaults, options, true)
 
     // Throw an error if the given map name doesn't match
     // the map that was set in map file
@@ -40,10 +45,8 @@ class Map {
     this.baseTransY = 0
     this.isBeingDragged = false
 
-    this.selector = options.selector
-
     // `document` is already ready, just initialise now
-    if (window.document.readyState !== 'loading') {
+    if (document.readyState !== 'loading') {
       this.init(options.selector)
     } else {
       // Wait until `document` is ready
@@ -55,19 +58,21 @@ class Map {
 
   // Initialize the map
   init(selector) {
-    const params = this.params
+    const options = this.params
 
     // @TODO: We can get the selector from params `this.params.selector` but unfortunately
     // when passing a DOM element to jsVectorMap constructor, the DOM element doesn't get merged
     // with defaults during merging the options so we need to get the selector directly from the options.
-    this.container = Util.$(selector).addClass('jvm-container')
+    this.container = getElement(selector)
+
+    this.container.classList.add('jvm-container')
 
     this.canvas = new SVGCanvasElement(
       this.container, this.width, this.height
     )
 
     // Set the map's background color
-    this.setBackgroundColor(params.backgroundColor)
+    this.setBackgroundColor(options.backgroundColor)
 
     // Handle the container
     this.handleContainerEvents()
@@ -79,10 +84,10 @@ class Map {
     this.updateSize()
 
     // Create lines
-    this.createLines(params.lines || {}, params.markers || {})
+    this.createLines(options.lines || {}, options.markers || {})
 
     // Create markers
-    this.createMarkers(params.markers)
+    this.createMarkers(options.markers)
 
     // Handle regions/markers events
     this.handleElementEvents()
@@ -91,37 +96,37 @@ class Map {
     this.repositionLabels()
 
     // Create toolip
-    if (params.showTooltip) {
+    if (options.showTooltip) {
       this.createTooltip()
     }
 
     // Create zoom buttons if `zoomButtons` is set to true
-    if (params.zoomButtons) {
+    if (options.zoomButtons) {
       this.handleZoomButtons()
     }
 
     // Set selected regions if any
-    if (params.selectedRegions) {
-      this.setSelected('regions', params.selectedRegions)
+    if (options.selectedRegions) {
+      this.setSelected('regions', options.selectedRegions)
     }
 
     // Set selected regions if any
-    if (params.selectedMarkers) {
-      this.setSelected('markers', params.selectedMarkers)
+    if (options.selectedMarkers) {
+      this.setSelected('markers', options.selectedMarkers)
     }
 
     // Set focus on a spcific region
-    if (params.focusOn) {
-      this.setFocus(params.focusOn)
+    if (options.focusOn) {
+      this.setFocus(options.focusOn)
     }
 
     // Visualize data
-    if (params.visualizeData) {
-      this.visualizeData(params.visualizeData)
+    if (options.visualizeData) {
+      this.visualizeData(options.visualizeData)
     }
 
     // Bind touch events if true
-    if (params.bindTouchEvents) {
+    if (options.bindTouchEvents) {
       if (
         ('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch)
       ) {
@@ -130,12 +135,14 @@ class Map {
     }
 
     // Create series if any
-    if (params.series) {
-      this.container.append(
-        this.legendHorizontal = Util.createElement('div', 'jvm-series-container jvm-series-h')
-      ).append(
-        this.legendVertical = Util.createElement('div', 'jvm-series-container jvm-series-v')
-      )
+    if (options.series) {
+      this.container.appendChild(this.legendHorizontal = createElement(
+        'div', 'jvm-series-container jvm-series-h'
+      ))
+
+      this.container.appendChild(this.legendVertical = createElement(
+        'div', 'jvm-series-container jvm-series-v'
+      ))
 
       this.createSeries()
     }
@@ -148,14 +155,14 @@ class Map {
 
   emit(eventName, args) {
     for (let event in Events) {
-      if (Events[event] === eventName && Util.isFunc(this.params[event])) {
+      if (Events[event] === eventName && typeof this.params[event] === 'function') {
         this.params[event].apply(this, args)
       }
     }
   }
 
   setBackgroundColor(color) {
-    this.container.css({ backgroundColor: color })
+    this.container.style.backgroundColor = color
   }
 
   // Markers/Regions
@@ -248,12 +255,12 @@ class Map {
     }
 
     if (this.legendHorizontal) {
-      Util.removeElement(this.legendHorizontal)
+      removeElement(this.legendHorizontal)
       this.legendHorizontal = null
     }
 
     if (this.legendVertical) {
-      Util.removeElement(this.legendVertical)
+      removeElement(this.legendVertical)
       this.legendVertical = null
     }
 
@@ -274,7 +281,7 @@ class Map {
     const keys = Object.keys
 
     // Remove tooltip from the DOM
-    Util.removeElement(tooltip)
+    removeElement(tooltip)
 
     // Remove event registry
     keys(eventRegistry).forEach(event => {
@@ -295,10 +302,6 @@ class Map {
 
   extend(name, callback) {
     Map.prototype[name] = callback
-  }
-
-  getUtils() {
-    return Util
   }
 }
 

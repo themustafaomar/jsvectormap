@@ -1,4 +1,4 @@
-import Util from '../util/index'
+import { merge } from '../util/index'
 import Marker from '../elements/marker'
 
 export default function createMarkers(markers = {}, isRecentlyCreated = false) {
@@ -20,12 +20,12 @@ export default function createMarkers(markers = {}, isRecentlyCreated = false) {
     // Becuase we may have more than one marker.
     if (isRecentlyCreated) {
       if (
-        Util.keys(this.markers).filter(i => this.markers[i]._uid === uid).length
+        Object.keys(this.markers).filter(i => this.markers[i]._uid === uid).length
       ) {
         continue
       }
 
-      index = Util.keys(this.markers).length
+      index = Object.keys(this.markers).length
     }
 
     if (point !== false) {
@@ -33,17 +33,13 @@ export default function createMarkers(markers = {}, isRecentlyCreated = false) {
         index,
         map: this,
         // Merge the `markerStyle` object with the marker config `style` if presented.
-        style: Util.mergeDeeply(this.params.markerStyle, { initial: markerConfig.style || {} }),
+        style: merge(this.params.markerStyle, { initial: markerConfig.style || {} }, true),
         label: this.params.labels && this.params.labels.markers,
         labelsGroup: this.markerLabelsGroup,
         cx: point.x,
         cy: point.y,
         group: this.markersGroup,
         marker: markerConfig,
-        // @TODO: this may be a little bit complicated :(
-        // When adding a new marker by `addMarker` method and labels.markers.render() key exists
-        // the render function may returns something like that: return markers[name].name;
-        // it will throw an error and the label won't be shown: this was created to solve showing the label
         isRecentlyCreated,
       })
 

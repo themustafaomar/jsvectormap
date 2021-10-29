@@ -27,7 +27,7 @@ class SVGCanvasElement extends SVGElement {
     this.node.appendChild(this._rootElement.node)
 
     // Append this.node (SVG tag) to the container
-    this._container.append(this.node)
+    this._container.appendChild(this.node)
   }
 
   setSize(width, height) {
@@ -41,54 +41,54 @@ class SVGCanvasElement extends SVGElement {
 
   // Create `path` element
   createPath(config, style) {
-    const el = new SVGShapeElement('path', config, style)
+    const path = new SVGShapeElement('path', config, style)
 
-    el.node.setAttribute('fill-rule', 'evenodd')
+    path.node.setAttribute('fill-rule', 'evenodd')
 
-    return this.add(el)
+    return this.add(path)
   }
 
   // Create `circle` element
   createCircle(config, style, group) {
-    const el = new SVGShapeElement('circle', config, style)
+    const circle = new SVGShapeElement('circle', config, style)
 
-    return this.add(el, group)
+    return this.add(circle, group)
   }
 
   // Create `line` element
   createLine(config, style, group) {
-    const el = new SVGShapeElement('line', config, style)
+    const line = new SVGShapeElement('line', config, style)
 
-    return this.add(el, group)
+    return this.add(line, group)
   }
 
   // Create `text` element
   createText(config, style, group) {
-    const el = new SVGTextElement(config, style) // extends SVGShapeElement
+    const text = new SVGTextElement(config, style) // extends SVGShapeElement
 
-    return this.add(el, group)
+    return this.add(text, group)
   }
 
   // Create `image` element
   createImage(config, style, group) {
-    const el = new SVGImageElement(config, style) // extends SVGShapeElement
+    const image = new SVGImageElement(config, style) // extends SVGShapeElement
 
-    return this.add(el, group)
+    return this.add(image, group)
   }
 
   // Create `g` element
   createGroup(id) {
-    const el = new SVGElement('g')
+    const group = new SVGElement('g')
 
-    this.node.appendChild(el.node)
+    this.node.appendChild(group.node)
 
     if (id) {
-      el.node.id = id
+      group.node.id = id
     }
 
-    el.canvas = this
+    group.canvas = this
 
-    return el
+    return group
   }
 
   // Add some element to a spcific group or the root element if the group isn't given
@@ -96,8 +96,6 @@ class SVGCanvasElement extends SVGElement {
     group = group || this._rootElement
 
     group.node.appendChild(element.node)
-
-    // element.canvas = this
 
     return element
   }

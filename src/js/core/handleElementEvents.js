@@ -1,7 +1,8 @@
-import Util from '../util/index'
+import { $ } from '../util/index'
+import EventHandler from '../eventHandler'
 
 function parseEvent(map, selector, isTooltip) {
-  var ele = Util.$(selector),
+  var ele = $(selector),
     elClassList = ele.attr('class'),
     type = elClassList.indexOf('jvm-region') === -1 ? 'marker' : 'region',
     code = type === 'region' ? ele.attr('data-code') : ele.attr('data-index'),
@@ -22,14 +23,14 @@ function parseEvent(map, selector, isTooltip) {
 }
 
 export default function handleElementEvents() {
-  const map = this
+  const map = this, container = this.container
 
-  this.container.delegate('.jvm-element', 'mousedown', () => {
+  EventHandler.delegate(container, 'mousedown', '.jvm-element', () => {
     this.isBeingDragged = false
   })
 
   // When the mouse is over the region/marker | When the mouse is out the region/marker
-  this.container.delegate('.jvm-element', 'mouseover mouseout', function (event) {
+  EventHandler.delegate(container, 'mouseover mouseout', '.jvm-element', function (event) {
     const data = parseEvent(map, this, true)
     const showTooltip = map.params.showTooltip
 
@@ -55,7 +56,7 @@ export default function handleElementEvents() {
   })
 
   // When the click is released
-  this.container.delegate('.jvm-element', 'mouseup', function (event) {
+  EventHandler.delegate(container, '.jvm-element', 'mouseup', function (event) {
     const data = parseEvent(map, this)
 
     if (map.isBeingDragged || event.defaultPrevented) {

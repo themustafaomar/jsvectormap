@@ -1,4 +1,3 @@
-import Util from '../util/index'
 import SVGShapeElement from './shapeElement'
 
 /**
@@ -16,7 +15,7 @@ class SVGImageElement extends SVGShapeElement {
 
     if (attr === 'image') {
       // This get executed when we have url in series.markers[0].scale.someScale.url
-      if (Util.isObj(value)) {
+      if (typeof value === 'object') {
         imageUrl = value.url
         this.offset = value.offset || [0, 0]
       } else {

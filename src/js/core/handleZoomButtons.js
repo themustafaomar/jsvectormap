@@ -1,12 +1,12 @@
-import Util from '../util/index'
 import EventHandler from '../eventHandler'
 
 export default function handleZoomButtons() {
   const map = this
-  const zoomin = Util.createElement('div', 'jvm-zoom-btn jvm-zoomin', '&#43;', true)
-  const zoomout = Util.createElement('div', 'jvm-zoom-btn jvm-zoomout', '&#x2212', true)
+  const zoomin = createElement('div', 'jvm-zoom-btn jvm-zoomin', '&#43;', true)
+  const zoomout = createElement('div', 'jvm-zoom-btn jvm-zoomout', '&#x2212', true)
 
-  this.container.append(zoomin).append(zoomout)
+  this.container.appendChild(zoomin)
+  this.container.appendChild(zoomout)
 
   EventHandler.on(zoomin, 'click', () => {
     this.setScale(
