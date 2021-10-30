@@ -5,7 +5,6 @@ import bindContainerTouchEvents from './bindContainerTouchEvents'
 import createRegions from './createRegions'
 import createLines from './createLines'
 import createMarkers from './createMarkers'
-import createTooltip from './createTooltip'
 import createSeries from './createSeries'
 import applyTransform from './applyTransform'
 import setFocus from './setFocus'
@@ -28,7 +27,6 @@ export default {
   createRegions,
   createLines,
   createMarkers,
-  createTooltip,
   createSeries,
   applyTransform,
   setFocus,
