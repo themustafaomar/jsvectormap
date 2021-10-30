@@ -9,6 +9,7 @@ import SVGCanvasElement from './svg/canvasElement'
 import MapPrototypes from './core/index'
 import Events from './defaults/events'
 import EventHandler from './eventHandler'
+import Tooltip from './elements/tooltip'
 
 /**
  * ------------------------------------------------------------------------
@@ -97,7 +98,7 @@ class Map {
 
     // Create toolip
     if (options.showTooltip) {
-      this.createTooltip()
+      this.tooltip = new Tooltip(this)
     }
 
     // Create zoom buttons if `zoomButtons` is set to true
