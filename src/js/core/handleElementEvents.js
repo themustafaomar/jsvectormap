@@ -1,11 +1,11 @@
-import { $ } from '../util/index'
+import { getElement } from '../util/index'
 import EventHandler from '../eventHandler'
 
 function parseEvent(map, selector, isTooltip) {
-  var ele = $(selector),
-    elClassList = ele.attr('class'),
+  var ele = getElement(selector),
+    elClassList = ele.getAttribute('class'),
     type = elClassList.indexOf('jvm-region') === -1 ? 'marker' : 'region',
-    code = type === 'region' ? ele.attr('data-code') : ele.attr('data-index'),
+    code = type === 'region' ? ele.getAttribute('data-code') : ele.getAttribute('data-index'),
     event = `${type}:selected`
 
   // Init tooltip event
@@ -56,7 +56,7 @@ export default function handleElementEvents() {
   })
 
   // When the click is released
-  EventHandler.delegate(container, '.jvm-element', 'mouseup', function (event) {
+  EventHandler.delegate(container, 'mouseup', '.jvm-element', function (event) {
     const data = parseEvent(map, this)
 
     if (map.isBeingDragged || event.defaultPrevented) {
