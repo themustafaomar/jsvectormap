@@ -64,6 +64,9 @@ image, text, .#{$classPrefix}zoomin, .#{$classPrefix}zoomout { user-select: none
   position: absolute;
   display: none;
   color: #FFF;
+  &.active {
+    display: block;
+  }
 }
 
 // Zoom buttons
