@@ -89,11 +89,11 @@
       },
       onRegionTooltipShow: function (tooltip, code) {
         if (code === 'RU') {
-          tooltip.selector.innerHTML = tooltip.text() + ' <b>(Hello Russia)</b>'
+          tooltip.getElement().innerHTML = tooltip.text() + ' <b>(Hello Russia)</b>'
         }
       },
       onMarkerTooltipShow: function (tooltip, index) {
-        tooltip.selector.innerHTML = '<h5 class="mb-0">'+tooltip.text()+'</h5>' + '<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p><small class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.</small>'
+        tooltip.getElement().innerHTML = '<h5 class="mb-0">'+tooltip.text()+'</h5>' + '<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p><small class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.</small>'
       },
 
       // -------- Labels --------

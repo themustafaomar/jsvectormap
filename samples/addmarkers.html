@@ -74,15 +74,8 @@
         // These are special..
         offsets: [15, 10]
       })
-      // If you're coming from createMarkers.js uncomment the following to see the problem
-      // the problem
-      /* map.addMarker({
-        name: 'Russia',
-        coords: [61, 105],
-      }) */
     })
 
-    // 
     document.querySelector('#add').addEventListener('click', function () {
       var coords = document.querySelector('#coords').value.split(","),
           label = document.querySelector('#label').value
