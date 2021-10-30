@@ -56,6 +56,10 @@ class Tooltip {
     })
   }
 
+  getElement() {
+    return this._tooltip
+  }
+
   show() {
     this._tooltip.classList.add('active')
   }

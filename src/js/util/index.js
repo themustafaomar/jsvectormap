@@ -1,4 +1,3 @@
-import DomHandler from '../domHandler'
 import DeepMerge from './deepMerge'
 
 /**
@@ -6,10 +5,6 @@ import DeepMerge from './deepMerge'
  * Public Util Api
  * --------------------------------------------------------------------------
  */
-const $ = selector => {
-  return new DomHandler(selector)
-}
-
 const getElement = selector => {
   if (typeof selector === 'object' && typeof selector.nodeType !== 'undefined') {
     return selector
@@ -65,7 +60,6 @@ const keys = object => {
 }
 
 export {
-  $,
   getElement,
   createElement,
   findElement,
