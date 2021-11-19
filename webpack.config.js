@@ -3,13 +3,13 @@ const path = require('path')
 module.exports = {
   mode: 'development',
   devtool: 'eval',
-  target: 'node',
-  entry: {
-    jsvectormap: './src/js/JsVectorMap.js',
-  },
+  entry: path.resolve(__dirname, 'src/js/jsvectormap.js'), 
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'js/[name].js',
+    filename: 'js/jsvectormap.js',
+    library: 'jsVectorMap',
+    libraryTarget: 'umd',
+    libraryExport: 'default'
   },
   module: {
     rules: [{
