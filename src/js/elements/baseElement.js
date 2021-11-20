@@ -4,7 +4,7 @@
  * Class Definition ( Abstract )
  * ------------------------------------------------------------------------
  */
-class MapElement {
+class baseElement {
   getLabelText(key, label) {
     if (!label) {
       return
@@ -71,4 +71,4 @@ class MapElement {
   }
 }
 
-export default MapElement
+export default baseElement

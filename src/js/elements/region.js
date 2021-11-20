@@ -1,11 +1,11 @@
-import MapElement from './baseElement'
+import baseElement from './baseElement'
 
 /**
  * ------------------------------------------------------------------------
  * Class Definition
  * ------------------------------------------------------------------------
  */
-class Region extends MapElement {
+class Region extends baseElement {
   constructor({ map, code, path, style, label, labelStyle, labelsGroup }) {
     super()
 

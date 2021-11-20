@@ -1,11 +1,11 @@
-import MapElement from './baseElement'
+import baseElement from './baseElement'
 
 /**
  * ------------------------------------------------------------------------
  * Class Definition
  * ------------------------------------------------------------------------
  */
-class Marker extends MapElement {
+class Marker extends baseElement {
   constructor({ index, style, label, cx, cy, map, group }) {
     super()
 
