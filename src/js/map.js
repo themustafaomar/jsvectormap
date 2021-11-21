@@ -278,11 +278,10 @@ class Map {
   // Destroy the map
   destroy(destroyInstance = true) {
     const eventRegistry = EventHandler.getEventRegistry()
-    const tooltip = this.tooltip.selector
     const keys = Object.keys
 
     // Remove tooltip from the DOM
-    removeElement(tooltip)
+    removeElement(this.tooltip.getElement())
 
     // Remove event registry
     keys(eventRegistry).forEach(event => {
