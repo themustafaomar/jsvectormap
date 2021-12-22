@@ -16,6 +16,7 @@ export default function handleContainerEvents() {
       oldPageX = e.pageX
       oldPageY = e.pageY
       this.isBeingDragged = true
+      this.emit('map:moved', [this])
     })
 
     EventHandler.on(this.container, 'mousedown', (e) => {
