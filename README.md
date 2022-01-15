@@ -1,3 +1,9 @@
+## Attention ⚠️⚠️
+
+### The docs website is now inactive due to a problem, I'm working on a new docs and it'll be available as soon as possible, thank you for understanding and sorry for that!
+
+<br>
+
 <p align="center">
   <a href="https://themustafaomar.com/open-source/jsvectormap">
     <img src="assets/images/jsvectormap.jpg" alt="Jsvectormap sample" width="500" />
