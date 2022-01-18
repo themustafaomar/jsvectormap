@@ -2,6 +2,8 @@
 
 ### The docs website is now inactive due to a problem, I'm working on a new docs and it'll be available as soon as possible, thank you for understanding and sorry for that!
 
+#### EDIT, [temporary docs](https://jvm-docs.netlify.app/)
+
 <br>
 
 <p align="center">
