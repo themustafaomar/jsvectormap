@@ -23,7 +23,7 @@ class jsVectorMap {
   }
 
   // Public
-  addMap(name, map) {
+  static addMap(name, map) {
     Map.maps[name] = map
   }
 }

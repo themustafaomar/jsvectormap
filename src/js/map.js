@@ -17,6 +17,9 @@ import Tooltip from './elements/tooltip'
  * ------------------------------------------------------------------------
  */
 class Map {
+  static maps = {}
+  static defaults = Defaults
+
   constructor(options = {}) {
     // Merge the given options with the default options
     this.params = merge(Map.defaults, options, true)
@@ -305,8 +308,6 @@ class Map {
   }
 }
 
-Map.maps = {}
-Map.defaults = Defaults
 Object.assign(Map.prototype, MapPrototypes)
 
 export default Map
