@@ -52,7 +52,7 @@ class Tooltip {
         }
       }
 
-      this._tooltip.style.cssText = `top: ${top}px; left: ${left}px`
+      this.css({ top: `${top}px`, left: `${left}px` })
     })
   }
 
@@ -74,6 +74,14 @@ class Tooltip {
     }
 
     this._tooltip.textContent = string
+  }
+
+  css(css) {
+    for (let style in css) {
+      this._tooltip.style[style] = css[style]
+    }
+
+    return this
   }
 }
 
