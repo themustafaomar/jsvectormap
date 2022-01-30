@@ -1,3 +1,5 @@
+import EventHandler from "../eventHandler"
+
 export default function bindContainerTouchEvents() {
   let map = this,
       touchStartScale,
@@ -82,5 +84,6 @@ export default function bindContainerTouchEvents() {
     lastTouchesLength = touches.length
   }
 
-  this.container.on('touchstart', handleTouchEvent).on('touchmove', handleTouchEvent)
+  EventHandler.on('touchstart', handleTouchEvent)
+  EventHandler.on('touchmove', handleTouchEvent)
 }
