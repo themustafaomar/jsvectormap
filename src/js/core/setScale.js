@@ -1,3 +1,5 @@
+import Events from '../defaults/events'
+
 export default function setScale(scale, anchorX, anchorY, isCentered, animate) {
   let zoomStep,
     interval,
@@ -45,7 +47,7 @@ export default function setScale(scale, anchorX, anchorY, isCentered, animate) {
       if (i == count) {
         clearInterval(interval)
 
-        this.emit('viewport:changed', [
+        this.emit(Events.onViewportChange, [
           this.scale, this.transX, this.transY
         ])
       }
@@ -56,7 +58,7 @@ export default function setScale(scale, anchorX, anchorY, isCentered, animate) {
     this.scale = scale
 
     this.applyTransform()
-    this.emit('viewport:changed', [
+    this.emit(Events.onViewportChange, [
       this.scale, this.transX, this.transY
     ])
   }

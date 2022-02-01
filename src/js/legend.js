@@ -1,7 +1,7 @@
 import {
   createElement,
   isImageUrl
-} from './util/index'
+} from './util'
 
 /**
  * ------------------------------------------------------------------------

@@ -9,7 +9,6 @@ class Region extends baseElement {
   constructor({ map, code, path, style, label, labelStyle, labelsGroup }) {
     super()
 
-    this.config = arguments[0]
     this.canvas = map.canvas
     this.map = map
 

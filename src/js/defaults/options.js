@@ -12,27 +12,17 @@ export default {
   zoomStep: 1.5,
   bindTouchEvents: true,
 
-
-
-
-  /**
-   * Lines options
-   */
+  // Line options
   lineStyle: {
     stroke: '#808080',
     strokeWidth: 1,
     strokeLinecap: 'round',
   },
 
-
-
-
-  /**
-   * Markers options
-   */
+  // Marker options
   markersSelectable: false,
   markersSelectableOne: false,
-  markerStyle: {  // Marker style
+  markerStyle: {
     initial: {
       r: 7,
       fill: '#374151',
@@ -50,8 +40,6 @@ export default {
     },
     selectedHover: {}
   },
-
-  // Marker Label style
   markerLabelStyle: {
     initial: {
       fontFamily: 'Verdana',
@@ -67,12 +55,7 @@ export default {
     selectedHover: {}
   },
 
-
-
-
-  /**
-   * Region style
-   */
+  // Region options
   regionsSelectable: false,
   regionsSelectableOne: false,
   regionStyle: {
@@ -91,8 +74,6 @@ export default {
     },
     selectedHover: {}
   },
-
-  // Region label style
   regionLabelStyle: {
     initial: {
       fontFamily: 'Verdana',

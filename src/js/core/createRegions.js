@@ -1,4 +1,4 @@
-import { merge } from '../util/index'
+import { merge } from '../util'
 import Region from '../elements/region'
 
 export default function createRegions() {

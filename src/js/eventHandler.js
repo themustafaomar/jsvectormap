@@ -25,7 +25,7 @@ const EventHandler = {
     event.forEach(eventName => {
       EventHandler.on(element, eventName, (e) => {
         const target = e.target
-  
+
         if (target.matches(selector)) {
           handler.call(target, e)
         }

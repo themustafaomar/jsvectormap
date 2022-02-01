@@ -25,6 +25,7 @@ function parseEvent(map, selector, isTooltip) {
 export default function handleElementEvents() {
   const map = this, container = this.container
 
+  // When the mouse is pressed
   EventHandler.delegate(container, 'mousedown', '.jvm-element', () => {
     this.isBeingDragged = false
   })

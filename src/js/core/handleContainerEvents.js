@@ -1,5 +1,4 @@
 import EventHandler from '../eventHandler'
-import { getElement } from '../util/index'
 
 export default function handleContainerEvents() {
   let mouseDown = false, oldPageX, oldPageY, map = this
@@ -25,7 +24,7 @@ export default function handleContainerEvents() {
       return false
     })
 
-    EventHandler.on(getElement('body'), 'mouseup', () => {
+    EventHandler.on(document.body, 'mouseup', () => {
       mouseDown = false
     })
   }

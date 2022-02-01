@@ -15,7 +15,7 @@ import '../scss/jsvectormap.scss'
  */
 class jsVectorMap {
   constructor(options = {}) {
-    if (! options.selector) {
+    if (!options.selector) {
       throw new Error('Selector is not given.')
     }
 

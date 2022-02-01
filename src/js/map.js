@@ -3,7 +3,7 @@ import {
   getElement,
   createElement,
   removeElement,
-} from './util/index'
+} from './util'
 import Defaults from './defaults/options'
 import SVGCanvasElement from './svg/canvasElement'
 import MapPrototypes from './core/index'
@@ -68,18 +68,13 @@ class Map {
     // when passing a DOM element to jsVectorMap constructor, the DOM element doesn't get merged
     // with defaults during merging the options so we need to get the selector directly from the options.
     this.container = getElement(selector)
-
     this.container.classList.add('jvm-container')
 
-    this.canvas = new SVGCanvasElement(
-      this.container, this.width, this.height
-    )
+    // The map canvas element
+    this.canvas = new SVGCanvasElement(this.container)
 
     // Set the map's background color
     this.setBackgroundColor(options.backgroundColor)
-
-    // Handle the container
-    this.handleContainerEvents()
 
     // Create regions
     this.createRegions()
@@ -93,11 +88,14 @@ class Map {
     // Create markers
     this.createMarkers(options.markers)
 
-    // Handle regions/markers events
-    this.handleElementEvents()
-
     // Position labels
     this.repositionLabels()
+
+    // Handle the container
+    this.handleContainerEvents()
+
+    // Handle regions/markers events
+    this.handleElementEvents()
 
     // Create toolip
     if (options.showTooltip) {
@@ -152,7 +150,7 @@ class Map {
     }
 
     // Fire loaded event
-    this.emit('map:loaded', [this])
+    this.emit(Events.onLoaded, [this])
   }
 
   // Public
@@ -291,7 +289,7 @@ class Map {
       EventHandler.off(eventRegistry[event].selector, event, eventRegistry[event].handler)
     })
 
-    this.emit('map:destroyed')
+    this.emit(Events.onDestroyed)
 
     // For perfomance issues remove all possible properties
     if (destroyInstance) {
@@ -304,6 +302,10 @@ class Map {
   }
 
   extend(name, callback) {
+    if (typeof this[name] === 'function') {
+      throw new Error(`The method [${name}] already exists internally please use another name.`)
+    }
+
     Map.prototype[name] = callback
   }
 }

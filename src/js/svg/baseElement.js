@@ -11,7 +11,7 @@ import {
 class SVGElement {
   constructor(name, config) {
     this.node = this.createElement(name)
-    
+
     if (config) {
       this.set(config)
     }
