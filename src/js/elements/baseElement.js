@@ -14,7 +14,7 @@ class baseElement {
       let params = []
 
       // Pass additional paramater (Marker config object) in case it's a Marker.
-      if (this.constructor.name === 'Marker') {
+      if (this.config && this.config.marker) {
         params.push(this.config.marker)
       }
 
