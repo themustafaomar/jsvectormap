@@ -9,6 +9,10 @@ class Line {
 
     this.shape.addClass('jvm-line')
   }
+
+  setStyle(property, value) {
+    this.shape.setStyle(property, value)
+  }
 }
 
 export default Line
