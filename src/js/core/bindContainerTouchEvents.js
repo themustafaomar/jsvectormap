@@ -84,6 +84,6 @@ export default function bindContainerTouchEvents() {
     lastTouchesLength = touches.length
   }
 
-  EventHandler.on('touchstart', handleTouchEvent)
-  EventHandler.on('touchmove', handleTouchEvent)
+  EventHandler.on(map.container, 'touchstart', handleTouchEvent)
+  EventHandler.on(map.container, 'touchmove', handleTouchEvent)
 }
