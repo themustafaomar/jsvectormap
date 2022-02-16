@@ -42,7 +42,7 @@
     "autoprefixer": "^10.2.5",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.2.4",
-    "node-sass": "^6.0.0",
+    "node-sass": "^7.0.0",
     "postcss": "^8.2.15",
     "rollup": "^2.51.2",
     "rollup-plugin-scss": "^3.0.0",
