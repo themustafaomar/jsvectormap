@@ -28,4 +28,4 @@ class jsVectorMap {
   }
 }
 
-export default jsVectorMap
+export default window.jsVectorMap = jsVectorMap
