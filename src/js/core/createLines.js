@@ -1,9 +1,5 @@
-import { merge } from '../util/index'
+import { merge, getLineUid } from '../util/index'
 import Line from '../elements/line'
-
-function createLineUid(from, to) {
-  return `${from.toLowerCase()}:to:${to.toLowerCase()}`
-}
 
 export default function createLines(lines, markers, isRecentlyCreated = false) {
   let line, point1 = false, point2 = false
@@ -46,14 +42,14 @@ export default function createLines(lines, markers, isRecentlyCreated = false) {
       // Prevent line duplication elements in the DOM
       if (isRecentlyCreated) {
         Object.keys(this.lines).forEach(key => {
-          if (key === createLineUid(lines[0].from, lines[0].to)) {
+          if (key === getLineUid(lines[0].from, lines[0].to)) {
             this.lines[key].element.remove()
           }
         })
       }
 
       // Register lines with unique keys
-      this.lines[createLineUid(lineConfig.from, lineConfig.to)] = {
+      this.lines[getLineUid(lineConfig.from, lineConfig.to)] = {
         element: line, config: lineConfig
       }
     }

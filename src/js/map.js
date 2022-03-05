@@ -1,5 +1,6 @@
 import {
   merge,
+  getLineUid,
   getElement,
   createElement,
   removeElement,
@@ -246,6 +247,15 @@ class Map {
   // Create line
   addLine(from, to, style = {}) {
     this.createLines([{ from, to, style }], this.markers, true)
+  }
+
+  removeLine(from, to) {
+    const uid = getLineUid(from, to)
+
+    if (this.lines.hasOwnProperty(uid)) {
+      this.lines[uid].element.remove()
+      delete this.lines[uid]
+    }
   }
 
   // Reset map

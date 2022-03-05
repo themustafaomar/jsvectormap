@@ -13,6 +13,10 @@ class Line {
   setStyle(property, value) {
     this.shape.setStyle(property, value)
   }
+
+  remove() {
+    this.shape.remove()
+  }
 }
 
 export default Line

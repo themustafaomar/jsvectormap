@@ -59,6 +59,10 @@ const keys = object => {
   return Object.keys(object)
 }
 
+const getLineUid = (from, to) => {
+  return `${from.toLowerCase()}:to:${to.toLowerCase()}`
+}
+
 export {
   getElement,
   createElement,
@@ -68,4 +72,5 @@ export {
   hyphenate,
   merge,
   keys,
+  getLineUid,
 }
