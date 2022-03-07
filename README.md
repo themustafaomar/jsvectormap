@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://themustafaomar.com/open-source/jsvectormap">
+  <a href="https://jvm-docs.vercel.app">
     <img src="assets/images/jsvectormap.jpg" alt="Jsvectormap sample" width="500" />
   </a>
 </p>
@@ -10,11 +10,11 @@
   A lightweight Javascript library for creating interactive maps and pretty data visualization.
   <br>
   <br>
-  <a href="https://themustafaomar.com/open-source/jsvectormap"><strong>Explore docs</strong></a>
+  <a href="https://jvm-docs.vercel.app/docs/introduction"><strong>Explore docs</strong></a>
   .
   <a href="https://github.com/themustafaomar/jsvectormap/issues/new"><strong>Report bug</strong></a>
   ·
-  <a href="https://themustafaomar.com/open-source/jsvectormap"><strong>View demo</strong></a>
+  <a href="https://jvm-docs.vercel.app"><strong>View demo</strong></a>
   ·
   <a href="https://github.com/themustafaomar/jsvectormap/archive/master.zip"><strong>Download</strong></a>
 </p>
