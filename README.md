@@ -64,34 +64,21 @@ Your contributions always **welcome**
 
 * The build files shouldn't be updated when sending pull requests
 
-## Developing
-To work on the code, you will require the following:
-* this repository
-* A node environment with a version prior to v15 due to [dependency constraints](https://github.com/sass/node-sass/issues/2965#issuecomment-717620196)
-
-If you are new to Node, consider doing the following (Linux) to get started quickly:
+## Setup
 ```bash
-### Install node via your preferred mechanism. Ensure the binaries are in your path
-
-# Obtain a copy of this repository and change into the working directory
+### Install node via your preferred mechanism. Ensure the binaries are in your path & obtain a copy of this repository and change into the working directory
 git clone https://github.com/themustafaomar/jsvectormap.git && cd jsvectormap
 
-# Start up the live web server
+# Build
+npm run build
+
+# Start up the live web server (will be available on port 10001)
 npm run dev
+-> http://localhost:10001/index.html
 
-# Make your changes and view them in your browser. By default, it will answer on port 9000
-your-browser http://localhost:9000/
-
-# Perform a build to view your changes on the samples directory
-npm run-script build && npm run dev
-your-browser http://localhost:9000/samples/
+# Access and test in samples dir
+-> http://localhost:10001/samples/YourSampleName.html
 ```
-
-## Tips
-* If you need to expose the webpack runtime (such as if you are developing inside a container), you will need to modify `webpack.config.js`
-  * Set [devServer.host](https://webpack.js.org/configuration/dev-server/#devserverhost) to the IP address you wish to expose (`0.0.0.0` for all addresses)
-  * Set [devServer.allowedHosts](https://webpack.js.org/configuration/dev-server/#devserverallowedhosts) or [devServer.disableHostCheck](https://webpack.js.org/configuration/dev-server/#devserverdisablehostcheck) to permit access
-* When using `npm run dev`, changes made on the filesystem are immediately available on the `index.html` page. This is not the case for the samples directory.
 
 ## License
 jsvectormap licensed under MIT.
