@@ -33,7 +33,7 @@
   "bugs": {
     "url": "https://github.com/themustafaomar/jsvectormap/issues"
   },
-  "homepage": "https://themustafaomar.com/open-source/jsvectormap",
+  "homepage": "https://jvm-docs.vercel.app",
   "license": "MIT",
   "devDependencies": {
     "@babel/preset-env": "^7.14.5",
