@@ -52,23 +52,17 @@ class Map {
 
     // `document` is already ready, just initialise now
     if (document.readyState !== 'loading') {
-      this.init(options.selector)
+      this.init()
     } else {
       // Wait until `document` is ready
-      window.addEventListener('DOMContentLoaded', this.init.bind(
-        this, options.selector
-      ))
+      window.addEventListener('DOMContentLoaded', () => this.init())
     }
   }
 
-  // Initialize the map
-  init(selector) {
+  init() {
     const options = this.params
 
-    // @TODO: We can get the selector from params `this.params.selector` but unfortunately
-    // when passing a DOM element to jsVectorMap constructor, the DOM element doesn't get merged
-    // with defaults during merging the options so we need to get the selector directly from the options.
-    this.container = getElement(selector)
+    this.container = getElement(options.selector)
     this.container.classList.add('jvm-container')
 
     // The map canvas element
