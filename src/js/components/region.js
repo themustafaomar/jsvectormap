@@ -1,22 +1,19 @@
-import baseElement from './baseElement'
+import BaseComponent from './base'
 
 /**
  * ------------------------------------------------------------------------
  * Class Definition
  * ------------------------------------------------------------------------
  */
-class Region extends baseElement {
+class Region extends BaseComponent {
   constructor({ map, code, path, style, label, labelStyle, labelsGroup }) {
     super()
 
-    this.canvas = map.canvas
-    this.map = map
+    this._map = map
+    this.shape = this._createRegion(path, code, style)
 
-    this.shape = this.canvas.createPath({ d: path, dataCode: code }, style)
-    this.shape.addClass('jvm-region jvm-element')
-
-    let bbox = this.shape.getBBox(),
-      text = this.getLabelText(code, label)
+    let bbox = this.shape.getBBox()
+    let text = this.getLabelText(code, label)
 
     // If label is passed and render function returns something 
     if (label && text) {
@@ -24,7 +21,7 @@ class Region extends baseElement {
       this.labelX = bbox.x + bbox.width / 2 + offsets[0]
       this.labelY = bbox.y + bbox.height / 2 + offsets[1]
 
-      this.label = this.canvas.createText({
+      this.label = this._map.canvas.createText({
         text,
         textAnchor: 'middle',
         alignmentBaseline: 'central',
@@ -37,11 +34,17 @@ class Region extends baseElement {
     }
   }
 
+  _createRegion(path, code, style) {
+    path = this._map.canvas.createPath({ d: path, dataCode: code }, style)
+    path.addClass('jvm-region jvm-element')
+    return path
+  }
+
   updateLabelPosition() {
     if (this.label) {
       this.label.set({
-        x: this.labelX * this.map.scale + this.map.transX * this.map.scale,
-        y: this.labelY * this.map.scale + this.map.transY * this.map.scale
+        x: this.labelX * this._map.scale + this._map.transX * this._map.scale,
+        y: this.labelY * this._map.scale + this._map.transY * this._map.scale
       })
     }
   }
