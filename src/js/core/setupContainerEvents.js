@@ -1,6 +1,6 @@
 import EventHandler from '../eventHandler'
 
-export default function handleContainerEvents() {
+export default function setupContainerEvents() {
   let mouseDown = false, oldPageX, oldPageY, map = this
 
   if (this.params.draggable) {
@@ -11,7 +11,7 @@ export default function handleContainerEvents() {
 
       map.transX -= (oldPageX - e.pageX) / map.scale
       map.transY -= (oldPageY - e.pageY) / map.scale
-      map.applyTransform()
+      map._applyTransform()
       oldPageX = e.pageX
       oldPageY = e.pageY
       this.isBeingDragged = true
@@ -44,7 +44,7 @@ export default function handleContainerEvents() {
       if (map.tooltip) {
         map.tooltip.hide()
       }
-      map.setScale(map.scale * zoomStep, offsetX, offsetY)
+      map._setScale(map.scale * zoomStep, offsetX, offsetY)
       
       event.preventDefault()
     })

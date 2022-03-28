@@ -1,5 +1,5 @@
 import { merge } from '../util'
-import Region from '../elements/region'
+import Region from '../components/region'
 
 export default function createRegions() {
   let code, region

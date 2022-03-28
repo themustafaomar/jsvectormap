@@ -1,5 +1,5 @@
 import { merge } from '../util/index'
-import Marker from '../elements/marker'
+import Marker from '../components/marker'
 
 export default function createMarkers(markers = {}, isRecentlyCreated = false) {
   let markerConfig, marker, point, uid

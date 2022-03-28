@@ -1,7 +1,7 @@
 import {
   hyphenate,
   removeElement
-} from "../util/index"
+} from '../util/index'
 
 /**
  * ------------------------------------------------------------------------
@@ -10,7 +10,7 @@ import {
  */
 class SVGElement {
   constructor(name, config) {
-    this.node = this.createElement(name)
+    this.node = this._createElement(name)
 
     if (config) {
       this.set(config)
@@ -19,7 +19,7 @@ class SVGElement {
 
   // Create new SVG element `svg`, `g`, `path`, `line`, `circle`, `image`, etc.
   // https://developer.mozilla.org/en-US/docs/Web/API/Document/createElementNS#important_namespace_uris
-  createElement(tagName) {
+  _createElement(tagName) {
     return document.createElementNS('http://www.w3.org/2000/svg', tagName)
   }
 

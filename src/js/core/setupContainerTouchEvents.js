@@ -1,6 +1,6 @@
 import EventHandler from "../eventHandler"
 
-export default function bindContainerTouchEvents() {
+export default function setupContainerTouchEvents() {
   let map = this,
       touchStartScale,
       touchStartDistance,
@@ -29,7 +29,7 @@ export default function bindContainerTouchEvents() {
         map.transY -= (touchY - touches[0].pageY) / map.scale
 
         map.tooltip.hide()
-        map.applyTransform()
+        map._applyTransform()
 
         if (transXOld != map.transX || transYOld != map.transY) {
           e.preventDefault()
@@ -46,7 +46,7 @@ export default function bindContainerTouchEvents() {
           Math.pow(touches[0].pageY - touches[1].pageY, 2)
         ) / touchStartDistance
 
-        map.setScale(touchStartScale * scale, centerTouchX, centerTouchY)
+        map._setScale(touchStartScale * scale, centerTouchX, centerTouchY)
 
         map.tooltip.hide()
         e.preventDefault()

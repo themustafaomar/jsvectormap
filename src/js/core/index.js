@@ -1,43 +1,41 @@
-import handleContainerEvents from './handleContainerEvents'
-import handleElementEvents from './handleElementEvents'
-import handleZoomButtons from './handleZoomButtons'
-import bindContainerTouchEvents from './bindContainerTouchEvents'
-import createRegions from './createRegions'
-import createLines from './createLines'
-import createMarkers from './createMarkers'
-import createSeries from './createSeries'
-import applyTransform from './applyTransform'
+import _setupContainerEvents from './setupContainerEvents'
+import _setupElementEvents from './setupElementEvents'
+import _setupZoomButtons from './setupZoomButtons'
+import _setupContainerTouchEvents from './setupContainerTouchEvents'
+import _createRegions from './createRegions'
+import _createLines from './createLines'
+import _createMarkers from './createMarkers'
+import _createSeries from './createSeries'
+import _applyTransform from './applyTransform'
+import _resize from './resize'
+import _setScale from './setScale'
 import setFocus from './setFocus'
-import resize from './resize'
-import setScale from './setScale'
 import updateSize from './updateSize'
 import coordsToPoint from './coordsToPoint'
 import getInsetForPoint from './getInsetForPoint'
 import getMarkerPosition from './getMarkerPosition'
-import repositionLines from './repositionLines'
-import repositionMarkers from './repositionMarkers'
-import repositionLabels from './repositionLabels'
-import visualizeData from './visualizeData'
+import _repositionLines from './repositionLines'
+import _repositionMarkers from './repositionMarkers'
+import _repositionLabels from './repositionLabels'
 
 export default {
-  handleContainerEvents,
-  handleElementEvents,
-  handleZoomButtons,
-  bindContainerTouchEvents,
-  createRegions,
-  createLines,
-  createMarkers,
-  createSeries,
-  applyTransform,
+  _setupContainerEvents,
+  _setupElementEvents,
+  _setupZoomButtons,
+  _setupContainerTouchEvents,
+  _createRegions,
+  _createLines,
+  _createMarkers,
+  _createSeries,
+  _applyTransform,
+  _resize,
+  _setScale,
   setFocus,
-  resize,
-  setScale,
   updateSize,
   coordsToPoint,
   getInsetForPoint,
   getMarkerPosition,
-  repositionLines,
-  repositionMarkers,
-  repositionLabels,
-  visualizeData
+  _repositionLines,
+  _repositionMarkers,
+  _repositionLabels,
 }

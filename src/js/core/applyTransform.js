@@ -32,12 +32,12 @@ export default function applyTransform() {
   this.canvas.applyTransformParams(this.scale, this.transX, this.transY)
  
   if (this.markers) {
-    this.repositionMarkers()
+    this._repositionMarkers()
   }
 
   if (this.lines) {
-    this.repositionLines()
+    this._repositionLines()
   }
 
-  this.repositionLabels()
+  this._repositionLabels()
 }
