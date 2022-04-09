@@ -52,7 +52,7 @@ class Marker extends BaseComponent {
       dataIndex: index,
       x: this._labelX,
       y: this._labelY,
-      dy: "0.6ex",
+      dy: '0.6ex',
     }, map.params.markerLabelStyle, labelsGroup)
 
     this.label.addClass('jvm-marker jvm-element')

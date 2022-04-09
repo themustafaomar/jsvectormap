@@ -10,7 +10,8 @@ import SVGCanvasElement from './svg/canvasElement'
 import MapPrototypes from './core/index'
 import Events from './defaults/events'
 import EventHandler from './eventHandler'
-import Tooltip from './elements/tooltip'
+import Tooltip from './components/tooltip'
+import DataVisualization from './dataVisualization'
 
 /**
  * ------------------------------------------------------------------------
@@ -52,14 +53,14 @@ class Map {
 
     // `document` is already ready, just initialise now
     if (document.readyState !== 'loading') {
-      this.init()
+      this._init()
     } else {
       // Wait until `document` is ready
-      window.addEventListener('DOMContentLoaded', () => this.init())
+      window.addEventListener('DOMContentLoaded', () => this._init())
     }
   }
 
-  init() {
+  _init() {
     const options = this.params
 
     this.container = getElement(options.selector)
@@ -72,34 +73,34 @@ class Map {
     this.setBackgroundColor(options.backgroundColor)
 
     // Create regions
-    this.createRegions()
+    this._createRegions()
 
     // Update size
     this.updateSize()
 
     // Create lines
-    this.createLines(options.lines || {}, options.markers || {})
+    this._createLines(options.lines || {}, options.markers || {})
 
     // Create markers
-    this.createMarkers(options.markers)
+    this._createMarkers(options.markers)
 
     // Position labels
-    this.repositionLabels()
+    this._repositionLabels()
 
-    // Handle the container
-    this.handleContainerEvents()
+    // Setup the container events
+    this._setupContainerEvents()
 
-    // Handle regions/markers events
-    this.handleElementEvents()
+    // Setup regions/markers events
+    this._setupElementEvents()
+
+    // Create zoom buttons if `zoomButtons` is presented
+    if (options.zoomButtons) {
+      this._setupZoomButtons()
+    }
 
     // Create toolip
     if (options.showTooltip) {
       this.tooltip = new Tooltip(this)
-    }
-
-    // Create zoom buttons if `zoomButtons` is set to true
-    if (options.zoomButtons) {
-      this.handleZoomButtons()
     }
 
     // Set selected regions if any
@@ -117,9 +118,9 @@ class Map {
       this.setFocus(options.focusOn)
     }
 
-    // Visualize data
+    // Data visualization
     if (options.visualizeData) {
-      this.visualizeData(options.visualizeData)
+      this.dataVisualization = new DataVisualization(options.visualizeData, this)
     }
 
     // Bind touch events if true
@@ -127,7 +128,7 @@ class Map {
       if (
         ('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch)
       ) {
-        this.bindContainerTouchEvents()
+        this._setupContainerTouchEvents()
       }
     }
 
@@ -141,22 +142,22 @@ class Map {
         'div', 'jvm-series-container jvm-series-v'
       ))
 
-      this.createSeries()
+      this._createSeries()
     }
 
     // Fire loaded event
-    this.emit(Events.onLoaded, [this])
+    this._emit(Events.onLoaded, [this])
   }
 
-  // Public
-
-  emit(eventName, args) {
+  _emit(eventName, args) {
     for (let event in Events) {
       if (Events[event] === eventName && typeof this.params[event] === 'function') {
         this.params[event].apply(this, args)
       }
     }
   }
+
+  // Public
 
   setBackgroundColor(color) {
     this.container.style.backgroundColor = color
@@ -214,15 +215,15 @@ class Map {
   // Deprecated
   addMarker(config) {
     console.warn('`addMarker` method is depreacted, please use `addMarkers` instead.')
-    this.createMarkers([config], true)
+    this._createMarkers([config], true)
   }
 
   addMarkers(config) {
     if (Array.isArray(config)) {
-      return this.createMarkers(config, true)
+      return this._createMarkers(config, true)
     }
 
-    this.createMarkers([config], true);
+    this._createMarkers([config], true);
   }
 
   removeMarkers(markers) {
@@ -274,7 +275,7 @@ class Map {
     this.transX = this.baseTransX
     this.transY = this.baseTransY
 
-    this.applyTransform()
+    this._applyTransform()
     this.clearSelectedMarkers()
     this.clearSelectedRegions()
     this.removeMarkers()

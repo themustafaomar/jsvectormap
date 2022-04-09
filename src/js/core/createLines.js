@@ -1,5 +1,5 @@
 import { merge, getLineUid } from '../util/index'
-import Line from '../elements/line'
+import Line from '../components/line'
 
 export default function createLines(lines, markers, isRecentlyCreated = false) {
   let line, point1 = false, point2 = false

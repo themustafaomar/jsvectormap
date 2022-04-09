@@ -22,7 +22,7 @@ function parseEvent(map, selector, isTooltip) {
   }
 }
 
-export default function handleElementEvents() {
+export default function setupElementEvents() {
   const map = this, container = this.container
 
   // When the mouse is pressed
@@ -40,11 +40,15 @@ export default function handleElementEvents() {
 
       if (!defaultPrevented) {
         data.element.hover(true)
+      }
+
+      map.tooltip.text(data.tooltipText)
+      map._emit(data.event, [event, map.tooltip, data.code])
+
+      if (!defaultPrevented) {
 
         if (showTooltip) {
-          map.tooltip.text(data.tooltipText)
           map.tooltip.show()
-          map.emit(data.event, [map.tooltip, data.code])
         }
       }
     } else {
@@ -81,7 +85,7 @@ export default function handleElementEvents() {
         ele.select(true)
       }
 
-      map.emit(data.event, [
+      map._emit(data.event, [
         data.code,
         ele.isSelected,
         map.getSelected(`${data.type}s`)
