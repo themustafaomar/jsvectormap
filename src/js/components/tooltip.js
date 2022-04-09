@@ -1,8 +1,8 @@
 import {
   createElement,
-  findElement
-} from "../util"
-import EventHandler from "../eventHandler"
+  findElement,
+} from '../util'
+import EventHandler from '../eventHandler'
 
 /**
  * ------------------------------------------------------------------------

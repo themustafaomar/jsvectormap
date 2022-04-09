@@ -1,11 +1,11 @@
-import baseElement from './baseElement'
+import BaseComponent from './base'
 
 /**
  * ------------------------------------------------------------------------
  * Class Definition
  * ------------------------------------------------------------------------
  */
-class Marker extends baseElement {
+class Marker extends BaseComponent {
   constructor({ index, style, label, cx, cy, map, group }) {
     super()
 

@@ -4,7 +4,7 @@
  * Class Definition ( Abstract )
  * ------------------------------------------------------------------------
  */
-class baseElement {
+class BaseComponent {
   getLabelText(key, label) {
     if (!label) {
       return
@@ -71,4 +71,4 @@ class baseElement {
   }
 }
 
-export default baseElement
+export default BaseComponent
