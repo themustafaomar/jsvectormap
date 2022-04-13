@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Jsvectormap (Canada)</title>
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../dist/css/jsvectormap.css" />
+    <script src="../dist/js/jsvectormap.min.js"></script>
+    <script src="../dist/maps/brazil.js"></script>
+</head>
+<body>
+<div id="map" style="width: 1000px;height: 600px;margin: auto"></div>
+<script>
+    var colorNorte = "#4da43e";
+    var colorNordeste = "#a85e5e";
+    var colorCentroOeste = "#7148a4";
+    var colorSudeste = "#0467adfc";
+    var colorSul = "#0e5960fc";
+
+    var markers = [
+        {
+            name: 'Capital do Pequi',
+            coords: [119000, 108000],
+            style: {
+                fill: '#ffd559'
+            }
+        },
+    ];
+
+    var map = new jsVectorMap({
+        map: 'brazil',
+        selector: '#map',
+
+        markersSelectable: true,
+        markersSelectableOne: true,
+
+        onMarkerSelected(index, isSelected, selectedMarkers) {
+            console.log(index, isSelected, selectedMarkers);
+        },
+
+
+        // -------- Marker and label style --------
+        markers: markers,
+        markerStyle: {
+            hover: {
+                stroke: "#DDD",
+                strokeWidth: 3,
+                fill: '#ffe652'
+            },
+            selected: {
+                fill: '#ffea00'
+            }
+        },
+        markerLabelStyle: {
+            initial: {
+                fontSize: 11,
+                fontWeight: 500,
+                fill: '#fdfdff',
+            },
+        },
+
+        // -------- Series --------
+        series: {
+            regions: [{
+                attribute: 'fill',
+                attributes: {
+                    // Região Norte
+                    ac: colorNorte,
+                    am: colorNorte,
+                    ap: colorNorte,
+                    pa: colorNorte,
+                    ro: colorNorte,
+                    rr: colorNorte,
+                    to: colorNorte,
+                    // Região Nordeste
+                    al: colorNordeste,
+                    ba: colorNordeste,
+                    ce: colorNordeste,
+                    ma: colorNordeste,
+                    pb: colorNordeste,
+                    pe: colorNordeste,
+                    pi: colorNordeste,
+                    rn: colorNordeste,
+                    se: colorNordeste,
+                    // Região Centro-Oeste
+                    df: colorCentroOeste,
+                    go: colorCentroOeste,
+                    ms: colorCentroOeste,
+                    mt: colorCentroOeste,
+                    // Região Sudeste
+                    es: colorSudeste,
+                    mg: colorSudeste,
+                    rj: colorSudeste,
+                    sp: colorSudeste,
+                    // Região Sul
+                    pr: colorSul,
+                    rs: colorSul,
+                    sc: colorSul
+                },
+                legend: {
+                    title: 'Regiões',
+                    vertical: true
+                },
+                scale: {
+                    "Norte": colorNorte,
+                    "Nordeste": colorNordeste,
+                    "Centro Oeste": colorCentroOeste,
+                    "Sudeste": colorSudeste,
+                    "Sul": colorSul
+                }
+            }]
+        }
+    })
+</script>
+</body>
+</html>
