@@ -244,6 +244,19 @@ class Map {
     this.createLines([{ from, to, style }], this.markers, true)
   }
 
+  removeLines(lines) {
+    if (Array.isArray(lines)) {
+      lines = lines.map(line => getLineUid(line.from, line.to))
+    } else {
+      lines = Object.keys(this.lines)
+    }
+
+    lines.forEach(uid => {
+      this.lines[uid].element.remove()
+      delete this.lines[uid]
+    })
+  }
+
   removeLine(from, to) {
     const uid = getLineUid(from, to)
 
