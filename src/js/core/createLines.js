@@ -1,25 +1,25 @@
-import { merge, getLineUid } from '../util/index'
+import { merge, getLineUid } from '../util'
 import Line from '../components/line'
 
 export default function createLines(lines, markers, isRecentlyCreated = false) {
   let line, point1 = false, point2 = false
 
   // Create group for holding lines
-  // we're checking if `linesGroup` exists or not becuase we may add lines after the map has loaded
-  // so we will append the futured lines to this group as well.
+  // we're checking if `linesGroup` exists or not becuase we may add lines
+  // after the map has loaded so we will append the futured lines to this group as well.
   this.linesGroup = this.linesGroup || this.canvas.createGroup('jvm-lines-group')
 
   for (let index in lines) {
-    const lineConfig = lines[index]
+    const config = lines[index]
 
     for (let mindex in markers) {
       const markerConfig = isRecentlyCreated ? markers[mindex].config : markers[mindex]
 
-      if (markerConfig.name === lineConfig.from) {
+      if (markerConfig.name === config.from) {
         point1 = this.getMarkerPosition(markerConfig)
       }
 
-      if (markerConfig.name === lineConfig.to) {
+      if (markerConfig.name === config.to) {
         point2 = this.getMarkerPosition(markerConfig)
       }
     }
@@ -28,10 +28,8 @@ export default function createLines(lines, markers, isRecentlyCreated = false) {
       line = new Line({
         index: index,
         map: this,
-        // Merge the lineStyle object with the line config style
-        style: merge({ initial: this.params.lineStyle }, {
-          initial: lineConfig.style || {}
-        }, true),
+        // Merge the default `lineStyle` object with the custom `line` config style
+        style: merge({ initial: this.params.lineStyle }, { initial: config.style || {} }, true),
         x1: point1.x,
         y1: point1.y,
         x2: point2.x,
@@ -39,18 +37,9 @@ export default function createLines(lines, markers, isRecentlyCreated = false) {
         group: this.linesGroup,
       })
 
-      // Prevent line duplication elements in the DOM
-      if (isRecentlyCreated) {
-        Object.keys(this.lines).forEach(key => {
-          if (key === getLineUid(lines[0].from, lines[0].to)) {
-            this.lines[key].element.remove()
-          }
-        })
-      }
-
       // Register lines with unique keys
-      this.lines[getLineUid(lineConfig.from, lineConfig.to)] = {
-        element: line, config: lineConfig
+      this.lines[getLineUid(config.from, config.to)] = {
+        element: line, config
       }
     }
   }

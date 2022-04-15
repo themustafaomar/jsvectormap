@@ -244,17 +244,33 @@ class Map {
     this.createLines([{ from, to, style }], this.markers, true)
   }
 
+  addLines(config) {
+    const uids = this._getLinesAsUids()
+
+    if (!Array.isArray(config)) {
+      config = [config]
+    }
+
+    this._createLines(config.filter(line => {
+      return !(uids.indexOf(getLineUid(line.from, line.to)) > -1)
+    }), this.markers, true)
+  }
+
   removeLines(lines) {
     if (Array.isArray(lines)) {
       lines = lines.map(line => getLineUid(line.from, line.to))
     } else {
-      lines = Object.keys(this.lines)
+      lines = this._getLinesAsUids()
     }
 
     lines.forEach(uid => {
       this.lines[uid].element.remove()
       delete this.lines[uid]
     })
+  }
+
+  _getLinesAsUids() {
+    return Object.keys(this.lines)
   }
 
   removeLine(from, to) {
