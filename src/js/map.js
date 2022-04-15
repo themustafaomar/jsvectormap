@@ -239,9 +239,9 @@ class Map {
     })
   }
 
-  // Create line
   addLine(from, to, style = {}) {
-    this.createLines([{ from, to, style }], this.markers, true)
+    console.warn('`addLine` method is depreacted, please use `addLines` instead.')
+    this._createLines([{ from, to, style }], this.markers, true)
   }
 
   addLines(config) {
@@ -274,6 +274,7 @@ class Map {
   }
 
   removeLine(from, to) {
+    console.warn('`removeLine` method is depreacted, please use `removeLines` instead.')
     const uid = getLineUid(from, to)
 
     if (this.lines.hasOwnProperty(uid)) {
