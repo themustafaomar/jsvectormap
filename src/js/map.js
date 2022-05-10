@@ -105,12 +105,12 @@ class Map {
 
     // Set selected regions if any
     if (options.selectedRegions) {
-      this.setSelected('regions', options.selectedRegions)
+      this._setSelected('regions', options.selectedRegions)
     }
 
     // Set selected regions if any
     if (options.selectedMarkers) {
-      this.setSelected('markers', options.selectedMarkers)
+      this._setSelected('markers', options.selectedMarkers)
     }
 
     // Set focus on a spcific region
@@ -163,8 +163,8 @@ class Map {
     this.container.style.backgroundColor = color
   }
 
-  // Markers/Regions
-  getSelected(type) {
+  // Get selected markers/regions
+  _getSelected(type) {
     let key, selected = []
 
     for (key in this[type]) {
@@ -176,13 +176,7 @@ class Map {
     return selected
   }
 
-  clearSelected(type) {
-    this.getSelected(type).forEach(i => {
-      this[type][i].element.select(false)
-    })
-  }
-
-  setSelected(type, keys) {
+  _setSelected(type, keys) {
     keys.forEach(key => {
       if (this[type][key]) {
         this[type][key].element.select(true)
@@ -190,32 +184,28 @@ class Map {
     })
   }
 
+  _clearSelected(type) {
+    this._getSelected(type).forEach(i => {
+      this[type][i].element.select(false)
+    })
+  }
+
   // Region methods
   getSelectedRegions() {
-    return this.getSelected('regions')
+    return this._getSelected('regions')
   }
 
   clearSelectedRegions() {
-    this.getSelected('regions').forEach(code => {
-      this.regions[code].element.select(false)
-    })
+    this._clearSelected('regions')
   }
 
   // Markers methods
   getSelectedMarkers() {
-    return this.getSelected('markers')
+    return this._getSelected('markers')
   }
 
   clearSelectedMarkers() {
-    this.getSelected('markers').forEach(index => {
-      this.markers[index].element.select(false)
-    })
-  }
-
-  // Deprecated
-  addMarker(config) {
-    console.warn('`addMarker` method is depreacted, please use `addMarkers` instead.')
-    this._createMarkers([config], true)
+    this._clearSelected('markers')
   }
 
   addMarkers(config) {
@@ -223,7 +213,7 @@ class Map {
       return this._createMarkers(config, true)
     }
 
-    this._createMarkers([config], true);
+    this._createMarkers([config], true)
   }
 
   removeMarkers(markers) {
