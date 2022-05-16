@@ -39,6 +39,11 @@ const EventHandler = {
 
     delete eventRegistry[handler._uid]
   },
+  flush() {
+    Object.keys(eventRegistry).forEach(event => {
+      EventHandler.off(eventRegistry[event].selector, event, eventRegistry[event].handler)
+    })
+  },
   getEventRegistry() {
     return eventRegistry
   },

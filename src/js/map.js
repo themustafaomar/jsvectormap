@@ -303,22 +303,18 @@ class Map {
 
   // Destroy the map
   destroy(destroyInstance = true) {
-    const eventRegistry = EventHandler.getEventRegistry()
-    const keys = Object.keys
-
-    // Remove tooltip from the DOM
-    removeElement(this.tooltip.getElement())
-
     // Remove event registry
-    keys(eventRegistry).forEach(event => {
-      EventHandler.off(eventRegistry[event].selector, event, eventRegistry[event].handler)
-    })
+    EventHandler.flush()
 
-    this.emit(Events.onDestroyed)
+    // Remove tooltip from DOM and memory
+    this.tooltip.dispose()
 
-    // For perfomance issues remove all possible properties
+    // Fire destroyed event
+    this._emit(Events.onDestroyed)
+
+    // Remove references
     if (destroyInstance) {
-      keys(this).forEach(key => {
+      Object.keys(this).forEach(key => {
         try {
           delete this[key]
         } catch (e) {}
