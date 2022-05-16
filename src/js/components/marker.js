@@ -1,4 +1,6 @@
+import { inherit } from '../util'
 import BaseComponent from './base'
+import Interactable from './concerns/interactable'
 
 /**
  * ------------------------------------------------------------------------
@@ -74,5 +76,7 @@ class Marker extends BaseComponent {
     return style
   }
 }
+
+inherit(Marker, Interactable)
 
 export default Marker

@@ -1,4 +1,6 @@
+import { inherit } from '../util'
 import BaseComponent from './base'
+import Interactable from './concerns/interactable'
 
 /**
  * ------------------------------------------------------------------------
@@ -49,5 +51,7 @@ class Region extends BaseComponent {
     }
   }
 }
+
+inherit(Region, Interactable)
 
 export default Region

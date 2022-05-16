@@ -3,14 +3,17 @@ import {
   findElement,
 } from '../util'
 import EventHandler from '../eventHandler'
+import BaseComponent from './base'
 
 /**
  * ------------------------------------------------------------------------
  * Class Definition
  * ------------------------------------------------------------------------
  */
-class Tooltip {
+class Tooltip extends BaseComponent {
   constructor(map) {
+    super()
+
     const tooltip = createElement('div', 'jvm-tooltip')
 
     this._map = map

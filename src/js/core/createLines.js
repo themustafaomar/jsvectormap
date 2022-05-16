@@ -2,13 +2,13 @@ import { merge, getLineUid } from '../util'
 import Line from '../components/line'
 
 export default function createLines(lines, markers, isRecentlyCreated = false) {
-  let line, point1 = false, point2 = false
+  let point1 = false, point2 = false
 
   // Create group for holding lines
   // we're checking if `linesGroup` exists or not becuase we may add lines
   // after the map has loaded so we will append the futured lines to this group as well.
   this.linesGroup = this.linesGroup || this.canvas.createGroup('jvm-lines-group')
-
+  
   for (let index in lines) {
     const config = lines[index]
 
@@ -25,7 +25,8 @@ export default function createLines(lines, markers, isRecentlyCreated = false) {
     }
 
     if (point1 !== false && point2 !== false) {
-      line = new Line({
+      // Register lines with unique keys
+      this.lines[getLineUid(config.from, config.to)] = new Line({
         index: index,
         map: this,
         // Merge the default `lineStyle` object with the custom `line` config style
@@ -36,11 +37,6 @@ export default function createLines(lines, markers, isRecentlyCreated = false) {
         y2: point2.y,
         group: this.linesGroup,
       })
-
-      // Register lines with unique keys
-      this.lines[getLineUid(config.from, config.to)] = {
-        element: line, config
-      }
     }
   }
 }

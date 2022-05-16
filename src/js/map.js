@@ -254,7 +254,7 @@ class Map {
     }
 
     lines.forEach(uid => {
-      this.lines[uid].element.remove()
+      this.lines[uid].dispose()
       delete this.lines[uid]
     })
   }

@@ -63,6 +63,10 @@ const getLineUid = (from, to) => {
   return `${from.toLowerCase()}:to:${to.toLowerCase()}`
 }
 
+const inherit = (target, source) => {
+  Object.assign(target.prototype, source)
+}
+
 export {
   getElement,
   createElement,
@@ -73,4 +77,5 @@ export {
   merge,
   keys,
   getLineUid,
+  inherit,
 }

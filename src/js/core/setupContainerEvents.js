@@ -44,8 +44,8 @@ export default function setupContainerEvents() {
       if (map.tooltip) {
         map.tooltip.hide()
       }
+
       map._setScale(map.scale * zoomStep, offsetX, offsetY)
-      
       event.preventDefault()
     })
   }
