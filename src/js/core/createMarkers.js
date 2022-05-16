@@ -1,4 +1,4 @@
-import { merge } from '../util/index'
+import { merge } from '../util'
 import Marker from '../components/marker'
 
 export default function createMarkers(markers = {}, isRecentlyCreated = false) {
@@ -15,7 +15,7 @@ export default function createMarkers(markers = {}, isRecentlyCreated = false) {
     point = this.getMarkerPosition(markerConfig)
     uid = markerConfig.coords.join(':')
 
-    // We're checking if recently created marker is already existed
+    // We're checking if recently created marker does already exist
     // If exists we don't need to create it again, so we'll continute
     // Becuase we may have more than one marker.
     if (isRecentlyCreated) {

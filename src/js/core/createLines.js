@@ -36,6 +36,7 @@ export default function createLines(lines, markers, isRecentlyCreated = false) {
         x2: point2.x,
         y2: point2.y,
         group: this.linesGroup,
+        config
       })
     }
   }

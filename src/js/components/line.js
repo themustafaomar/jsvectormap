@@ -6,9 +6,10 @@ import BaseComponent from './base'
  * ------------------------------------------------------------------------
  */
 class Line extends BaseComponent {
-  constructor({ index, map, style, x1, y1, x2, y2, group }) {
+  constructor({ index, map, style, x1, y1, x2, y2, group, config }) {
     super()
 
+    this.config = config
     this.shape = map.canvas.createLine({ x1, y1, x2, y2, dataIndex: index }, style, group)
     this.shape.addClass('jvm-line')
   }
@@ -16,10 +17,6 @@ class Line extends BaseComponent {
   setStyle(property, value) {
     this.shape.setStyle(property, value)
   }
-
-  // remove() {
-  //   this.shape.remove()
-  // }
 }
 
 export default Line

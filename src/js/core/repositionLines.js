@@ -4,6 +4,7 @@ export default function repositionLines() {
   for (let index in this.lines) {
     for (let mindex in this.markers) {
       const marker = this.markers[mindex]
+      // console.log(this.lines[index], index);
 
       if (marker.config.name === this.lines[index].config.from) {
         point1 = this.getMarkerPosition(marker.config)
@@ -15,7 +16,7 @@ export default function repositionLines() {
     }
 
     if (point1 !== false && point2 !== false) {
-      this.lines[index].element.setStyle({
+      this.lines[index].setStyle({
         x1: point1.x,
         y1: point1.y,
         x2: point2.x,
