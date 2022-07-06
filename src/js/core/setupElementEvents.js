@@ -1,5 +1,6 @@
 import { getElement } from '../util/index'
 import EventHandler from '../eventHandler'
+import Events from '../defaults/events'
 
 function parseEvent(map, selector, isTooltip) {
   var element = getElement(selector),
@@ -98,5 +99,15 @@ export default function setupElementEvents() {
         map._getSelected(`${data.type}s`)
       ])
     }
+  })
+
+  // When region/marker is clicked
+  EventHandler.delegate(container, 'click', '.jvm-element', function (event) {
+    const { type, code } = parseEvent(map, this)
+
+    map._emit(
+      type === 'region' ? Events.onRegionClick : Events.onMarkerClick,
+      [event, code]
+    )
   })
 }
