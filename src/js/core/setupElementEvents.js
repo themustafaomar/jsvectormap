@@ -2,10 +2,10 @@ import { getElement } from '../util/index'
 import EventHandler from '../eventHandler'
 
 function parseEvent(map, selector, isTooltip) {
-  var ele = getElement(selector),
-    elClassList = ele.getAttribute('class'),
-    type = elClassList.indexOf('jvm-region') === -1 ? 'marker' : 'region',
-    code = type === 'region' ? ele.getAttribute('data-code') : ele.getAttribute('data-index'),
+  var element = getElement(selector),
+    classes = element.getAttribute('class'),
+    type = classes.indexOf('jvm-region') === -1 ? 'marker' : 'region',
+    code = type === 'region' ? element.getAttribute('data-code') : element.getAttribute('data-index'),
     event = `${type}:selected`
 
   // Init tooltip event
@@ -24,10 +24,19 @@ function parseEvent(map, selector, isTooltip) {
 
 export default function setupElementEvents() {
   const map = this, container = this.container
+  let pageX, pageY, mouseMoved
+
+  EventHandler.on(container, 'mousemove', (event) => {
+    if (Math.abs(pageX - event.pageX) + Math.abs(pageY - event.pageY) > 2) {
+      mouseMoved = true
+    }
+  })
 
   // When the mouse is pressed
-  EventHandler.delegate(container, 'mousedown', '.jvm-element', () => {
-    this.isBeingDragged = false
+  EventHandler.delegate(container, 'mousedown', '.jvm-element', (event) => {
+    pageX = event.pageX
+    pageY = event.pageY
+    mouseMoved = false
   })
 
   // When the mouse is over the region/marker | When the mouse is out the region/marker
@@ -46,7 +55,6 @@ export default function setupElementEvents() {
       map._emit(data.event, [event, map.tooltip, data.code])
 
       if (!defaultPrevented) {
-
         if (showTooltip) {
           map.tooltip.show()
         }
@@ -64,15 +72,14 @@ export default function setupElementEvents() {
   EventHandler.delegate(container, 'mouseup', '.jvm-element', function (event) {
     const data = parseEvent(map, this)
 
-    if (map.isBeingDragged || event.defaultPrevented) {
+    if (mouseMoved) {
       return
     }
 
     if (
-      (data.type === 'region' && map.params.regionsSelectable) ||
-      (data.type === 'marker' && map.params.markersSelectable)
+      (data.type === 'region' && map.params.regionsSelectable) || (data.type === 'marker' && map.params.markersSelectable)
     ) {
-      const ele = data.element
+      const element = data.element
 
       // We're checking if regions/markers|SelectableOne option is presented
       if (map.params[`${data.type}sSelectableOne`]) {
@@ -80,14 +87,14 @@ export default function setupElementEvents() {
       }
 
       if (data.element.isSelected) {
-        ele.select(false)
+        element.select(false)
       } else {
-        ele.select(true)
+        element.select(true)
       }
 
       map._emit(data.event, [
         data.code,
-        ele.isSelected,
+        element.isSelected,
         map._getSelected(`${data.type}s`)
       ])
     }

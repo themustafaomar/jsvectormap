@@ -49,7 +49,6 @@ class Map {
     this.transY = 0
     this.baseTransX = 0
     this.baseTransY = 0
-    this.isBeingDragged = false
 
     // `document` is already ready, just initialise now
     if (document.readyState !== 'loading') {

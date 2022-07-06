@@ -14,7 +14,6 @@ export default function setupContainerEvents() {
       map._applyTransform()
       oldPageX = e.pageX
       oldPageY = e.pageY
-      this.isBeingDragged = true
     })
 
     EventHandler.on(this.container, 'mousedown', (e) => {
