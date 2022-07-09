@@ -61,9 +61,9 @@ const map = new jsVectorMap({
 ```
 
 ## Contributions
-Your contributions always **welcome**
+Your contributions always **welcome** but consider the following notes:
 
-* The build files shouldn't be updated when sending pull requests
+* The build files shouldn't be updated when sending pull requests.
 
 ## Setup
 ```bash

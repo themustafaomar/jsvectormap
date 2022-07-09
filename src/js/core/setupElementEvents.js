@@ -46,16 +46,11 @@ export default function setupElementEvents() {
     const showTooltip = map.params.showTooltip
 
     if (event.type === 'mouseover') {
-      const defaultPrevented = event.defaultPrevented
-
-      if (!defaultPrevented) {
-        data.element.hover(true)
-      }
-
+      data.element.hover(true)
       map.tooltip.text(data.tooltipText)
       map._emit(data.event, [event, map.tooltip, data.code])
 
-      if (!defaultPrevented) {
+      if (!event.defaultPrevented) {
         if (showTooltip) {
           map.tooltip.show()
         }
