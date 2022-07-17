@@ -87,12 +87,12 @@
       onMarkerSelected: function (code, isSelected, selectedMarkers) {
         console.log(code, isSelected, selectedMarkers)
       },
-      onRegionTooltipShow: function (tooltip, code) {
+      onRegionTooltipShow: function (event, tooltip, code) {
         if (code === 'RU') {
           tooltip.getElement().innerHTML = tooltip.text() + ' <b>(Hello Russia)</b>'
         }
       },
-      onMarkerTooltipShow: function (tooltip, index) {
+      onMarkerTooltipShow: function (event, tooltip, index) {
         tooltip.getElement().innerHTML = '<h5 class="mb-0">'+tooltip.text()+'</h5>' + '<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p><small class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.</small>'
       },
 
