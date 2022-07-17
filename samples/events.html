@@ -52,7 +52,7 @@
       onRegionSelected: function (index, isSelected, selectedRegions) {
         console.log(index, isSelected, selectedRegions);
       },
-      onRegionTooltipShow: function (tooltip, index) {
+      onRegionTooltipShow: function (e, tooltip, index) {
         console.log(tooltip, index,);
         tooltip.css({ backgroundColor: 'red' }).text(
           tooltip.text() + ' (Hello World (region))'
