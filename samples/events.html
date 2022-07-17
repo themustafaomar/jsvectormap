@@ -52,7 +52,7 @@
       onRegionSelected: function (index, isSelected, selectedRegions) {
         console.log(index, isSelected, selectedRegions);
       },
-      onRegionTooltipShow: function (tooltip, index) {
+      onRegionTooltipShow: function (event, tooltip, index) {
         console.log(tooltip, index,);
         tooltip.css({ backgroundColor: 'red' }).text(
           tooltip.text() + ' (Hello World (region))'
@@ -61,7 +61,7 @@
       onMarkerSelected: function (code, isSelected, selectedMarkers) {
         console.log(code, isSelected, selectedMarkers);
       },
-      onMarkerTooltipShow: function (tooltip, code) {
+      onMarkerTooltipShow: function (event, tooltip, code) {
         tooltip.text(tooltip.text() + ' (Hello World (marker))')
       },
     })
