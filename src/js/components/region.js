@@ -19,7 +19,7 @@ class Region extends BaseComponent {
 
     // If label is passed and render function returns something 
     if (label && text) {
-      let offsets = this.getLabelOffsets(code)
+      let offsets = this.getLabelOffsets(code, label)
       this.labelX = bbox.x + bbox.width / 2 + offsets[0]
       this.labelY = bbox.y + bbox.height / 2 + offsets[1]
 
