@@ -17,7 +17,7 @@ class Marker extends BaseComponent {
 
     // Protected
     this.config = arguments[0]
-    this.shape = map.canvas[this._isImage ? 'createImage' : 'createCircle']({ dataIndex: index, cx, cy }, this._getStyle(), group)
+    this.shape = map.canvas[this._isImage ? 'createImage' : 'createCircle']({ dataIndex: index, cx, cy }, style, group)
 
     this.shape.addClass('jvm-marker jvm-element')
 
@@ -62,18 +62,6 @@ class Marker extends BaseComponent {
     if (isRecentlyCreated) {
       this.updateLabelPosition()
     }
-  }
-
-  _getStyle() {
-    let style = {}
-
-    if (this._isImage) {
-      style.initial = { image: this.config.style.initial.image }
-    } else {
-      style = this.config.style
-    }
-
-    return style
   }
 }
 
