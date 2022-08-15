@@ -71,12 +71,14 @@ class Tooltip extends BaseComponent {
     this._tooltip.classList.remove('active')
   }
 
-  text(string) {
+  text(string, html = false) {
+    const property = html ? 'innerHTML' : 'textContent'
+
     if (!string) {
-      return this._tooltip.textContent
+      return this._tooltip[property]
     }
 
-    this._tooltip.textContent = string
+    this._tooltip[property] = string
   }
 
   css(css) {

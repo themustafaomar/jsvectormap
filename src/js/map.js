@@ -5,9 +5,9 @@ import {
   createElement,
   removeElement,
 } from './util'
+import core from './core'
 import Defaults from './defaults/options'
 import SVGCanvasElement from './svg/canvasElement'
-import MapPrototypes from './core/index'
 import Events from './defaults/events'
 import EventHandler from './eventHandler'
 import Tooltip from './components/tooltip'
@@ -330,6 +330,6 @@ class Map {
   }
 }
 
-Object.assign(Map.prototype, MapPrototypes)
+Object.assign(Map.prototype, core)
 
 export default Map

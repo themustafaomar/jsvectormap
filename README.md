@@ -25,7 +25,7 @@ Bringing data to life with interactive maps
 
 This project is a deeply modified version of [jvectormap](https://github.com/bjornd/jvectormap) and was created to help developers who aren't using jQuery anymore in their projects.
 
-Jsvectormap supports all modern brownsers including IE9+
+Jsvectormap supports all modern browsers including IE9+
 
 <a href="https://www.npmjs.com/package/jsvectormap"><img src="https://img.shields.io/npm/l/jsvectormap.svg?sanitize=true" alt="License"></a>
 <a href="https://npmcharts.com/compare/jsvectormap?minimal=true"><img src="https://img.shields.io/npm/dm/jsvectormap.svg?sanitize=true" alt="Downloads"></a>
