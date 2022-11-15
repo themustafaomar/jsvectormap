@@ -47,6 +47,7 @@
     "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-scss": "^3.0.0",
     "rollup-plugin-serve": "^1.1.0",
-    "rollup-plugin-terser": "^7.0.2"
+    "rollup-plugin-terser": "^7.0.2",
+    "@babel/core": "^7.20.2"
   }
 }
