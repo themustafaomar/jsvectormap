@@ -10,7 +10,7 @@ export default {
   input: 'src/js/index.js',
   output: {
     name: 'jsVectorMap',
-    file: 'dist/js/index.js',
+    file: 'dist/js/jsvectormap.js',
     format: 'umd',
   },
   plugins: [
