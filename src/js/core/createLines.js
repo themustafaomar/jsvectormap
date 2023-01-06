@@ -26,7 +26,7 @@ export default function createLines(lines, markers, isRecentlyCreated = false) {
 
     if (point1 !== false && point2 !== false) {
       // Register lines with unique keys
-      this.lines[getLineUid(config.from, config.to)] = new Line({
+      this._lines[getLineUid(config.from, config.to)] = new Line({
         index: index,
         map: this,
         // Merge the default `lineStyle` object with the custom `line` config style

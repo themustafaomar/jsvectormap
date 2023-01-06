@@ -14,8 +14,8 @@ export default function repositionLabels() {
 
   // Markers labels
   if (labels.markers) {
-    for (let key in this.markers) {
-      this.markers[key].element.updateLabelPosition()
+    for (let key in this._markers) {
+      this._markers[key].element.updateLabelPosition()
     }
   }
 }

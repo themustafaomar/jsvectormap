@@ -1,15 +1,15 @@
 export default function resize() {
-  const curBaseScale = this.baseScale
+  const curBaseScale = this._baseScale
 
-  if (this.width / this.height > this.defaultWidth / this.defaultHeight) {
-    this.baseScale = this.height / this.defaultHeight
-    this.baseTransX = Math.abs(this.width - this.defaultWidth * this.baseScale) / (2 * this.baseScale)
+  if (this._width / this._height > this._defaultWidth / this._defaultHeight) {
+    this._baseScale = this._height / this._defaultHeight
+    this._baseTransX = Math.abs(this._width - this._defaultWidth * this._baseScale) / (2 * this._baseScale)
   } else {
-    this.baseScale = this.width / this.defaultWidth
-    this.baseTransY = Math.abs(this.height - this.defaultHeight * this.baseScale) / (2 * this.baseScale)
+    this._baseScale = this._width / this._defaultWidth
+    this._baseTransY = Math.abs(this._height - this._defaultHeight * this._baseScale) / (2 * this._baseScale)
   }
 
-  this.scale *= this.baseScale / curBaseScale
-  this.transX *= this.baseScale / curBaseScale
-  this.transY *= this.baseScale / curBaseScale
+  this.scale *= this._baseScale / curBaseScale
+  this.transX *= this._baseScale / curBaseScale
+  this.transY *= this._baseScale / curBaseScale
 }

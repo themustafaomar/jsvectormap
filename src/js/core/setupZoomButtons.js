@@ -12,8 +12,8 @@ export default function setupZoomButtons() {
   EventHandler.on(zoomin, 'click', () => {
     this._setScale(
       map.scale * map.params.zoomStep,
-      map.width / 2,
-      map.height / 2,
+      map._width / 2,
+      map._height / 2,
       false,
       map.params.zoomAnimate
     )
@@ -22,8 +22,8 @@ export default function setupZoomButtons() {
   EventHandler.on(zoomout, 'click', () => {
     this._setScale(
       map.scale / map.params.zoomStep,
-      map.width / 2,
-      map.height / 2,
+      map._width / 2,
+      map._height / 2,
       false,
       map.params.zoomAnimate
     )

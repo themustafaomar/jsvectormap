@@ -18,8 +18,8 @@ function parseEvent(map, selector, isTooltip) {
     event,
     type,
     code,
-    element: type === 'region' ? map.regions[code].element : map.markers[code].element,
-    tooltipText: type === 'region' ? map.mapData.paths[code].name || '' : (map.markers[code].config.name || '')
+    element: type === 'region' ? map.regions[code].element : map._markers[code].element,
+    tooltipText: type === 'region' ? map.mapData.paths[code].name || '' : (map._markers[code].config.name || '')
   }
 }
 

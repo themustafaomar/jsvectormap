@@ -1,7 +1,4 @@
-import {
-  createElement,
-  isImageUrl
-} from './util'
+import { createElement, isImageUrl } from './util'
 
 /**
  * ------------------------------------------------------------------------
@@ -29,11 +26,8 @@ class Legend {
   }
 
   render() {
-    let ticks = this._series.scale.getTicks(),
-      inner = createElement('div', 'jvm-legend-inner'),
-      tick,
-      sample,
-      label
+    let ticks = this._series.scale.getTicks()
+    let inner = createElement('div', 'jvm-legend-inner')
 
     this._body.innderHTML = ''
 
@@ -45,8 +39,8 @@ class Legend {
     this._body.appendChild(inner)
 
     for (let i = 0; i < ticks.length; i++) {
-      tick = createElement('div', 'jvm-legend-tick',)
-      sample = createElement('div', 'jvm-legend-tick-sample')
+      let tick = createElement('div', 'jvm-legend-tick',)
+      let sample = createElement('div', 'jvm-legend-tick-sample')
 
       switch (this._series.config.attribute) {
         case 'fill':
@@ -66,7 +60,7 @@ class Legend {
       }
 
       tick.appendChild(sample)
-      label = ticks[i].label
+      let label = ticks[i].label
 
       if (this._options.labelRender) {
         label = this._options.labelRender(label)

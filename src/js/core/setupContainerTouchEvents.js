@@ -1,4 +1,4 @@
-import EventHandler from "../eventHandler"
+import EventHandler from '../eventHandler'
 
 export default function setupContainerTouchEvents() {
   let map = this,
@@ -38,7 +38,6 @@ export default function setupContainerTouchEvents() {
 
       touchX = touches[0].pageX
       touchY = touches[0].pageY
-
     } else if (touches.length == 2) {
       if (lastTouchesLength == 2) {
         scale = Math.sqrt(

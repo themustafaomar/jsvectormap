@@ -45,35 +45,35 @@ class SVGCanvasElement extends SVGElement {
 
     path.node.setAttribute('fill-rule', 'evenodd')
 
-    return this.add(path)
+    return this._add(path)
   }
 
   // Create `circle` element
   createCircle(config, style, group) {
     const circle = new SVGShapeElement('circle', config, style)
 
-    return this.add(circle, group)
+    return this._add(circle, group)
   }
 
   // Create `line` element
   createLine(config, style, group) {
     const line = new SVGShapeElement('line', config, style)
 
-    return this.add(line, group)
+    return this._add(line, group)
   }
 
   // Create `text` element
   createText(config, style, group) {
-    const text = new SVGTextElement(config, style) // extends SVGShapeElement
+    const text = new SVGTextElement(config, style)
 
-    return this.add(text, group)
+    return this._add(text, group)
   }
 
   // Create `image` element
   createImage(config, style, group) {
-    const image = new SVGImageElement(config, style) // extends SVGShapeElement
+    const image = new SVGImageElement(config, style)
 
-    return this.add(image, group)
+    return this._add(image, group)
   }
 
   // Create `g` element
@@ -92,7 +92,7 @@ class SVGCanvasElement extends SVGElement {
   }
 
   // Add some element to a spcific group or the root element if the group isn't given
-  add(element, group) {
+  _add(element, group) {
     group = group || this._rootElement
 
     group.node.appendChild(element.node)

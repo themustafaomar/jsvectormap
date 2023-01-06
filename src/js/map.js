@@ -35,20 +35,19 @@ class Map {
     this.mapData = Map.maps[this.params.map]
 
     this.regions = {}
-    this.markers = {}
-    this.lines = {}
-
-    this.defaultWidth = this.mapData.width
-    this.defaultHeight = this.mapData.height
-    this.height = 0
-    this.width = 0
-
     this.scale = 1
-    this.baseScale = 1
     this.transX = 0
     this.transY = 0
-    this.baseTransX = 0
-    this.baseTransY = 0
+
+    this._markers = {}
+    this._lines = {}
+    this._defaultWidth = this.mapData.width
+    this._defaultHeight = this.mapData.height
+    this._height = 0
+    this._width = 0
+    this._baseScale = 1
+    this._baseTransX = 0
+    this._baseTransY = 0
 
     // `document` is already ready, just initialise now
     if (document.readyState !== 'loading') {
@@ -109,7 +108,7 @@ class Map {
 
     // Set selected regions if any
     if (options.selectedMarkers) {
-      this._setSelected('markers', options.selectedMarkers)
+      this._setSelected('_markers', options.selectedMarkers)
     }
 
     // Set focus on a spcific region
@@ -148,45 +147,10 @@ class Map {
     this._emit(Events.onLoaded, [this])
   }
 
-  _emit(eventName, args) {
-    for (let event in Events) {
-      if (Events[event] === eventName && typeof this.params[event] === 'function') {
-        this.params[event].apply(this, args)
-      }
-    }
-  }
-
   // Public
 
   setBackgroundColor(color) {
     this.container.style.backgroundColor = color
-  }
-
-  // Get selected markers/regions
-  _getSelected(type) {
-    let key, selected = []
-
-    for (key in this[type]) {
-      if (this[type][key].element.isSelected) {
-        selected.push(key)
-      }
-    }
-
-    return selected
-  }
-
-  _setSelected(type, keys) {
-    keys.forEach(key => {
-      if (this[type][key]) {
-        this[type][key].element.select(true)
-      }
-    })
-  }
-
-  _clearSelected(type) {
-    this._getSelected(type).forEach(i => {
-      this[type][i].element.select(false)
-    })
   }
 
   // Region methods
@@ -217,20 +181,20 @@ class Map {
 
   removeMarkers(markers) {
     if (!markers) {
-      markers = Object.keys(this.markers)
+      markers = Object.keys(this._markers)
     }
 
     markers.forEach(index => {
       // Remove the element from the DOM
-      this.markers[index].element.remove()
+      this._markers[index].element.remove()
       // Remove the element from markers object
-      delete this.markers[index]
+      delete this._markers[index]
     })
   }
 
   addLine(from, to, style = {}) {
     console.warn('`addLine` method is deprecated, please use `addLines` instead.')
-    this._createLines([{ from, to, style }], this.markers, true)
+    this._createLines([{ from, to, style }], this._markers, true)
   }
 
   addLines(config) {
@@ -242,7 +206,7 @@ class Map {
 
     this._createLines(config.filter(line => {
       return !(uids.indexOf(getLineUid(line.from, line.to)) > -1)
-    }), this.markers, true)
+    }), this._markers, true)
   }
 
   removeLines(lines) {
@@ -253,22 +217,18 @@ class Map {
     }
 
     lines.forEach(uid => {
-      this.lines[uid].dispose()
-      delete this.lines[uid]
+      this._lines[uid].dispose()
+      delete this._lines[uid]
     })
-  }
-
-  _getLinesAsUids() {
-    return Object.keys(this.lines)
   }
 
   removeLine(from, to) {
     console.warn('`removeLine` method is deprecated, please use `removeLines` instead.')
     const uid = getLineUid(from, to)
 
-    if (this.lines.hasOwnProperty(uid)) {
-      this.lines[uid].element.remove()
-      delete this.lines[uid]
+    if (this._lines.hasOwnProperty(uid)) {
+      this._lines[uid].element.remove()
+      delete this._lines[uid]
     }
   }
 
@@ -290,9 +250,9 @@ class Map {
       this.legendVertical = null
     }
 
-    this.scale = this.baseScale
-    this.transX = this.baseTransX
-    this.transY = this.baseTransY
+    this.scale = this._baseScale
+    this.transX = this._baseTransX
+    this.transY = this._baseTransY
 
     this._applyTransform()
     this.clearSelectedMarkers()
@@ -323,10 +283,51 @@ class Map {
 
   extend(name, callback) {
     if (typeof this[name] === 'function') {
-      throw new Error(`The method [${name}] already exists internally please use another name.`)
+      throw new Error(`The method [${name}] does already exist, please use another name.`)
     }
 
     Map.prototype[name] = callback
+  }
+
+  // Private
+
+  _emit(eventName, args) {
+    for (let event in Events) {
+      if (Events[event] === eventName && typeof this.params[event] === 'function') {
+        this.params[event].apply(this, args)
+      }
+    }
+  }
+
+  // Get selected markers/regions
+  _getSelected(type) {
+    let key, selected = []
+
+    for (key in this[type]) {
+      if (this[type][key].element.isSelected) {
+        selected.push(key)
+      }
+    }
+
+    return selected
+  }
+
+  _setSelected(type, keys) {
+    keys.forEach(key => {
+      if (this[type][key]) {
+        this[type][key].element.select(true)
+      }
+    })
+  }
+
+  _clearSelected(type) {
+    this._getSelected(type).forEach(i => {
+      this[type][i].element.select(false)
+    })
+  }
+
+  _getLinesAsUids() {
+    return Object.keys(this._lines)
   }
 }
 

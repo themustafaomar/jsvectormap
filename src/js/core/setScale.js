@@ -14,17 +14,17 @@ export default function setScale(scale, anchorX, anchorY, isCentered, animate) {
     transX,
     transY
 
-  if (scale > this.params.zoomMax * this.baseScale) {
-    scale = this.params.zoomMax * this.baseScale
-  } else if (scale < this.params.zoomMin * this.baseScale) {
-    scale = this.params.zoomMin * this.baseScale
+  if (scale > this.params.zoomMax * this._baseScale) {
+    scale = this.params.zoomMax * this._baseScale
+  } else if (scale < this.params.zoomMin * this._baseScale) {
+    scale = this.params.zoomMin * this._baseScale
   }
 
   if (typeof anchorX != 'undefined' && typeof anchorY != 'undefined') {
     zoomStep = scale / this.scale
     if (isCentered) {
-      transX = anchorX + this.defaultWidth * (this.width / (this.defaultWidth * scale)) / 2
-      transY = anchorY + this.defaultHeight * (this.height / (this.defaultHeight * scale)) / 2
+      transX = anchorX + this._defaultWidth * (this._width / (this._defaultWidth * scale)) / 2
+      transY = anchorY + this._defaultHeight * (this._height / (this._defaultHeight * scale)) / 2
     } else {
       transX = this.transX - (zoomStep - 1) / scale * anchorX
       transY = this.transY - (zoomStep - 1) / scale * anchorY
