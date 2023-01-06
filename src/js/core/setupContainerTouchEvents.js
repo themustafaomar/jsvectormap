@@ -51,7 +51,7 @@ export default function setupContainerTouchEvents() {
         map.tooltip.hide()
         e.preventDefault()
       } else {
-        var rect = map.container.selector.getBoundingClientRect()
+        let rect = map.container.getBoundingClientRect()
 
         offset = {
           top: rect.top + window.scrollY,
