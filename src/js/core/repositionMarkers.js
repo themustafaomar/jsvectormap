@@ -1,8 +1,6 @@
 export default function repositionMarkers() {
-  let point
-
-  for (let index in this._markers) {
-    point = this.getMarkerPosition(this._markers[index].config)
+  for (const index in this._markers) {
+    const point = this.getMarkerPosition(this._markers[index].config)
 
     if (point !== false) {
       this._markers[index].element.setStyle({
