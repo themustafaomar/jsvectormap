@@ -2,30 +2,22 @@ import { createElement } from '../util'
 import EventHandler from '../eventHandler'
 
 export default function setupZoomButtons() {
-  const map = this
   const zoomin = createElement('div', 'jvm-zoom-btn jvm-zoomin', '&#43;', true)
   const zoomout = createElement('div', 'jvm-zoom-btn jvm-zoomout', '&#x2212', true)
 
   this.container.appendChild(zoomin)
   this.container.appendChild(zoomout)
 
-  EventHandler.on(zoomin, 'click', () => {
-    this._setScale(
-      map.scale * map.params.zoomStep,
-      map._width / 2,
-      map._height / 2,
+  const handler = (zoomin = true) => {
+    return () => this._setScale(
+      zoomin ? this.scale * this.params.zoomStep : this.scale / this.params.zoomStep,
+      this._width / 2,
+      this._height / 2,
       false,
-      map.params.zoomAnimate
+      this.params.zoomAnimate
     )
-  })
+  }
 
-  EventHandler.on(zoomout, 'click', () => {
-    this._setScale(
-      map.scale / map.params.zoomStep,
-      map._width / 2,
-      map._height / 2,
-      false,
-      map.params.zoomAnimate
-    )
-  })
+  EventHandler.on(zoomin, 'click', handler())
+  EventHandler.on(zoomout, 'click', handler(false))
 }
