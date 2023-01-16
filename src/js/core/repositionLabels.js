@@ -7,14 +7,14 @@ export default function repositionLabels() {
 
   // Regions labels
   if (labels.regions) {
-    for (let key in this.regions) {
+    for (const key in this.regions) {
       this.regions[key].element.updateLabelPosition()
     }
   }
 
   // Markers labels
   if (labels.markers) {
-    for (let key in this._markers) {
+    for (const key in this._markers) {
       this._markers[key].element.updateLabelPosition()
     }
   }

@@ -30,15 +30,11 @@ export default function setupContainerEvents() {
 
   if (this.params.zoomOnScroll) {
     EventHandler.on(this.container, 'wheel', event => {
-      let deltaY = 0
-
-      deltaY = ((event.deltaY || -event.wheelDelta || event.detail) >> 10) || 1
-      deltaY = deltaY * 75
-
-      const rect = this.container.getBoundingClientRect(),
-        offsetX = event.pageX - rect.left - window.pageXOffset,
-        offsetY = event.pageY - rect.top - window.pageYOffset,
-        zoomStep = Math.pow(1 + (map.params.zoomOnScrollSpeed / 1000), -1.5 * deltaY)
+      const deltaY = (((event.deltaY || -event.wheelDelta || event.detail) >> 10) || 1) * 75
+      const rect = this.container.getBoundingClientRect()
+      const offsetX = event.pageX - rect.left - window.pageXOffset
+      const offsetY = event.pageY - rect.top - window.pageYOffset
+      const zoomStep = Math.pow(1 + (map.params.zoomOnScrollSpeed / 1000), -1.5 * deltaY)
 
       if (map.tooltip) {
         map.tooltip.hide()
