@@ -1,4 +1,5 @@
 import EventHandler from '../eventHandler'
+import Events from '../defaults/events'
 
 export default function setupContainerEvents() {
   let mouseDown = false, oldPageX, oldPageY, map = this
@@ -14,6 +15,7 @@ export default function setupContainerEvents() {
       map._applyTransform()
       oldPageX = e.pageX
       oldPageY = e.pageY
+      map._emit(Events.onMapMoved, [this])
     })
 
     EventHandler.on(this.container, 'mousedown', (e) => {
