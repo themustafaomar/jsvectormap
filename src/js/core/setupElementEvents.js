@@ -1,30 +1,31 @@
-import { getElement } from '../util/index'
+import { getElement } from '../util'
 import EventHandler from '../eventHandler'
 import Events from '../defaults/events'
 
-function parseEvent(map, selector, isTooltip) {
-  var element = getElement(selector),
-    classes = element.getAttribute('class'),
-    type = classes.indexOf('jvm-region') === -1 ? 'marker' : 'region',
-    code = type === 'region' ? element.getAttribute('data-code') : element.getAttribute('data-index'),
-    event = `${type}:selected`
+const parseEvent = (map, selector, isTooltip) => {
+  const element = getElement(selector)
+  const type = element.getAttribute('class').indexOf('jvm-region') === -1 ? 'marker' : 'region'
+  const isRegion = type === 'region'
+  const code = isRegion ? element.getAttribute('data-code') : element.getAttribute('data-index')
+  let event = isRegion ? Events.onRegionSelected : Events.onMarkerSelected
 
   // Init tooltip event
   if (isTooltip) {
-    event = `${type}.tooltip:show`
+    event = isRegion ? Events.onRegionTooltipShow : Events.onMarkerTooltipShow
   }
 
   return {
-    event,
     type,
     code,
-    element: type === 'region' ? map.regions[code].element : map._markers[code].element,
-    tooltipText: type === 'region' ? map.mapData.paths[code].name || '' : (map._markers[code].config.name || '')
+    event,
+    element: isRegion ? map.regions[code].element : map._markers[code].element,
+    tooltipText: isRegion ? map._mapData.paths[code].name || '' : (map._markers[code].config.name || '')
   }
 }
 
 export default function setupElementEvents() {
-  const map = this, container = this.container
+  const map = this
+  const container = this.container
   let pageX, pageY, mouseMoved
 
   EventHandler.on(container, 'mousemove', (event) => {
@@ -43,23 +44,21 @@ export default function setupElementEvents() {
   // When the mouse is over the region/marker | When the mouse is out the region/marker
   EventHandler.delegate(container, 'mouseover mouseout', '.jvm-element', function (event) {
     const data = parseEvent(map, this, true)
-    const showTooltip = map.params.showTooltip
+    const { showTooltip } = map.params
 
     if (event.type === 'mouseover') {
       data.element.hover(true)
-      map.tooltip.text(data.tooltipText)
-      map._emit(data.event, [event, map.tooltip, data.code])
 
-      if (!event.defaultPrevented) {
-        if (showTooltip) {
-          map.tooltip.show()
-        }
+      if (showTooltip) {
+        map._tooltip.text(data.tooltipText)
+        map._tooltip.show()
+        map._emit(data.event, [event, map._tooltip, data.code])
       }
     } else {
       data.element.hover(false)
 
       if (showTooltip) {
-        map.tooltip.hide()
+        map._tooltip.hide()
       }
     }
   })
@@ -73,7 +72,8 @@ export default function setupElementEvents() {
     }
 
     if (
-      (data.type === 'region' && map.params.regionsSelectable) || (data.type === 'marker' && map.params.markersSelectable)
+      (data.type === 'region' && map.params.regionsSelectable) ||
+      (data.type === 'marker' && map.params.markersSelectable)
     ) {
       const element = data.element
 
