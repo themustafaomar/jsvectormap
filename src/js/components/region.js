@@ -14,13 +14,13 @@ class Region extends BaseComponent {
     this._map = map
     this.shape = this._createRegion(path, code, style)
 
-    let text = this.getLabelText(code, label)
+    const text = this.getLabelText(code, label)
 
     // If label is passed and render function returns something 
     if (label && text) {
-      let bbox = this.shape.getBBox()
-      
-      let offsets = this.getLabelOffsets(code, label)
+      const bbox = this.shape.getBBox()
+      const offsets = this.getLabelOffsets(code, label)
+
       this.labelX = bbox.x + bbox.width / 2 + offsets[0]
       this.labelY = bbox.y + bbox.height / 2 + offsets[1]
 

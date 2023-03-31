@@ -1,4 +1,4 @@
-import EventHandler from "../eventHandler"
+import EventHandler from '../eventHandler'
 
 export default function setupContainerTouchEvents() {
   let map = this,
@@ -11,11 +11,8 @@ export default function setupContainerTouchEvents() {
       lastTouchesLength
 
   let handleTouchEvent = e => {
-    var touches = e.touches,
-        offset,
-        scale,
-        transXOld,
-        transYOld
+    const touches = e.touches
+    let offset, scale, transXOld, transYOld
 
     if (e.type == 'touchstart') {
       lastTouchesLength = 0
@@ -38,7 +35,6 @@ export default function setupContainerTouchEvents() {
 
       touchX = touches[0].pageX
       touchY = touches[0].pageY
-
     } else if (touches.length == 2) {
       if (lastTouchesLength == 2) {
         scale = Math.sqrt(
@@ -51,7 +47,7 @@ export default function setupContainerTouchEvents() {
         map.tooltip.hide()
         e.preventDefault()
       } else {
-        var rect = map.container.selector.getBoundingClientRect()
+        let rect = map.container.getBoundingClientRect()
 
         offset = {
           top: rect.top + window.scrollY,

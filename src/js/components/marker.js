@@ -43,7 +43,7 @@ class Marker extends BaseComponent {
   }
 
   _createLabel({ index, map, label, labelsGroup, cx, cy, marker, isRecentlyCreated }) {
-    let labelText = this.getLabelText(index, label)
+    const labelText = this.getLabelText(index, label)
 
     this._labelX = cx / map.scale - map.transX
     this._labelY = cy / map.scale - map.transY

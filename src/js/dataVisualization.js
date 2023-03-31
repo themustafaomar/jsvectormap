@@ -1,6 +1,5 @@
 class DataVisualization {
   constructor({ scale, values }, map) {
-    // Private
     this._scale = scale
     this._values = values
     this._fromColor = this.hexToRgb(scale[0])
@@ -51,14 +50,14 @@ class DataVisualization {
   }
 
   getValue(value) {
-    let hex, color = "#"
+    let hex, color = '#'
   
     for (var i = 0; i < 3; i++) {
       hex = Math.round(
         this._fromColor[i] + (this._toColor[i] - this._fromColor[i]) * ((value - this.min) / (this.max - this.min))
       ).toString(16)
 
-      color += (hex.length === 1 ? "0" : "") + hex
+      color += (hex.length === 1 ? '0' : '') + hex
     }
 
     return color
@@ -68,13 +67,13 @@ class DataVisualization {
     let r = 0, g = 0, b = 0
   
     if (h.length == 4) {
-      r = "0x" + h[1] + h[1]
-      g = "0x" + h[2] + h[2]
-      b = "0x" + h[3] + h[3]
+      r = '0x' + h[1] + h[1]
+      g = '0x' + h[2] + h[2]
+      b = '0x' + h[3] + h[3]
     } else if (h.length == 7) {
-      r = "0x" + h[1] + h[2]
-      g = "0x" + h[3] + h[4]
-      b = "0x" + h[5] + h[6]
+      r = '0x' + h[1] + h[2]
+      g = '0x' + h[3] + h[4]
+      b = '0x' + h[5] + h[6]
     }
 
     return [parseInt(r), parseInt(g), parseInt(b)]

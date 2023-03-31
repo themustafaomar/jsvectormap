@@ -7,7 +7,7 @@ import serve from 'rollup-plugin-serve'
 import liveReload from 'rollup-plugin-livereload'
 
 export default {
-  input: 'src/js/jsvectormap.js',
+  input: 'src/js/index.js',
   output: {
     name: 'jsVectorMap',
     file: 'dist/js/jsvectormap.js',

@@ -32,7 +32,6 @@ class SVGShapeElement extends SVGElement {
     const attrs = {}
 
     merge(attrs, this.style.initial)
-
     merge(attrs, this.style.current)
 
     if (this.isHovered) {

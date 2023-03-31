@@ -31,7 +31,7 @@ export default function setFocus(config = {}) {
     })
 
     return this._setScale(
-      Math.min(this.width / bbox.width, this.height / bbox.height),
+      Math.min(this._width / bbox.width, this._height / bbox.height),
       -(bbox.x + bbox.width / 2),
       -(bbox.y + bbox.height / 2),
       true,
@@ -41,6 +41,6 @@ export default function setFocus(config = {}) {
     const point = this.coordsToPoint(config.coords[0], config.coords[1])
     const x = this.transX - point.x / this.scale
     const y = this.transY - point.y / this.scale
-    return this._setScale(config.scale * this.baseScale, x, y, true, config.animate)
+    return this._setScale(config.scale * this._baseScale, x, y, true, config.animate)
   }
 }

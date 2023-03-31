@@ -5,7 +5,7 @@ import autoprefixer from 'autoprefixer'
 import scss from 'rollup-plugin-scss'
 import postcss from 'postcss'
 
-const INPUT_FILE = 'src/js/jsvectormap.js'
+const INPUT_FILE = 'src/js/index.js'
 const LIBRARY_NAME = 'jsVectorMap'
 
 function scssOptions(filename, outputStyle = 'expanded') {
