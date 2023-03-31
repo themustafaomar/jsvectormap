@@ -163,11 +163,11 @@ class Map {
 
   // Markers methods
   getSelectedMarkers() {
-    return this._getSelected('markers')
+    return this._getSelected('_markers')
   }
 
   clearSelectedMarkers() {
-    this._clearSelected('markers')
+    this._clearSelected('_markers')
   }
 
   addMarkers(config) {
