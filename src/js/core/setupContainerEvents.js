@@ -1,7 +1,10 @@
 import EventHandler from '../eventHandler'
 
 export default function setupContainerEvents() {
-  let mouseDown = false, oldPageX, oldPageY, map = this
+  const map = this
+  let mouseDown = false
+  let oldPageX
+  let oldPageY
 
   if (this.params.draggable) {
     EventHandler.on(this.container, 'mousemove', (e) => {

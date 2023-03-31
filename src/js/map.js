@@ -32,17 +32,16 @@ class Map {
       throw new Error(`Attempt to use map which was not loaded: ${options.map}`)
     }
 
-    this.mapData = Map.maps[this.params.map]
-
     this.regions = {}
     this.scale = 1
     this.transX = 0
     this.transY = 0
 
+    this._mapData = Map.maps[this.params.map]
     this._markers = {}
     this._lines = {}
-    this._defaultWidth = this.mapData.width
-    this._defaultHeight = this.mapData.height
+    this._defaultWidth = this._mapData.width
+    this._defaultHeight = this._mapData.height
     this._height = 0
     this._width = 0
     this._baseScale = 1
@@ -98,7 +97,7 @@ class Map {
 
     // Create toolip
     if (options.showTooltip) {
-      this.tooltip = new Tooltip(this)
+      this._tooltip = new Tooltip(this)
     }
 
     // Set selected regions if any
@@ -266,7 +265,7 @@ class Map {
     EventHandler.flush()
 
     // Remove tooltip from DOM and memory
-    this.tooltip.dispose()
+    this._tooltip.dispose()
 
     // Fire destroyed event
     this._emit(Events.onDestroyed)
@@ -292,7 +291,7 @@ class Map {
   // Private
 
   _emit(eventName, args) {
-    for (let event in Events) {
+    for (const event in Events) {
       if (Events[event] === eventName && typeof this.params[event] === 'function') {
         this.params[event].apply(this, args)
       }
@@ -301,9 +300,9 @@ class Map {
 
   // Get selected markers/regions
   _getSelected(type) {
-    let key, selected = []
+    const selected = []
 
-    for (key in this[type]) {
+    for (const key in this[type]) {
       if (this[type][key].element.isSelected) {
         selected.push(key)
       }
@@ -321,8 +320,8 @@ class Map {
   }
 
   _clearSelected(type) {
-    this._getSelected(type).forEach(i => {
-      this[type][i].element.select(false)
+    this._getSelected(type).forEach(key => {
+      this[type][key].element.select(false)
     })
   }
 

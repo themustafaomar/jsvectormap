@@ -8,8 +8,8 @@ if (!Element.prototype.matches) {
       Element.prototype.oMatchesSelector ||
       Element.prototype.webkitMatchesSelector ||
       function(s) {
-        var matches = (this.document || this.ownerDocument).querySelectorAll(s),
-            i = matches.length
+        const matches = (this.document || this.ownerDocument).querySelectorAll(s)
+        const i = matches.length
         while (--i >= 0 && matches.item(i) !== this) {}
         return i > -1
       }
@@ -22,30 +22,30 @@ if (!Object.assign) {
     enumerable: false,
     configurable: true,
     writable: true,
-    value: function(target) {
-      'use strict';
+    value(target) {
+      'use strict'
       if (target === undefined || target === null) {
-        throw new TypeError('Cannot convert first argument to object');
+        throw new TypeError('Cannot convert first argument to object')
       }
 
-      var to = Object(target);
-      for (var i = 1; i < arguments.length; i++) {
-        var nextSource = arguments[i];
+      const to = Object(target)
+      for (let i = 1; i < arguments.length; i++) {
+        let nextSource = arguments[i]
         if (nextSource === undefined || nextSource === null) {
-          continue;
+          continue
         }
-        nextSource = Object(nextSource);
+        nextSource = Object(nextSource)
 
-        var keysArray = Object.keys(Object(nextSource));
-        for (var nextIndex = 0, len = keysArray.length; nextIndex < len; nextIndex++) {
-          var nextKey = keysArray[nextIndex];
-          var desc = Object.getOwnPropertyDescriptor(nextSource, nextKey);
+        const keysArray = Object.keys(Object(nextSource))
+        for (let nextIndex = 0, len = keysArray.length; nextIndex < len; nextIndex++) {
+          const nextKey = keysArray[nextIndex]
+          const desc = Object.getOwnPropertyDescriptor(nextSource, nextKey)
           if (desc !== undefined && desc.enumerable) {
-            to[nextKey] = nextSource[nextKey];
+            to[nextKey] = nextSource[nextKey]
           }
         }
       }
-      return to;
+      return to
     }
-  });
+  })
 }

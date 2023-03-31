@@ -11,11 +11,8 @@ export default function setupContainerTouchEvents() {
       lastTouchesLength
 
   let handleTouchEvent = e => {
-    var touches = e.touches,
-        offset,
-        scale,
-        transXOld,
-        transYOld
+    const touches = e.touches
+    let offset, scale, transXOld, transYOld
 
     if (e.type == 'touchstart') {
       lastTouchesLength = 0
