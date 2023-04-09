@@ -40,7 +40,7 @@ export default function setupContainerEvents() {
       const zoomStep = Math.pow(1 + (map.params.zoomOnScrollSpeed / 1000), -1.5 * deltaY)
 
       if (map.tooltip) {
-        map.tooltip.hide()
+        map._tooltip.hide()
       }
 
       map._setScale(map.scale * zoomStep, offsetX, offsetY)
