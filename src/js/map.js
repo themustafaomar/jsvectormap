@@ -180,7 +180,7 @@ class Map {
 
   addMarkers(config) {
     config = Array.isArray(config) ? config : [config]
-    this._createMarkers([config], true)
+    this._createMarkers(config, true)
   }
 
   removeMarkers(markers) {
