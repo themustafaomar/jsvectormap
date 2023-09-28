@@ -7,8 +7,8 @@
     <title>Jsvectormap (Workspace)</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
     <link rel="stylesheet" href="./dist/css/jsvectormap.css" />
-    <script src="js/jsvectormap.js"></script>
-    <script src="./dist/maps/world-merc.js"></script>
+    <script src="/dist/js/jsvectormap.js"></script>
+    <script src="./src/maps/world-merc.js"></script>
 </head>
 <body>
   <div class="workspace-wrapper">
@@ -67,8 +67,9 @@
       onRegionSelected: function (index, isSelected, selectedRegions) {
         console.log(index, isSelected, selectedRegions)
       },
-      onRegionTooltipShow: function (tooltip, index) {
+      onRegionTooltipShow: function (event, tooltip, index) {
         console.log(tooltip, index)
+        console.log(tooltip);
 
         tooltip.css({ backgroundColor: 'white', color: '#35373e' }).text(
           tooltip.text() + ' (Hello World `region`)'
@@ -77,7 +78,7 @@
       onMarkerSelected: function (code, isSelected, selectedMarkers) {
         console.log(code, isSelected, selectedMarkers)
       },
-      onMarkerTooltipShow: function (tooltip, code) {
+      onMarkerTooltipShow: function (event, tooltip, code) {
         tooltip.text(
           tooltip.text() + ' (Hello World (marker))'
         )
