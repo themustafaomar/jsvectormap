@@ -157,8 +157,14 @@ class Map {
     return this._getSelected('regions')
   }
 
-  clearSelectedRegions() {
-    this._clearSelected('regions')
+  clearSelectedRegions(regions = undefined) {
+    if (typeof regions === 'string') {
+      regions = [regions]
+    }
+
+    ;(regions || this._getSelected('regions')).forEach((key) => {
+      this.regions[key].element.select(false)
+    })
   }
 
   // Markers methods
@@ -171,10 +177,7 @@ class Map {
   }
 
   addMarkers(config) {
-    if (Array.isArray(config)) {
-      return this._createMarkers(config, true)
-    }
-
+    config = Array.isArray(config) ? config : [config]
     this._createMarkers([config], true)
   }
 
