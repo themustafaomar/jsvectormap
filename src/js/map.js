@@ -157,8 +157,16 @@ class Map {
     return this._getSelected('regions')
   }
 
-  clearSelectedRegions() {
-    this._clearSelected('regions')
+  clearSelectedRegions(regions = undefined) {
+    regions = this._normalizeRegions(regions) || this._getSelected('regions')
+    regions.forEach((key) => {
+      this.regions[key].element.select(false)
+    })
+  }
+
+  setSelectedRegions(regions) {
+    this.clearSelectedRegions()
+    this._setSelected('regions', this._normalizeRegions(regions))
   }
 
   // Markers methods
@@ -171,10 +179,7 @@ class Map {
   }
 
   addMarkers(config) {
-    if (Array.isArray(config)) {
-      return this._createMarkers(config, true)
-    }
-
+    config = Array.isArray(config) ? config : [config]
     this._createMarkers([config], true)
   }
 
@@ -327,6 +332,10 @@ class Map {
 
   _getLinesAsUids() {
     return Object.keys(this._lines)
+  }
+
+  _normalizeRegions(regions) {
+    return typeof regions === 'string' ? [regions] : regions
   }
 }
 
