@@ -34,7 +34,7 @@ export default function createMarkers(markers = {}, isRecentlyCreated = false) {
       index,
       map: this,
       // Merge the `markerStyle` object with the marker config `style` if presented.
-      style: merge(this.params.markerStyle, { initial: config.style || {} }, true),
+      style: merge(this.params.markerStyle, { ...config.style || {} }, true),
       label: this.params.labels && this.params.labels.markers,
       labelsGroup: this._markerLabelsGroup,
       cx: point.x,
