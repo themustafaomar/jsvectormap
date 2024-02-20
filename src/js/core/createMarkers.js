@@ -12,6 +12,7 @@ export default function createMarkers(markers = {}, isRecentlyCreated = false) {
     const config = markers[index]
     const point = this.getMarkerPosition(config)
     const uid = config.coords.join(':')
+    const classList = config.classList || '';
 
     if (!point) {
       continue
@@ -42,6 +43,7 @@ export default function createMarkers(markers = {}, isRecentlyCreated = false) {
       group: this._markersGroup,
       marker: config,
       isRecentlyCreated,
+      classList
     })
 
     // Check for marker duplication
