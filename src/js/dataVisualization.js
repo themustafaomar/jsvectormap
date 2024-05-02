@@ -50,6 +50,10 @@ class DataVisualization {
   }
 
   getValue(value) {
+    if (this.min === this.max) {
+      return this.rgbToHex(this._toColor);
+    }
+
     let hex, color = '#'
   
     for (var i = 0; i < 3; i++) {
