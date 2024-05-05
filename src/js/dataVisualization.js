@@ -51,7 +51,7 @@ class DataVisualization {
 
   getValue(value) {
     if (this.min === this.max) {
-      return this.hexToRgb(this._toColor)
+      return `#${this._toColor.join('')}`
     }
 
     let hex, color = '#'
