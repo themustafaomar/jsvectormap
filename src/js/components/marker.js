@@ -8,7 +8,7 @@ import Interactable from './concerns/interactable'
  * ------------------------------------------------------------------------
  */
 class Marker extends BaseComponent {
-  constructor({ index, style, label, cx, cy, map, group }) {
+  constructor({ index, style, label, cx, cy, map, group, classList }) {
     super()
 
     // Private
@@ -19,7 +19,7 @@ class Marker extends BaseComponent {
     this.config = arguments[0]
     this.shape = map.canvas[this._isImage ? 'createImage' : 'createCircle']({ dataIndex: index, cx, cy }, style, group)
 
-    this.shape.addClass('jvm-marker jvm-element')
+    this.shape.addClass(`jvm-marker jvm-element ${classList}`)
 
     if (this._isImage) {
       this.updateLabelPosition()
