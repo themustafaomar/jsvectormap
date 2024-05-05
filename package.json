@@ -41,7 +41,7 @@
     "@rollup/plugin-node-resolve": "^13.0.0",
     "autoprefixer": "^10.2.5",
     "babel-loader": "^8.2.2",
-    "node-sass": "^7.0.1",
+    "node-sass": "^9.0.0",
     "postcss": "^8.2.15",
     "rollup": "^2.51.2",
     "rollup-plugin-livereload": "^2.0.5",
