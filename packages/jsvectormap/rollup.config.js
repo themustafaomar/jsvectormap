@@ -8,7 +8,7 @@ export default {
   input: 'src/js/index.js',
   output: {
     name: 'jsVectorMap',
-    file: 'dist/js/jsvectormap.js',
+    file: 'dist/jsvectormap.js',
     format: 'es',
   },
   plugins: [
@@ -18,7 +18,7 @@ export default {
     }),
     scss({
       processor: css => postcss([ autoprefixer ]).process(css).then(result => result.css),
-      output: 'dist/css/jsvectormap.css',
+      output: 'dist/jsvectormap.css',
       outputStyle: 'expanded',
     }),
   ]
