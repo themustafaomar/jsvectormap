@@ -1,16 +1,14 @@
 {
   "private": true,
   "scripts": {
-    "jsvectormap": "pnpm run --filter=jsvectormap",
-    "docs:dev": "pnpm run --filter=docs dev",
     "playground:dev": "pnpm run --filter=playground dev",
-    "library:dev": "pnpm jsvectormap build",
-    "library:build": "pnpm jsvectormap build",
-    "maps:build": "pnpm run --filter=@jsvectormap/maps build"
+    "library:dev": "pnpm --filter=jsvectormap dev",
+    "library:build": "pnpm --filter=jsvectormap build",
+    "maps:build": "pnpm run --filter=jsvectormap-maps build",
+    "docs:dev": "pnpm run --filter=docs dev"
   },
   "workspaces": [
     "docs",
-    "playground",
     "packages/*"
   ],
   "devDependencies": {
