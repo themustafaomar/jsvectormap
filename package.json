@@ -1,52 +1,27 @@
 {
-  "name": "jsvectormap",
-  "version": "1.5.2",
-  "description": "A lightweight Javascript library for creating interactive maps",
-  "main": "dist/js/jsvectormap.min.js",
-  "style": "dist/css/jsvectormap.min.css",
-  "sass": "src/scss/jsvectormap.scss",
-  "author": {
-    "name": "Mustafa Omar",
-    "email": "themustafaomar@gmail.com"
-  },
+  "private": true,
   "scripts": {
-    "dev": "rollup --config --watch",
-    "build": "rollup --config ./build/package.js",
-    "build:maps": "rollup --config ./build/maps.js"
+    "playground:dev": "pnpm run --filter=playground dev",
+    "library:dev": "pnpm --filter=jsvectormap dev",
+    "library:build": "pnpm --filter=jsvectormap build",
+    "maps:build": "pnpm run --filter=jsvectormap-maps build",
+    "docs:dev": "pnpm run --filter=docs dev"
   },
-  "keywords": [
-    "javascript",
-    "interactive",
-    "vector",
-    "map",
-    "svg"
+  "workspaces": [
+    "docs",
+    "packages/*"
   ],
-  "files": [
-    "dist",
-    "src",
-    "LICENSE"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/themustafaomar/jsvectormap.git"
-  },
-  "bugs": {
-    "url": "https://github.com/themustafaomar/jsvectormap/issues"
-  },
-  "homepage": "https://jvm-docs.vercel.app",
-  "license": "MIT",
   "devDependencies": {
     "@babel/preset-env": "^7.14.5",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
     "autoprefixer": "^10.2.5",
     "babel-loader": "^8.2.2",
+    "glob": "^10.4.1",
     "node-sass": "^7.0.1",
     "postcss": "^8.2.15",
     "rollup": "^2.51.2",
-    "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-scss": "^3.0.0",
-    "rollup-plugin-serve": "^1.1.0",
     "rollup-plugin-terser": "^7.0.2"
   }
 }

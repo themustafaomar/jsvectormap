@@ -1,0 +1,10 @@
+{
+  "name": "jsvectormap-maps",
+  "version": "0.0.0",
+  "scripts": {
+    "build": "rollup --config ./build/maps.js"
+  },
+  "exports": {
+    "./*": "./dist/*"
+  }
+}

@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: Inter var;
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+  font-named-instance: "Regular";
+  src: url(../fonts/Inter-roman-latin.var.18496762.woff2) format("woff2")
+}
+
+@font-face {
+  font-family: 'Fira Code VF';
+  font-weight: 300 700;
+  font-style: normal;
+  src: url(../fonts/FiraCode-VF.woff2) format('woff2-variations'),
+    url(../fonts/FiraCode-VF.woff) format('woff-variations');
+}
+
+.prose :where(code):not(:where([class~="not-prose"] *)):not(:where(pre code)) {
+  @apply text-sky-500;
+}
+
+table {
+  @apply w-full text-sm border border-gray-100;
+}
+
+thead {
+  @apply bg-gray-50 rounded-t-md;
+}
+
+table tr th {
+  @apply border-b font-medium text-slate-400 text-left !p-3 pl-8 pt-0 pb-3;
+}
+
+table tr td {
+  @apply border-b border-slate-100 text-slate-500 !p-3;
+}
+
+.custom-block {
+  @apply rounded-md px-3.5 py-3 my-7;
+}
+.custom-block p {
+  @apply my-0;
+}
+
+.custom-block.danger {
+  @apply bg-red-400 bg-opacity-5 text-red-500 border border-red-100;
+}
+.custom-block.danger h5 {
+  @apply text-red-500;
+}
+
+.custom-block.info {
+  @apply bg-sky-400 bg-opacity-5 text-sky-500 border border-sky-100;
+}
+.custom-block.info h5 {
+  @apply text-blue-500;
+}

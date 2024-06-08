@@ -3,15 +3,13 @@ import babel from '@rollup/plugin-babel'
 import autoprefixer from 'autoprefixer'
 import scss from 'rollup-plugin-scss'
 import postcss from 'postcss'
-import serve from 'rollup-plugin-serve'
-import liveReload from 'rollup-plugin-livereload'
 
 export default {
   input: 'src/js/index.js',
   output: {
     name: 'jsVectorMap',
-    file: 'dist/js/jsvectormap.js',
-    format: 'umd',
+    file: 'dist/jsvectormap.js',
+    format: 'es',
   },
   plugins: [
     resolve(),
@@ -20,12 +18,8 @@ export default {
     }),
     scss({
       processor: css => postcss([ autoprefixer ]).process(css).then(result => result.css),
-      output: 'dist/css/jsvectormap.css',
+      output: 'dist/jsvectormap.css',
       outputStyle: 'expanded',
-    }),
-    serve(),
-    liveReload({
-      watch: './dist',
     }),
   ]
 }
