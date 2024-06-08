@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://jvm-docs.vercel.app">
-    <img src="assets/images/jsvectormap.jpg" alt="Jsvectormap sample" width="500" />
+    <img src=".github/jsvectormap.jpg" alt="Jsvectormap sample" width="500" />
   </a>
 </p>
 
