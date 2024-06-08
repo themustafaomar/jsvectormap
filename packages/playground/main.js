@@ -1,5 +1,5 @@
 import jsVectorMap from 'jsvectormap'
-import 'jsvectormap/css/jsvectormap.css'
+import 'jsvectormap/dist/css/jsvectormap.css'
 import 'jsvectormap-maps/world-merc'
 
 const markers = [

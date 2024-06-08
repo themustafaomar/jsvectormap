@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "plugin:dev": "pnpm run --filter=jsvectormap dev",
+    "library:dev": "pnpm run --filter=jsvectormap dev",
     "playground:dev": "vite",
-    "dev": "npm-run-all2 -p 'playground:dev' 'plugin:dev'",
+    "dev": "npm-run-all2 -p 'playground:dev' 'library:dev'",
     "build": "vite build",
     "preview": "vite preview"
   },
