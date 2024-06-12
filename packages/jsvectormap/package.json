@@ -6,8 +6,8 @@
   "jsdelivr": "dist/jsvectormap.min.js",
   "exports": {
     ".": {
-      "import": "./dist/jsvectormap.mjs",
-      "default": "./dist/jsvectormap.mjs",
+      "import": "./dist/jsvectormap.esm.js",
+      "default": "./dist/jsvectormap.min.js",
       "require": "./dist/jsvectormap.cjs",
       "style": "./dist/jsvectormap.css",
       "sass": "./src/scss/jsvectormap.scss"

@@ -34,7 +34,7 @@ const builds = ['umd', 'es', 'cjs'].map((format) => {
   const extension = format === 'umd'
     ? 'js'
     : format === 'es'
-      ? 'mjs'
+      ? 'esm.js'
       : 'cjs'
 
   return {
