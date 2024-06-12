@@ -1,6 +1,6 @@
 import jsVectorMap from 'jsvectormap'
-import 'jsvectormap/dist/css/jsvectormap.css'
-import 'jsvectormap-maps/world-merc'
+import 'jsvectormap/dist/maps/world-merc'
+import 'jsvectormap/dist/jsvectormap.css'
 
 const markers = [
   { name: 'Russia', coords: [61, 105] },

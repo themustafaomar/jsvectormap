@@ -15,7 +15,7 @@
     "vite": "^5.2.0"
   },
   "dependencies": {
-    "jsvectormap": "*",
+    "jsvectormap": "workspace:*",
     "jsvectormap-maps": "*"
   }
 }
