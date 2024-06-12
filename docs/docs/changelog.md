@@ -3,7 +3,30 @@ title: 'Changelog'
 description: Discover all the release notes for the Jsvectormap.
 ---
 
-## v1.5.3  (latest)
+## v1.6.0 (latest)
+
+- feat(maps): create the build maps script ([99894b8](https://github.com/themustafaomar/jsvectormap/commit/99894b8baf44c5d7a7fe72bf1b46ff77fe6b264c))
+- feat(regions): set/clear selected regions programmatically ([e6fab94](https://github.com/themustafaomar/jsvectormap/commit/b3b80304414c5f56b4219e810d5cf5d4c447a28e)) ([#137](https://github.com/themustafaomar/jsvectormap/pull/137))
+- fix(markers): add markers method ([a59cc39](https://github.com/themustafaomar/jsvectormap/commit/a59cc39d5c2e2fff2bbea074d470cc234b14a23d))
+- chore: drop internet explorer entirly ([964dcdd](https://github.com/themustafaomar/jsvectormap/commit/964dcdd4e057cb2c0db24f09ee6092e1b746c26e))
+- fix(visualization): NAN value is encountered when min and max are the same ([b3b8030](https://github.com/themustafaomar/jsvectormap/commit/b3b80304414c5f56b4219e810d5cf5d4c447a28e)) ([#147](https://github.com/themustafaomar/jsvectormap/pull/147))
+- feat: allow all styles in add markers ([bb8366e](https://github.com/themustafaomar/jsvectormap/commit/bb8366ebeb3a6734697522bd72ea49fa61419f03)) ([#140](https://github.com/themustafaomar/jsvectormap/pull/140))
+- feat: refactor: support umd, es and cjs formats ([b338ef9](https://github.com/themustafaomar/jsvectormap/pull/153/commits/b338ef972bba5db26969e0986ec9960631911459)) ([#153](https://github.com/themustafaomar/jsvectormap/pull/153))
+
+### BREAKING CHANGES
+
+Removed `js` and `css` from dist folder, so if you're importing jsvectormap from dist/js/jsvectormap.js it becomes dist/jsvectormap.js and css as well.
+
+```html
+<!-- 
+  /dist/js/jsvectormap.js       -> /dist/jsvectormap.js
+  /dist/js/jsvectormap.min.js   -> /dist/jsvectormap.min.js
+  /dist/js/jsvectormap.css      -> /dist/jsvectormap.css
+  /dist/js/jsvectormap.min.css  -> /dist/jsvectormap.min.css
+-->
+```
+
+## v1.5.3
 
 - fix: dragging doesn't work on mobile devices ([#126](https://github.com/themustafaomar/jsvectormap/issues/126))
 
