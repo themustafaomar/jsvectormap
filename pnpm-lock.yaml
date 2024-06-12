@@ -52,7 +52,7 @@ importers:
         version: 0.7.13(vue@3.4.26)
       jsvectormap:
         specifier: ^1.5.1
-        version: 1.5.3
+        version: link:../packages/jsvectormap
       vue:
         specifier: ^3.2.40
         version: 3.4.26
@@ -116,8 +116,8 @@ importers:
   packages/playground:
     dependencies:
       jsvectormap:
-        specifier: '*'
-        version: 1.5.3
+        specifier: workspace:^1.5.1
+        version: link:../jsvectormap
       jsvectormap-maps:
         specifier: '*'
         version: link:../maps
@@ -4189,10 +4189,6 @@ packages:
       json-schema: 0.4.0
       verror: 1.10.0
     dev: true
-
-  /jsvectormap@1.5.3:
-    resolution: {integrity: sha512-HStTEhZEVr8t3t6juApO603nr1y54K/wjcdOvgGtvpE1etZ9Isg/sLdqh7OX4+RJ8srdP7WiBoTV/93aMqhLhw==}
-    dev: false
 
   /kind-of@6.0.3:
     resolution: {integrity: sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==}
