@@ -22,7 +22,11 @@ const map = new jsVectorMap({
       coords: [37.0902, -95.7129],
       // Add style for this particular marker
       // Keep in mind `style` object is merged with `markerStyle.initial`
-      style: { fill: 'red' }
+      style: {
+        initial: {
+          fill: 'red'
+        }
+      }
     }
   ]
 })
@@ -108,7 +112,9 @@ const map = new jsVectorMap({
       name: 'United Kingdom',
       coords: [55.3781, 3.4360],
       style: {
-        image: '/images/pin.png' // Add a marker image for this particular marker.
+        initial: {
+          image: '/images/pin.png' // Add a marker image for this particular marker.
+        }
       }
     }
   ]
@@ -161,7 +167,11 @@ map.addMarkers([{
   name: 'Egypt',
   coords: [26.8206, 30.8025],
   // Add additional style for this particular marker.
-  style: { fill: 'red' }
+  style: {
+    initial: {
+      fill: 'red' 
+    }
+  }
 }])
 ```
 

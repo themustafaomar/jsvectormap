@@ -132,12 +132,33 @@ const map = new jsVectorMap({ })
 console.log(map.getSelectedRegions()) // returns an array of region codes: ['EG', 'US', ]
 ```
 
-### clearSelectedRegions()
+### setSelectedRegions()
 
-Finally you can remove all selected regions.
+Selecting a region or more programmatically, notice that this method was introduced starting from `v1.6.0+` 
 
 ```js
 const map = new jsVectorMap({ })
 
+// Set Egypt as the only selected region
+map.setSelectedRegions('EG')
+
+// Set Egypt and Canada as the only selected regions
+map.setSelectedRegions(['EG', 'CA'])
+```
+
+### clearSelectedRegions()
+
+Finally you can remove all selected regions, starting from `v1.6.0+` you can clear certain region or more.
+
+```js
+const map = new jsVectorMap({ })
+
+// Clear all selected regions
 map.clearSelectedRegions()
+
+// Clear a single selected region
+map.clearSelectedRegions('EG')
+
+// Clear multiple selected regions
+map.clearSelectedRegions(['EG', 'CA'])
 ```

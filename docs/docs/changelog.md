@@ -26,6 +26,29 @@ Removed `js` and `css` from dist folder, so if you're importing jsvectormap from
 -->
 ```
 
+Another thing is, when you add a particular style per marker please specify the case you want to apply the style for eg initial, hover, selected and selectedHover.
+
+```js
+const map = new jsVectorMap({
+  markers: [
+    {
+      name: 'Palestine',
+      coords: [31.9522, 35.2332],
+      // ❌ This isn't gonna work anymore
+      style: { fill: 'red' },
+      // ✅ Instead, style the marker based on its case.
+      style: {
+        initial: {
+          fill: 'red'
+        },
+        // etc...
+        hover: {}
+      }
+    }
+  ]
+})
+```
+
 ## v1.5.3
 
 - fix: dragging doesn't work on mobile devices ([#126](https://github.com/themustafaomar/jsvectormap/issues/126))

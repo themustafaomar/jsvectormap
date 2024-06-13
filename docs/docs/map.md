@@ -46,7 +46,8 @@ const map = new jsVectorMap({
 | :------- | :-----------:  | :-----------: | :-----------: |
 | `setBackgroundColor` | Set the map's background color. | `String` | [@example](#set-background-color) |
 | `getSelectedRegions` | Get the selected regions | `None` | [@example](/docs/regions#get-selected-regions) |
-| `clearSelectedRegions` | Clear the selected regions | `None` | [@example](/docs/regions#clear-selected-regions) |
+| `clearSelectedRegions` | Clear the selected regions | `String` \| `Array` \| `None` | [@example](/docs/regions#clear-selected-regions) |
+| `setSelectedRegions` | Set the selected regions `v1.6.0+` | `String` \| `Array` | [@example](/docs/regions#clear-selected-regions) |
 | `getSelectedMarkers` | Get the selected `markers` | `None` | [@example](/docs/markers#get-selected-markers) |
 | `clearSelectedMarkers` | Clear the selected `markers` | `None` | [@example](/docs/markers#clear-selected-markers) |
 | `addMarkers` | Add a new marker or array of markers | [`Object` \| `Array`] | [@example](/docs/markers#adding-new-markers) |
