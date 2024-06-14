@@ -65,21 +65,5 @@ Your contributions always **welcome** but consider the following notes:
 
 * The build files shouldn't be updated when sending pull requests.
 
-## Setup
-```bash
-### Install node via your preferred mechanism. Ensure the binaries are in your path & obtain a copy of this repository and change into the working directory
-git clone https://github.com/themustafaomar/jsvectormap.git && cd jsvectormap
-
-# Build
-npm run build
-
-# Start up the live web server (will be available on port 10001)
-npm run dev
--> http://localhost:10001/index.html
-
-# Access and test in samples dir
--> http://localhost:10001/samples/YourSampleName.html
-```
-
 ## License
 jsvectormap licensed under MIT.
