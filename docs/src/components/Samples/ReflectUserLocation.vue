@@ -1,7 +1,12 @@
 <template>
   <vector-map ref="map" class="mt-10" />
-  <div class="flex justify-center pt-5">
-    <button @click="request" :disabled="hasPosition" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-3 text-center mr-2 mb-2">Request location</button>
+  <div class="flex justify-center">
+    <div class="flex justify-center pt-5">
+      <button @click="getLocation" :disabled="hasPosition" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-3 text-center mr-2 mb-2">Find my location</button>
+    </div>
+    <div v-if="hasPosition" class="flex justify-center pt-5">
+      <button @click="clearLocation" class="text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-3 text-center mr-2 mb-2">Clear location</button>
+    </div>
   </div>
 </template>
 
@@ -12,21 +17,20 @@ export default {
     hasPosition: false
   }),
   methods: {
-    request() {
-      const map = this.$refs.map
-      navigator.geolocation.getCurrentPosition((position) => {
-        setTimeout(() => {
-          map.instance.addMarkers({
-            name: 'Egypt',
-            coords: [position.coords.latitude, position.coords.longitude]
-          })
-          this.hasPosition = true
-        }, 100)
+    async getLocation() {
+      const response = await fetch('https://ipinfo.io/geo')
+      const data = await response.json()
+
+      this.hasPosition = true
+      this.$refs.map.instance.addMarkers({
+        coords: data.loc.split(','),
+        name: `${data.city} - ${data.country} (${data.ip})`
       })
+    },
+    clearLocation() {
+      this.hasPosition = false
+      this.$refs.map.instance.removeMarkers()
     }
-  },
-  mounted() {
-    this.request()
   }
 }
 </script>

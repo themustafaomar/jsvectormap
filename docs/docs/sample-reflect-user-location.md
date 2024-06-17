@@ -7,18 +7,14 @@ description: This section shows an example of how to reflect the client location
 
 ```js
 const map = new jsVectorMap({
-  ...
-  onLoaded(map) {
-    const button = document.querySelector('#request-location')
+  async onLoaded(map) {
+    const response = await fetch('https://ipinfo.io/geo')
+    const data = await response.json()
 
-    button.addEventListener('click', () => {
-      navigator.geolocation.getCurrentPosition((position) => {
-        map.instance.addMarkers({
-          coords: [position.coords.latitude, position.coords.longitude]
-        })
-      })
+    map.addMarkers({
+      coords: data.loc.split(','),
+      name: `${data.city} - ${data.country} (${data.ip})`
     })
   }
-  ...
 })
 ```
