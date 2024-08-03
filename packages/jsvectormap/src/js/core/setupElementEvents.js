@@ -79,7 +79,7 @@ export default function setupElementEvents() {
 
       // We're checking if regions/markers|SelectableOne option is presented
       if (map.params[`${data.type}sSelectableOne`]) {
-        map._clearSelected(`${data.type}s`)
+        map._clearSelected(`_${data.type}s`)
       }
 
       if (data.element.isSelected) {

@@ -196,6 +196,10 @@ class Map {
     })
   }
 
+  selectMarkers(markers){
+    this._setSelected('_markers', markers);
+  }
+
   addLine(from, to, style = {}) {
     console.warn('`addLine` method is deprecated, please use `addLines` instead.')
     this._createLines([{ from, to, style }], this._markers, true)
