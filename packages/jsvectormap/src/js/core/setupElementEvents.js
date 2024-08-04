@@ -91,7 +91,7 @@ export default function setupElementEvents() {
       map._emit(data.event, [
         data.code,
         element.isSelected,
-        map._getSelected(`${data.type}s`)
+        map._getSelected(`_${data.type}s`)
       ])
     }
   })
