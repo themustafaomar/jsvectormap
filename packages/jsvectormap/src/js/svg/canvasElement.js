@@ -3,11 +3,6 @@ import SVGShapeElement from './shapeElement'
 import SVGTextElement from './textElement'
 import SVGImageElement from './imageElement'
 
-/**
- * ------------------------------------------------------------------------
- * Class Definition
- * ------------------------------------------------------------------------
- */
 class SVGCanvasElement extends SVGElement {
   constructor(container) {
     super('svg') // Create svg element for holding the whole map

@@ -5,11 +5,6 @@ import {
 import EventHandler from '../eventHandler'
 import BaseComponent from './base'
 
-/**
- * ------------------------------------------------------------------------
- * Class Definition
- * ------------------------------------------------------------------------
- */
 class Tooltip extends BaseComponent {
   constructor(map) {
     super()

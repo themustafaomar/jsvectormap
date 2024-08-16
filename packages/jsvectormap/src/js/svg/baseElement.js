@@ -3,11 +3,6 @@ import {
   removeElement
 } from '../util/index'
 
-/**
- * ------------------------------------------------------------------------
- * Class Definition
- * ------------------------------------------------------------------------
- */
 class SVGElement {
   constructor(name, config) {
     this.node = this._createElement(name)

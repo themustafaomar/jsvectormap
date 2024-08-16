@@ -2,11 +2,6 @@ import { inherit } from '../util'
 import BaseComponent from './base'
 import Interactable from './concerns/interactable'
 
-/**
- * ------------------------------------------------------------------------
- * Class Definition
- * ------------------------------------------------------------------------
- */
 class Marker extends BaseComponent {
   constructor({ index, style, label, cx, cy, map, group }) {
     super()

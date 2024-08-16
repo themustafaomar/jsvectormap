@@ -13,11 +13,6 @@ import EventHandler from './eventHandler'
 import Tooltip from './components/tooltip'
 import DataVisualization from './dataVisualization'
 
-/**
- * ------------------------------------------------------------------------
- * Class Definition
- * ------------------------------------------------------------------------
- */
 class Map {
   static maps = {}
   static defaults = Defaults
