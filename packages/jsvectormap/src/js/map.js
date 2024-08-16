@@ -152,7 +152,8 @@ class Map {
     this.container.style.backgroundColor = color
   }
 
-  // Region methods
+  // Regions
+
   getSelectedRegions() {
     return this._getSelected('regions')
   }
@@ -169,13 +170,18 @@ class Map {
     this._setSelected('regions', this._normalizeRegions(regions))
   }
 
-  // Markers methods
+  // Markers
+
   getSelectedMarkers() {
     return this._getSelected('_markers')
   }
 
   clearSelectedMarkers() {
     this._clearSelected('_markers')
+  }
+
+  setSelectedMarkers(markers) {
+    this._setSelected('_markers', markers)
   }
 
   addMarkers(config) {
@@ -195,6 +201,8 @@ class Map {
       delete this._markers[index]
     })
   }
+
+  // Lines
 
   addLine(from, to, style = {}) {
     console.warn('`addLine` method is deprecated, please use `addLines` instead.')

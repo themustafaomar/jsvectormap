@@ -17,6 +17,7 @@ description: This section lists all available maps.
 | `russia` | The Russia map | `Mercator` | [Download](https://raw.githubusercontent.com/themustafaomar/jsvectormap/master/src/maps/russia.js) |
 | `canada` | The Canada map | -- | [Download](https://raw.githubusercontent.com/themustafaomar/jsvectormap/master/src/maps/canada.js) |
 | `iraq` | The Iraq map | -- | [Download](https://raw.githubusercontent.com/themustafaomar/jsvectormap/master/src/maps/iraq.js) |
+| `brasil` | The Brasil map | -- | [Download](https://raw.githubusercontent.com/themustafaomar/jsvectormap/main/packages/maps/src/brasil.js) |
 
 ## Generating maps
 
