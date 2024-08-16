@@ -71,7 +71,7 @@ class Map {
     this.updateSize()
 
     // Create lines
-    this._createLines(options.lines || {}, options.markers || {})
+    this._createLines(options.lines.elements || {})
 
     // Create markers
     this._createMarkers(options.markers)
