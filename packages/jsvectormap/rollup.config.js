@@ -8,7 +8,7 @@ export default {
   input: 'src/js/index.js',
   output: {
     name: 'jsVectorMap',
-    file: 'dist/jsvectormap.js',
+    file: 'dist/jsvectormap.esm.js',
     format: 'es',
   },
   plugins: [
