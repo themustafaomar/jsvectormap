@@ -1,10 +1,5 @@
 import SVGShapeElement from './shapeElement'
 
-/**
- * ------------------------------------------------------------------------
- * Class Definition
- * ------------------------------------------------------------------------
- */
 class SVGTextElement extends SVGShapeElement {
   constructor(config, style) {
     super('text', config, style)

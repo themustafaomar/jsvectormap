@@ -1,10 +1,5 @@
 import SVGShapeElement from './shapeElement'
 
-/**
- * ------------------------------------------------------------------------
- * Class Definition
- * ------------------------------------------------------------------------
- */
 class SVGImageElement extends SVGShapeElement {
   constructor(config, style) {
     super('image', config, style)

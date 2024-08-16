@@ -1,11 +1,6 @@
 let eventRegistry = {}
 let eventUid = 1
 
-/**
- * ------------------------------------------------------------------------
- * Event Handler
- * ------------------------------------------------------------------------
- */
 const EventHandler = {
   on(element, event, handler, options = {}) {
     const uid = `jvm:${event}::${eventUid++}`

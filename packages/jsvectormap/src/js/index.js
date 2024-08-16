@@ -7,11 +7,6 @@ import Map from './map'
 
 import '../scss/jsvectormap.scss'
 
-/**
- * ------------------------------------------------------------------------
- * Class Definition
- * ------------------------------------------------------------------------
- */
 class jsVectorMap {
   constructor(options = {}) {
     if (!options.selector) {

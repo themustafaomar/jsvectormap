@@ -2,11 +2,6 @@ import { merge } from './util/index'
 import Legend from './legend'
 import OrdinalScale from './scales/ordinalScale'
 
-/**
- * ------------------------------------------------------------------------
- * Class Definition
- * ------------------------------------------------------------------------
- */
 class Series {
   constructor(config = {}, elements, map) {
     // Private

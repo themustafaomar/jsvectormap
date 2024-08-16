@@ -1,10 +1,5 @@
 import { createElement, isImageUrl } from './util'
 
-/**
- * ------------------------------------------------------------------------
- * Class Definition
- * ------------------------------------------------------------------------
- */
 class Legend {
   constructor(options = {}) {
     this._options = options

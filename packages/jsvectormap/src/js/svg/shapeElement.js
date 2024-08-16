@@ -1,11 +1,6 @@
 import { merge } from '../util/index'
 import SVGElement from './baseElement'
 
-/**
- * ------------------------------------------------------------------------
- * Class Definition
- * ------------------------------------------------------------------------
- */
 class SVGShapeElement extends SVGElement {
   constructor(name, config, style = {}) {
     super(name, config)
