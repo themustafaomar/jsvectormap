@@ -8,7 +8,7 @@ const Interactable = {
       let params = []
 
       // Pass additional paramater (Marker config object) in case it's a Marker.
-      if (this.__proto__.constructor.name === 'Marker') {
+      if (this.constructor.Name === 'marker') {
         params.push(this.getConfig())
       }
 

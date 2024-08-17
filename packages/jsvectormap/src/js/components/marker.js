@@ -2,11 +2,16 @@ import { inherit } from '../util'
 import BaseComponent from './base'
 import Interactable from './concerns/interactable'
 
+const NAME = 'marker'
 const JVM_PREFIX = 'jvm-'
 const MARKER_CLASS = `${JVM_PREFIX}element ${JVM_PREFIX}marker`
 const MARKER_LABEL_CLASS = `${JVM_PREFIX}element ${JVM_PREFIX}label`
 
 class Marker extends BaseComponent {
+  static get Name() {
+    return NAME
+  }
+
   constructor(options, style) {
     super()
 
