@@ -213,7 +213,7 @@ class Map {
 
     this._createLines(config.filter(line => {
       return !(uids.indexOf(getLineUid(line.from, line.to)) > -1)
-    }), true)
+    }), this._markers, true)
   }
 
   removeLines(lines) {
