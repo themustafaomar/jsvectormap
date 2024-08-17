@@ -9,7 +9,7 @@ export default function createLines(lines, isRecentlyCreated = false) {
   // loaded so we will append the futured lines to this group as well.
   this.linesGroup = this.linesGroup || this.canvas.createGroup(LINES_GROUP_CLASS)
 
-  const markers = this.params.markers || {}
+  const markers = this._markers
   const { style, elements: _, ...rest } = this.params.lines
 
   let point1 = false, point2 = false
