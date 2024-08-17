@@ -3,7 +3,7 @@ import Line from '../components/line'
 
 const LINES_GROUP_CLASS = 'jvm-lines-group'
 
-export default function createLines(lines, isRecentlyCreated = false) {
+export default function createLines(lines) {
   // Create group for holding lines we're checking if `linesGroup`
   // exists or not becuase we may add lines after the map has
   // loaded so we will append the futured lines to this group as well.
@@ -15,18 +15,14 @@ export default function createLines(lines, isRecentlyCreated = false) {
   let point1 = false, point2 = false
 
   for (let index in lines) {
-    const config = lines[index]
+    const lineConfig = lines[index]
 
-    for (let mindex in markers) {
-      const markerConfig = isRecentlyCreated
-        ? markers[mindex].config
-        : markers[mindex]
-
-      if (markerConfig.name === config.from) {
+    for (let { config: markerConfig } of Object.values(markers)) {
+      if (markerConfig.name === lineConfig.from) {
         point1 = this.getMarkerPosition(markerConfig)
       }
 
-      if (markerConfig.name === config.to) {
+      if (markerConfig.name === lineConfig.to) {
         point2 = this.getMarkerPosition(markerConfig)
       }
     }
@@ -36,7 +32,7 @@ export default function createLines(lines, isRecentlyCreated = false) {
         index,
         map: this,
         group: this.linesGroup,
-        config,
+        config: lineConfig,
         x1: point1.x,
         y1: point1.y,
         x2: point2.x,
@@ -45,9 +41,9 @@ export default function createLines(lines, isRecentlyCreated = false) {
       }
 
       // Register lines with unique keys
-      this._lines[getLineUid(config.from, config.to)] = new Line(
+      this._lines[getLineUid(lineConfig.from, lineConfig.to)] = new Line(
         options,
-        merge({ initial: style }, { initial: config.style || {} }, true)
+        merge({ initial: style }, { initial: lineConfig.style || {} }, true)
       )
     }
   }

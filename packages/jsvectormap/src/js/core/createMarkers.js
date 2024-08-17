@@ -30,19 +30,20 @@ export default function createMarkers(markers = {}, isRecentlyCreated = false) {
       index = Object.keys(this._markers).length
     }
 
-    const marker = new Marker({
-      index,
-      map: this,
-      // Merge the `markerStyle` object with the marker config `style` if presented.
-      style: merge(this.params.markerStyle, { ...config.style || {} }, true),
-      label: this.params.labels && this.params.labels.markers,
-      labelsGroup: this._markerLabelsGroup,
-      cx: point.x,
-      cy: point.y,
-      group: this._markersGroup,
-      marker: config,
-      isRecentlyCreated,
-    })
+    const marker = new Marker(
+      {
+        index,
+        map: this,
+        label: this.params.labels && this.params.labels.markers,
+        labelsGroup: this._markerLabelsGroup,
+        cx: point.x,
+        cy: point.y,
+        group: this._markersGroup,
+        config,
+        isRecentlyCreated,
+      },
+      merge(this.params.markerStyle, { ...(config.style || {}) }, true)
+    )
 
     // Check for marker duplication
     // this is useful when for example: a user clicks a button for creating marker two times
