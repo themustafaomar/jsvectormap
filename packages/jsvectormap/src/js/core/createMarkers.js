@@ -2,12 +2,6 @@ import { merge } from '../util'
 import Marker from '../components/marker'
 
 export default function createMarkers(markers = {}, isRecentlyCreated = false) {
-  // Create groups for holding markers and markers labels
-  // We're checking if `markersGroup` exists or not becuase we may add markers after the map has loaded
-  // So we will append the futured markers to this group as well.
-  this._markersGroup = this._markersGroup || this.canvas.createGroup('jvm-markers-group')
-  this._markerLabelsGroup = this._markerLabelsGroup || this.canvas.createGroup('jvm-markers-labels-group')
-
   for (let index in markers) {
     const config = markers[index]
     const point = this.getMarkerPosition(config)

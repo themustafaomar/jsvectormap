@@ -13,6 +13,15 @@ import EventHandler from './eventHandler'
 import Tooltip from './components/tooltip'
 import DataVisualization from './dataVisualization'
 
+const JVM_PREFIX = 'jvm-'
+const CONTAINER_CLASS = `${JVM_PREFIX}container`
+const MARKERS_GROUP_CLASS = `${JVM_PREFIX}markers-group`
+const MARKERS_LABELS_GROUP_CLASS = `${JVM_PREFIX}markers-labels-group`
+const LINES_GROUP_CLASS = `${JVM_PREFIX}lines-group`
+const SERIES_CONTAINER_CLASS = `${JVM_PREFIX}series-container`
+const SERIES_CONTAINER_H_CLASS = `${SERIES_CONTAINER_CLASS} ${JVM_PREFIX}series-h`
+const SERIES_CONTAINER_V_CLASS = `${SERIES_CONTAINER_CLASS} ${JVM_PREFIX}series-v`
+
 class Map {
   static maps = {}
   static defaults = Defaults
@@ -56,7 +65,7 @@ class Map {
     const options = this.params
 
     this.container = getElement(options.selector)
-    this.container.classList.add('jvm-container')
+    this.container.classList.add(CONTAINER_CLASS)
 
     // The map canvas element
     this.canvas = new SVGCanvasElement(this.container)
@@ -70,11 +79,22 @@ class Map {
     // Update size
     this.updateSize()
 
-    // Create lines
-    this._createLines(options.lines.elements || {})
+    // Lines group must be created before markers
+    // Otherwise the lines will be drawn on top of the markers.
+    if (options.lines.elements) {
+      this._linesGroup = this.canvas.createGroup(LINES_GROUP_CLASS)
+    }
+
+    if (options.markers) {
+      this._markersGroup = this.canvas.createGroup(MARKERS_GROUP_CLASS)
+      this._markerLabelsGroup = this.canvas.createGroup(MARKERS_LABELS_GROUP_CLASS)
+    }
 
     // Create markers
     this._createMarkers(options.markers)
+
+    // Create lines
+    this._createLines(options.lines.elements || {})
 
     // Position labels
     this._repositionLabels()
@@ -127,11 +147,11 @@ class Map {
     // Create series if any
     if (options.series) {
       this.container.appendChild(this.legendHorizontal = createElement(
-        'div', 'jvm-series-container jvm-series-h'
+        'div', SERIES_CONTAINER_H_CLASS
       ))
 
       this.container.appendChild(this.legendVertical = createElement(
-        'div', 'jvm-series-container jvm-series-v'
+        'div', SERIES_CONTAINER_V_CLASS
       ))
 
       this._createSeries()
