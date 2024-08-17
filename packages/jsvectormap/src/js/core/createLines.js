@@ -1,19 +1,26 @@
 import { merge, getLineUid } from '../util'
 import Line from '../components/line'
 
-export default function createLines(lines, markers, isRecentlyCreated = false) {
+const LINES_GROUP_CLASS = 'jvm-lines-group'
+
+export default function createLines(lines, isRecentlyCreated = false) {
+  // Create group for holding lines we're checking if `linesGroup`
+  // exists or not becuase we may add lines after the map has
+  // loaded so we will append the futured lines to this group as well.
+  this.linesGroup = this.linesGroup || this.canvas.createGroup(LINES_GROUP_CLASS)
+
+  const markers = this.params.markers || {}
+  const { style, elements: _, ...rest } = this.params.lines
+
   let point1 = false, point2 = false
 
-  // Create group for holding lines
-  // we're checking if `linesGroup` exists or not becuase we may add lines
-  // after the map has loaded so we will append the futured lines to this group as well.
-  this.linesGroup = this.linesGroup || this.canvas.createGroup('jvm-lines-group')
-  
   for (let index in lines) {
     const config = lines[index]
 
     for (let mindex in markers) {
-      const markerConfig = isRecentlyCreated ? markers[mindex].config : markers[mindex]
+      const markerConfig = isRecentlyCreated
+        ? markers[mindex].config
+        : markers[mindex]
 
       if (markerConfig.name === config.from) {
         point1 = this.getMarkerPosition(markerConfig)
@@ -25,19 +32,23 @@ export default function createLines(lines, markers, isRecentlyCreated = false) {
     }
 
     if (point1 !== false && point2 !== false) {
-      // Register lines with unique keys
-      this._lines[getLineUid(config.from, config.to)] = new Line({
-        index: index,
+      const options = {
+        index,
         map: this,
-        // Merge the default `lineStyle` object with the custom `line` config style
-        style: merge({ initial: this.params.lineStyle }, { initial: config.style || {} }, true),
+        group: this.linesGroup,
+        config,
         x1: point1.x,
         y1: point1.y,
         x2: point2.x,
         y2: point2.y,
-        group: this.linesGroup,
-        config
-      })
+        ...rest,
+      }
+
+      // Register lines with unique keys
+      this._lines[getLineUid(config.from, config.to)] = new Line(
+        options,
+        merge({ initial: style }, { initial: config.style || {} }, true)
+      )
     }
   }
 }

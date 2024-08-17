@@ -35,12 +35,12 @@ class SVGCanvasElement extends SVGElement {
   }
 
   // Create `path` element
-  createPath(config, style) {
+  createPath(config, style, group) {
     const path = new SVGShapeElement('path', config, style)
 
     path.node.setAttribute('fill-rule', 'evenodd')
 
-    return this._add(path)
+    return this._add(path, group)
   }
 
   // Create `circle` element
