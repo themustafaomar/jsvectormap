@@ -2,12 +2,6 @@ import { merge } from '../util'
 import Marker from '../components/marker'
 
 export default function createMarkers(markers = {}, isRecentlyCreated = false) {
-  // Create groups for holding markers and markers labels
-  // We're checking if `markersGroup` exists or not becuase we may add markers after the map has loaded
-  // So we will append the futured markers to this group as well.
-  this._markersGroup = this._markersGroup || this.canvas.createGroup('jvm-markers-group')
-  this._markerLabelsGroup = this._markerLabelsGroup || this.canvas.createGroup('jvm-markers-labels-group')
-
   for (let index in markers) {
     const config = markers[index]
     const point = this.getMarkerPosition(config)
@@ -30,19 +24,20 @@ export default function createMarkers(markers = {}, isRecentlyCreated = false) {
       index = Object.keys(this._markers).length
     }
 
-    const marker = new Marker({
-      index,
-      map: this,
-      // Merge the `markerStyle` object with the marker config `style` if presented.
-      style: merge(this.params.markerStyle, { ...config.style || {} }, true),
-      label: this.params.labels && this.params.labels.markers,
-      labelsGroup: this._markerLabelsGroup,
-      cx: point.x,
-      cy: point.y,
-      group: this._markersGroup,
-      marker: config,
-      isRecentlyCreated,
-    })
+    const marker = new Marker(
+      {
+        index,
+        map: this,
+        label: this.params.labels && this.params.labels.markers,
+        labelsGroup: this._markerLabelsGroup,
+        cx: point.x,
+        cy: point.y,
+        group: this._markersGroup,
+        config,
+        isRecentlyCreated,
+      },
+      merge(this.params.markerStyle, { ...(config.style || {}) }, true)
+    )
 
     // Check for marker duplication
     // this is useful when for example: a user clicks a button for creating marker two times

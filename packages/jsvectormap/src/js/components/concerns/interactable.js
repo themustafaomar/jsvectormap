@@ -8,8 +8,8 @@ const Interactable = {
       let params = []
 
       // Pass additional paramater (Marker config object) in case it's a Marker.
-      if (this.config && this.config.marker) {
-        params.push(this.config.marker)
+      if (this.constructor.Name === 'marker') {
+        params.push(this.getConfig())
       }
 
       // Becuase we need to add the key always at the end
