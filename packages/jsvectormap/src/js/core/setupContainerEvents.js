@@ -35,8 +35,8 @@ export default function setupContainerEvents() {
     EventHandler.on(this.container, 'wheel', event => {
       const deltaY = (((event.deltaY || -event.wheelDelta || event.detail) >> 10) || 1) * 75
       const rect = this.container.getBoundingClientRect()
-      const offsetX = event.pageX - rect.left - window.pageXOffset
-      const offsetY = event.pageY - rect.top - window.pageYOffset
+      const offsetX = event.pageX - rect.left - window.scrollX
+      const offsetY = event.pageY - rect.top - window.scrollY
       const zoomStep = Math.pow(1 + (map.params.zoomOnScrollSpeed / 1000), -1.5 * deltaY)
 
       if (map.tooltip) {
