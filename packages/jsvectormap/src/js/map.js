@@ -15,9 +15,9 @@ import DataVisualization from './dataVisualization'
 
 const JVM_PREFIX = 'jvm-'
 const CONTAINER_CLASS = `${JVM_PREFIX}container`
-const MARKERS_GROUP_CLASS = `${JVM_PREFIX}markers-group`
-const MARKERS_LABELS_GROUP_CLASS = `${JVM_PREFIX}markers-labels-group`
-const LINES_GROUP_CLASS = `${JVM_PREFIX}lines-group`
+const MARKERS_GROUP_ID = `${JVM_PREFIX}markers-group`
+const MARKERS_LABELS_GROUP_ID = `${JVM_PREFIX}markers-labels-group`
+const LINES_GROUP_ID = `${JVM_PREFIX}lines-group`
 const SERIES_CONTAINER_CLASS = `${JVM_PREFIX}series-container`
 const SERIES_CONTAINER_H_CLASS = `${SERIES_CONTAINER_CLASS} ${JVM_PREFIX}series-h`
 const SERIES_CONTAINER_V_CLASS = `${SERIES_CONTAINER_CLASS} ${JVM_PREFIX}series-v`
@@ -82,12 +82,12 @@ class Map {
     // Lines group must be created before markers
     // Otherwise the lines will be drawn on top of the markers.
     if (options.lines.elements) {
-      this._linesGroup = this.canvas.createGroup(LINES_GROUP_CLASS)
+      this._linesGroup = this.canvas.createGroup(LINES_GROUP_ID)
     }
 
     if (options.markers) {
-      this._markersGroup = this.canvas.createGroup(MARKERS_GROUP_CLASS)
-      this._markerLabelsGroup = this.canvas.createGroup(MARKERS_LABELS_GROUP_CLASS)
+      this._markersGroup = this.canvas.createGroup(MARKERS_GROUP_ID)
+      this._markerLabelsGroup = this.canvas.createGroup(MARKERS_LABELS_GROUP_ID)
     }
 
     // Create markers
