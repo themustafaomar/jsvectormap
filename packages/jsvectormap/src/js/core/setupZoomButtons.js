@@ -2,11 +2,28 @@ import { createElement } from '../util'
 import EventHandler from '../eventHandler'
 
 export default function setupZoomButtons() {
-  const zoomin = createElement('div', 'jvm-zoom-btn jvm-zoomin', '&#43;', true)
-  const zoomout = createElement('div', 'jvm-zoom-btn jvm-zoomout', '&#x2212', true)
+  const zoomInOption = this.params.zoomInButton
+  const zoomOutOption = this.params.zoomOutButton
 
-  this.container.appendChild(zoomin)
-  this.container.appendChild(zoomout)
+  const getZoomButton = (zoomOption) => typeof zoomOption === 'string'
+    ? document.querySelector(zoomOption)
+    : zoomOption
+
+  const zoomIn = this.params.zoomInButton
+    ? getZoomButton(zoomInOption)
+    : createElement('div', 'jvm-zoom-btn jvm-zoomin', '&#43;', true)
+
+  const zoomOut = zoomOutOption
+    ? getZoomButton(zoomOutOption)
+    : createElement('div', 'jvm-zoom-btn jvm-zoomout', '&#x2212', true)
+
+  if (!zoomInOption) {
+    this.container.appendChild(zoomIn)
+  }
+
+  if (!zoomOutOption) {
+    this.container.appendChild(zoomOut)
+  }
 
   const handler = (zoomin = true) => {
     return () => this._setScale(
