@@ -35,6 +35,6 @@ export default function setupZoomButtons() {
     )
   }
 
-  EventHandler.on(zoomin, 'click', handler())
-  EventHandler.on(zoomout, 'click', handler(false))
+  EventHandler.on(zoomIn, 'click', handler())
+  EventHandler.on(zoomOut, 'click', handler(false))
 }
