@@ -16,6 +16,6 @@
   },
   "dependencies": {
     "jsvectormap": "workspace:*",
-    "jsvectormap-maps": "*"
+    "jsvectormap-maps": "workspace:*"
   }
 }
