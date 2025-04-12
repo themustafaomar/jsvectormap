@@ -40,12 +40,10 @@ $legend-tick-text-font-size: 12px !default;
 $legend-tick-text-margin-top: 3px !default;
 
 // Global resets
-svg { touch-action: none }
 image, text, .#{$classPrefix}zoomin, .#{$classPrefix}zoomout { user-select: none }
 
 // jsVectorMap container
 .#{$classPrefix}container {
-  touch-action: none;
   position: relative;
   overflow: hidden;
   height: 100%;
