@@ -9,7 +9,7 @@ export default function setupZoomButtons() {
     ? document.querySelector(zoomOption)
     : zoomOption
 
-  const zoomIn = this.params.zoomInButton
+  const zoomIn = zoomInOption
     ? getZoomButton(zoomInOption)
     : createElement('div', 'jvm-zoom-btn jvm-zoomin', '&#43;', true)
 
