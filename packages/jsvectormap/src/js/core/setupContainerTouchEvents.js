@@ -25,7 +25,7 @@ export default function setupContainerTouchEvents() {
         map.transX -= (touchX - touches[0].pageX) / map.scale
         map.transY -= (touchY - touches[0].pageY) / map.scale
 
-        map._tooltip.hide()
+        map._tooltip?.hide()
         map._applyTransform()
 
         if (transXOld != map.transX || transYOld != map.transY) {
@@ -44,7 +44,7 @@ export default function setupContainerTouchEvents() {
 
         map._setScale(touchStartScale * scale, centerTouchX, centerTouchY)
 
-        map._tooltip.hide()
+        map._tooltip?.hide()
         e.preventDefault()
       } else {
         let rect = map.container.getBoundingClientRect()
