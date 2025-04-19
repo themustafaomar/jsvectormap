@@ -14,6 +14,7 @@
 
   // Zoom buttons
   --jvm-zoom-btns-bg-color: #{$zoom-btns-bg-color};
+  --jvm-zoom-btns-color: #{$zoom-btns-color};
   --jvm-zoom-btns-radius: #{$zoom-btns-radius};
   --jvm-zoom-btns-height: #{$zoom-btns-height};
   --jvm-zoom-btns-padding: #{$zoom-btns-padding};
@@ -54,16 +55,16 @@ image, text, .jvm-zoom-btn { user-select: none }
 
 // Tooltip
 .jvm-tooltip {
-  border-radius: $tooltip-radius;
-  background-color: $tooltip-bg-color;
-  font-family: $tooltip-font-family;
-  font-size: $tooltip-font-size;
-  box-shadow: $tooltip-shadow;
-  padding: $tooltip-padding;
+  border-radius: var(--jvm-tooltip-radius);
+  background-color: var(--jvm-tooltip-bg-color);
+  color: var(--jvm-tooltip-color);
+  font-family: var(--jvm-tooltip-font-family);
+  font-size: var(--jvm-tooltip-font-size);
+  box-shadow: var(--jvm-tooltip-shadow);
+  padding: var(--jvm-tooltip-padding);
   white-space: nowrap;
   position: absolute;
   display: none;
-  color: #FFF;
   &.active {
     display: block;
   }
@@ -74,11 +75,11 @@ image, text, .jvm-zoom-btn { user-select: none }
   border-radius: var(--jvm-zoom-btns-radius);
   background-color: var(--jvm-zoom-btns-bg-color);
   padding: var(--jvm-zoom-btns-padding);
+  color: var(--jvm-zoom-btns-color);
   box-sizing: border-box;
   position: absolute;
   line-height: 10px;
   cursor: pointer;
-  color: #FFF;
   height: 15px;
   width: 15px;
   left: 10px;
@@ -94,7 +95,7 @@ image, text, .jvm-zoom-btn { user-select: none }
 
 // Series
 .jvm-series-container {
-  right: $series-container-right;
+  right: var(--jvm-series-container-right);
   position: absolute;
   &.jvm-series-h { bottom: 15px }
   &.jvm-series-v { top: 15px }
