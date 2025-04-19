@@ -1,49 +1,53 @@
-// Class prefix
-$classPrefix: jvm- !default;
-$border-color: #e5e7eb !default;
-$box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !default;
+@import './variables';
 
-// Tooltip
-$tooltip-shadow: 1px 2px 12px rgba(0, 0, 0, .2) !default;
-$tooltip-font-family: sans-serif, Verdana !default;
-$tooltip-bg-color: #5c5cff !default;
-$tooltip-radius: 3px !default;
-$tooltip-font-size: smaller !default;
-$tooltip-padding: 3px 5px !default;
+:root {
+  --jvm-border-color: #{$border-color};
+  --jvm-box-shadow: #{$box-shadow};
 
-// Zoom buttons
-$zoom-btns-bg-color: #292929 !default;
-$zoom-btns-radius: 3px !default;
-$zoom-btns-height: 15px !default;
-$zoom-btns-padding: 3px !default;
-$zoom-btns-width: 15px !default;
+  // Tooltip
+  --jvm-tooltip-shadow: var(--jvm-box-shadow);
+  --jvm-tooltip-font-family: #{$tooltip-font-family};
+  --jvm-tooltip-bg-color: #{$tooltip-bg-color};
+  --jvm-tooltip-color: #{$tooltip-color};
+  --jvm-tooltip-radius: #{$tooltip-radius};
+  --jvm-tooltip-font-size: #{$tooltip-font-size};
+  --jvm-tooltip-padding: #{$tooltip-padding};
 
-// Series
-$series-container-right: 15px !default;
+  // Zoom buttons
+  --jvm-zoom-btns-bg-color: #{$zoom-btns-bg-color};
+  --jvm-zoom-btns-color: #{$zoom-btns-color};
+  --jvm-zoom-btns-radius: #{$zoom-btns-radius};
+  --jvm-zoom-btns-height: #{$zoom-btns-height};
+  --jvm-zoom-btns-padding: #{$zoom-btns-padding};
+  --jvm-zoom-btns-width: #{$zoom-btns-width};
 
-// Legends
-$legend-background-color: #FFF !default;
-$legend-radius: 0.25rem !default;
-$legend-margin-left: .75rem !default;
-$legend-padding: 0.6rem !default;
+  // Series
+  --jvm-series-container-right: #{$series-container-right};
 
-// Legend title
-$legend-title-padding-bottom: 0.5rem !default;
-$legend-title-margin-bottom: 0.575rem !default;
+  // Legends
+  --jvm-legend-background-color: #{$legend-background-color};
+  --jvm-legend-radius: #{$legend-radius};
+  --jvm-legend-margin-left: #{$legend-margin-left};
+  --jvm-legend-padding: #{$legend-padding};
 
-// Legend ticks
-$legend-tick-margin-top: .575rem !default;
-$legend-tick-sample-radius: 4px !default;
-$legend-tick-sample-height: 16px !default;
-$legend-tick-sample-width: 16px !default;
-$legend-tick-text-font-size: 12px !default;
-$legend-tick-text-margin-top: 3px !default;
+  // Legend title
+  --jvm-legend-title-padding-bottom: #{$legend-title-padding-bottom};
+  --jvm-legend-title-margin-bottom: #{$legend-title-margin-bottom};
+
+  // Legend ticks
+  --jvm-legend-tick-margin-top: #{$legend-tick-margin-top};
+  --jvm-legend-tick-sample-radius: #{$legend-tick-sample-radius};
+  --jvm-legend-tick-sample-height: #{$legend-tick-sample-height};
+  --jvm-legend-tick-sample-width: #{$legend-tick-sample-width};
+  --jvm-legend-tick-text-font-size: #{$legend-tick-text-font-size};
+  --jvm-legend-tick-text-margin-top: #{$legend-tick-text-margin-top};
+}
 
 // Global resets
-image, text, .#{$classPrefix}zoomin, .#{$classPrefix}zoomout { user-select: none }
+image, text, .jvm-zoom-btn { user-select: none }
 
 // jsVectorMap container
-.#{$classPrefix}container {
+.jvm-container {
   position: relative;
   overflow: hidden;
   height: 100%;
@@ -51,101 +55,89 @@ image, text, .#{$classPrefix}zoomin, .#{$classPrefix}zoomout { user-select: none
 }
 
 // Tooltip
-.#{$classPrefix}tooltip {
-  border-radius: $tooltip-radius;
-  background-color: $tooltip-bg-color;
-  font-family: $tooltip-font-family;
-  font-size: $tooltip-font-size;
-  box-shadow: $tooltip-shadow;
-  padding: $tooltip-padding;
+.jvm-tooltip {
+  border-radius: var(--jvm-tooltip-radius);
+  background-color: var(--jvm-tooltip-bg-color);
+  color: var(--jvm-tooltip-color);
+  font-family: var(--jvm-tooltip-font-family);
+  font-size: var(--jvm-tooltip-font-size);
+  box-shadow: var(--jvm-tooltip-shadow);
+  padding: var(--jvm-tooltip-padding);
   white-space: nowrap;
   position: absolute;
   display: none;
-  color: #FFF;
   &.active {
     display: block;
   }
 }
 
 // Zoom buttons
-.#{$classPrefix}zoom-btn {
-  border-radius: $zoom-btns-radius;
-  background-color: $zoom-btns-bg-color;
-  padding: $zoom-btns-padding;
+.jvm-zoom-btn {
+  border-radius: var(--jvm-zoom-btns-radius);
+  background-color: var(--jvm-zoom-btns-bg-color);
+  padding: var(--jvm-zoom-btns-padding);
+  color: var(--jvm-zoom-btns-color);
   box-sizing: border-box;
   position: absolute;
   line-height: 10px;
   cursor: pointer;
-  color: #FFF;
   height: 15px;
   width: 15px;
   left: 10px;
 
-  &.#{$classPrefix}zoomout {
+  &.jvm-zoomout {
     top: 30px
   }
 
-  &.#{$classPrefix}zoomin {
+  &.jvm-zoomin {
     top: 10px
   }
 }
 
 // Series
-.#{$classPrefix}series-container {
-  right: $series-container-right;
+.jvm-series-container {
+  right: var(--jvm-series-container-right);
   position: absolute;
+  &.jvm-series-h { bottom: 15px }
+  &.jvm-series-v { top: 15px }
+}
 
-  // horizontal
-  &.#{$classPrefix}series-h { bottom: 15px }
+// Legends
+.jvm-legend {
+  background-color: var(--jvm-legend-background-color);
+  border: 1px solid var(--jvm-border-color);
+  margin-left: var(--jvm-legend-margin-left);
+  border-radius: var(--jvm-legend-radius);
+  padding: var(--jvm-legend-padding);
+  box-shadow: var(--jvm-box-shadow);
+}
 
-  // Vertical
-  &.#{$classPrefix}series-v { top: 15px }
+.jvm-legend-title {
+  line-height: 1;
+  border-bottom: 1px solid var(--jvm-border-color);
+  padding-bottom: var(--jvm-legend-title-padding-bottom);
+  margin-bottom: var(--jvm-legend-title-margin-bottom);
+  text-align: left;
+}
 
-  // Legends
-  .#{$classPrefix}legend {
-    background-color: $legend-background-color;
-    border: 1px solid $border-color;
-    margin-left: $legend-margin-left;
-    border-radius: $legend-radius;
-    border-color: $border-color;
-    padding: $legend-padding;
-    box-shadow: $box-shadow;
-    float: left;
-
-    .#{$classPrefix}legend-title {
-      line-height: 1;
-      border-bottom: 1px solid $border-color;
-      padding-bottom: $legend-title-padding-bottom;
-      margin-bottom: $legend-title-margin-bottom;
-      text-align: left;
-    }
-
-    .#{$classPrefix}legend-inner {
-      overflow: hidden;
-
-      .#{$classPrefix}legend-tick {
-        overflow: hidden;
-        min-width: 40px;
-        &:not(:first-child) {
-          margin-top: $legend-tick-margin-top;
-        }
-
-        .#{$classPrefix}legend-tick-sample {
-          border-radius: $legend-tick-sample-radius;
-          margin-right: .65rem;
-          height: $legend-tick-sample-height;
-          width: $legend-tick-sample-width;
-          float: left;
-        }
-
-        .#{$classPrefix}legend-tick-text {
-          font-size: $legend-tick-text-font-size;
-          text-align: center;
-          float: left;
-        }
-      }
-    }
+.jvm-legend-tick {
+  display: flex;
+  min-width: 40px;
+  &:not(:first-child) {
+    margin-top: var(--jvm-legend-tick-margin-top);
   }
+}
+
+.jvm-legend-tick-sample {
+  border-radius: var(--jvm-legend-tick-sample-radius);
+  margin-right: .65rem;
+  height: var(--jvm-legend-tick-sample-height);
+  width: var(--jvm-legend-tick-sample-width);
+}
+
+.jvm-legend-tick-text {
+  font-size: var(--jvm-legend-tick-text-font-size);
+  text-align: center;
 }
 
 // Line animation

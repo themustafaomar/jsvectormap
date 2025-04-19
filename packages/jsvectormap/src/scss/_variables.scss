@@ -1,0 +1,41 @@
+// Class prefix
+$border-color: #e5e7eb !default;
+$box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !default;
+
+// Tooltip
+$tooltip-shadow: 1px 2px 12px rgba(0, 0, 0, .2) !default;
+$tooltip-font-family: sans-serif, Verdana !default;
+$tooltip-bg-color: #337ffa !default;
+$tooltip-color: #FFF !default;
+$tooltip-radius: 3px !default;
+$tooltip-font-size: smaller !default;
+$tooltip-padding: 3px 5px !default;
+
+// Zoom buttons
+$zoom-btns-bg-color: #292929 !default;
+$zoom-btns-color: #FFF !default;
+$zoom-btns-radius: 3px !default;
+$zoom-btns-height: 15px !default;
+$zoom-btns-padding: 3px !default;
+$zoom-btns-width: 15px !default;
+
+// Series
+$series-container-right: 15px !default;
+
+// Legends
+$legend-background-color: #FFF !default;
+$legend-radius: 0.25rem !default;
+$legend-margin-left: .75rem !default;
+$legend-padding: 0.6rem !default;
+
+// Legend title
+$legend-title-padding-bottom: 0.5rem !default;
+$legend-title-margin-bottom: 0.575rem !default;
+
+// Legend ticks
+$legend-tick-margin-top: .575rem !default;
+$legend-tick-sample-radius: 4px !default;
+$legend-tick-sample-height: 16px !default;
+$legend-tick-sample-width: 16px !default;
+$legend-tick-text-font-size: 12px !default;
+$legend-tick-text-margin-top: 3px !default;
