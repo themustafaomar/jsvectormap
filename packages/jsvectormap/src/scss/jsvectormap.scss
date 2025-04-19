@@ -109,7 +109,6 @@ image, text, .jvm-zoom-btn { user-select: none }
   border-color: var(--jvm-border-color);
   padding: var(--jvm-legend-padding);
   box-shadow: var(--jvm-box-shadow);
-  float: left;
 }
 
 .jvm-legend-title {
@@ -120,12 +119,8 @@ image, text, .jvm-zoom-btn { user-select: none }
   text-align: left;
 }
 
-.jvm-legend-inner {
-  overflow: hidden;
-}
-
 .jvm-legend-tick {
-  overflow: hidden;
+  display: flex;
   min-width: 40px;
   &:not(:first-child) {
     margin-top: var(--jvm-legend-tick-margin-top);
@@ -137,13 +132,11 @@ image, text, .jvm-zoom-btn { user-select: none }
   margin-right: .65rem;
   height: var(--jvm-legend-tick-sample-height);
   width: var(--jvm-legend-tick-sample-width);
-  float: left;
 }
 
 .jvm-legend-tick-text {
   font-size: var(--jvm-legend-tick-text-font-size);
   text-align: center;
-  float: left;
 }
 
 // Line animation
