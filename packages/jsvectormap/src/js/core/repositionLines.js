@@ -13,11 +13,14 @@ export default function repositionLines() {
     if (startMarker && endMarker) {
       const { x: x1, y: y1 } = this.getMarkerPosition(startMarker.config)
       const { x: x2, y: y2 } = this.getMarkerPosition(endMarker.config)
+      const curvatureOption = line._options.curvature == 0
+        ? 0
+        : line._options.curvature || curvature
 
       const midX = (x1 + x2) / 2
       const midY = (y1 + y2) / 2
-      const curveX = midX + (line._options.curvature || curvature) * (y2 - y1)
-      const curveY = midY - (line._options.curvature || curvature) * (x2 - x1)
+      const curveX = midX + curvatureOption * (y2 - y1)
+      const curveY = midY - curvatureOption * (x2 - x1)
 
       line.setStyle({
         d: `M${x1},${y1} Q${curveX},${curveY} ${x2},${y2}`,
