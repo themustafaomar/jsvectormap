@@ -2,15 +2,13 @@ import { merge, getLineUid } from '../util'
 import Line from '../components/line'
 
 export default function createLines(lines) {
-  const markers = this._markers
-  const { style, elements: _, ...rest } = this.params.lines
-
   let point1 = false, point2 = false
+  const { curvature, ...lineStyle } = this.params.lineStyle
 
   for (let index in lines) {
     const lineConfig = lines[index]
 
-    for (let { config: markerConfig } of Object.values(markers)) {
+    for (let { config: markerConfig } of Object.values(this._markers)) {
       if (markerConfig.name === lineConfig.from) {
         point1 = this.getMarkerPosition(markerConfig)
       }
@@ -21,6 +19,11 @@ export default function createLines(lines) {
     }
 
     if (point1 !== false && point2 !== false) {
+      const {
+        curvature: curvatureOption,
+        ...style
+      } = lineConfig.style || {}
+
       // Register lines with unique keys
       this._lines[getLineUid(lineConfig.from, lineConfig.to)] = new Line(
         {
@@ -32,9 +35,9 @@ export default function createLines(lines) {
           y1: point1.y,
           x2: point2.x,
           y2: point2.y,
-          ...rest,
+          curvature: curvatureOption == 0 ? 0 : (curvatureOption || curvature),
         },
-        merge({ initial: style }, { initial: lineConfig.style || {} }, true)
+        merge(lineStyle, style, true)
       )
     }
   }

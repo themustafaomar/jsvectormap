@@ -1,5 +1,5 @@
 export default function repositionLines() {
-  const curvature = this.params.lines.curvature || 0.5
+  const curvature = this.params.lineStyle.curvature
 
   Object.values(this._lines).forEach((line) => {
     const startMarker = Object.values(this._markers).find(
@@ -16,8 +16,8 @@ export default function repositionLines() {
 
       const midX = (x1 + x2) / 2
       const midY = (y1 + y2) / 2
-      const curveX = midX + curvature * (y2 - y1)
-      const curveY = midY - curvature * (x2 - x1)
+      const curveX = midX + (line._options.curvature || curvature) * (y2 - y1)
+      const curveY = midY - (line._options.curvature || curvature) * (x2 - x1)
 
       line.setStyle({
         d: `M${x1},${y1} Q${curveX},${curveY} ${x2},${y2}`,

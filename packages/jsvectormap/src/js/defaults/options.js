@@ -13,12 +13,11 @@ export default {
   bindTouchEvents: true,
 
   // Line options
-  lines: {
-    style: {
-      stroke: '#808080',
-      strokeWidth: 1,
-      strokeLinecap: 'round',
-    }
+  lineStyle: {
+    curvature: 0,
+    stroke: '#808080',
+    strokeWidth: 1,
+    strokeLinecap: 'round',
   },
 
   // Marker options

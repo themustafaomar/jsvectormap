@@ -81,7 +81,7 @@ class Map {
 
     // Lines group must be created before markers
     // Otherwise the lines will be drawn on top of the markers.
-    if (options.lines.elements) {
+    if (options.lines) {
       this._linesGroup = this.canvas.createGroup(LINES_GROUP_ID)
     }
 
@@ -94,7 +94,7 @@ class Map {
     this._createMarkers(options.markers)
 
     // Create lines
-    this._createLines(options.lines.elements || {})
+    this._createLines(options.lines || {})
 
     // Position labels
     this._repositionLabels()
