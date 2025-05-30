@@ -22,7 +22,6 @@ class Legend {
 
   render() {
     let ticks = this._series.scale.getTicks()
-    let inner = createElement('div', 'jvm-legend-inner')
 
     this._body.innderHTML = ''
 
@@ -30,8 +29,6 @@ class Legend {
       let legendTitle = createElement('div', 'jvm-legend-title', this._options.title)
       this._body.appendChild(legendTitle)
     }
-
-    this._body.appendChild(inner)
 
     for (let i = 0; i < ticks.length; i++) {
       let tick = createElement('div', 'jvm-legend-tick',)
@@ -64,7 +61,7 @@ class Legend {
       const tickText = createElement('div', 'jvm-legend-tick-text', label)
 
       tick.appendChild(tickText)
-      inner.appendChild(tick)
+      this._body.appendChild(tick)
     }
   }
 }
