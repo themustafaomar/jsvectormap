@@ -17,7 +17,7 @@
     "@rollup/plugin-node-resolve": "^13.3.0",
     "autoprefixer": "^10.4.21",
     "babel-loader": "^8.4.1",
-    "glob": "^10.4.5",
+    "glob": "^10.5.0",
     "postcss": "^8.5.3",
     "rollup": "^2.79.2",
     "rollup-plugin-scss": "^3.0.0",
