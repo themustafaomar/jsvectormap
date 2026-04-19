@@ -10,8 +10,6 @@ const EventHandler = {
       handler,
     }
 
-    handler._uid = uid
-
     element.addEventListener(event, handler, options)
   },
   delegate(element, event, selector, handler) {
@@ -32,7 +30,7 @@ const EventHandler = {
 
     element.removeEventListener(eventType, handler)
 
-    delete eventRegistry[handler._uid]
+    delete eventRegistry[event]
   },
   flush() {
     Object.keys(eventRegistry).forEach(event => {
