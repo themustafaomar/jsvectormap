@@ -7,5 +7,6 @@ export default {
   onMarkerSelected: 'marker:selected',
   onRegionTooltipShow: 'region.tooltip:show',
   onMarkerTooltipShow: 'marker.tooltip:show',
+  onMapMoved: 'map:moved',
   onDestroyed: 'map:destroyed'
 }
